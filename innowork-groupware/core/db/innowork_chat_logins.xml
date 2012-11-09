@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<database>
+
+    <table name="innowork_chat_logins">
+
+        <field name="user" type="text"/>
+        <field name="channel" type="string" length="50"/>
+
+    </table>
+
+</database>

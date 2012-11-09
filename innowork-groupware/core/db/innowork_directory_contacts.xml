@@ -1,0 +1,36 @@
+<?xml version='1.0'?>
+<database>
+
+	<table name="innowork_directory_contacts">
+		<field	name="id"	type="integer"	notnull="1"/>
+    <field	name="ownerid"	type="integer"	notnull="1"/>
+    <field	name="lastname"	type="text"/>
+    <field	name="firstname"	type="text"/>
+      <field name="title"           type="text"    length="10"/>
+      <field name="nickname"        type="text"    length="20"/>
+      
+      <field name="companyid"       type="integer"/>
+      <field name="jobtitle"        type="text"    length="40"/>
+      <field name="jobdescription"  type="text"/>
+      <field name="street"          type="text"/>
+      <field name="city"            type="text"    length="30"/>
+      <field name="zip"             type="text"    length="5"/>
+      <field name="state"           type="text"    length="20"/>
+      <field name="country"         type="text"    length="25"/>
+      <field name="phone"           type="text"    length="20"/>
+      <field name="fax"             type="text"    length="20"/>
+      <field name="mobile"          type="text"    length="20"/>
+      <field name="homephone"       type="text"    length="20"/>
+      <field name="email"           type="text"/>
+      <field name="url"             type="text"    length="100"/>
+      <field name="notes"           type="text"/>
+      <field name="accountmanager" type="text"/>
+      <field name="fiscalcode" type="text" length="16"/>
+        <field name="trashed" type="boolean"/>
+
+    <key	field="id"	type="unique"/>
+	</table>
+
+  <sequence	name="innowork_directory_contacts_id_seq"/>
+
+</database>

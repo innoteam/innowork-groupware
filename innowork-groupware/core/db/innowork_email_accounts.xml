@@ -1,0 +1,18 @@
+<?xml version='1.0'?>
+<database>
+
+    <table name="innowork_email_accounts">
+        <field  name="id"   type="integer"  notnull="1"/>
+        <field  name="ownerid"  type="integer"  notnull="1"/>
+        <field name="accountname" type="string" length="30" notnull="1"/>
+        <field name="username" type="string" length="25"/>
+        <field name="password" type="string" length="25"/>
+        <field name="hostname" type="string" length="30"/>
+        <field name="port" type="integer"/>
+        <field name="deletemessages" type="boolean"/>
+        <key    field="id"  type="unique"/>
+    </table>
+
+    <sequence name="innowork_email_accounts_id_seq"/>
+
+</database>

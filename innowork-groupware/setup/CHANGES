@@ -1,0 +1,195 @@
+2.0 - 2009/03/10
+----------------
+NEW FEATURES:
+- Merged Innowork Projects inside.
+
+CHANGES:
+- Deep code refactoring.
+- Migration to Innomatic 5.0.
+
+FIXES:
+- Lot of bug fixes.
+
+
+
+2004/07/15
+----------
+NEW FEATURES:
+- Added channel field type. (Alex Pagnoni)
+
+FIXES:
+- Added missing OpenLibrary() of locale.library. (Alex Pagnoni)
+- Added missing NoAcl option. (Alex Pagnoni)
+- Added "spent time" field. (Alex Pagnoni)
+
+CHANGES:
+- Optimized code. (Alex Pagnoni)
+
+
+
+2004/05/15
+----------
+FIXES:
+- Fixed wrong handling of module dependencies check. (Alex Pagnoni)
+- Fixed wrong handling of xen-projects dependency check. (Alex Pagnoni)
+
+
+
+2004/04/15
+----------
+NEW FEATURES:
+- Added support for external events. (Alex Pagnoni)
+- Added priority support. (Alex Pagnoni)
+
+FIXES:
+- Fixed wrong Italian localized strings. (Alex Pagnoni)
+- Fixed layout of HuiXenNote under Internet Explorer. (Alex Pagnoni)
+
+CHANGES:
+- Updated copyright note. (Alex Pagnoni)
+- Now todos remain open when created. (Alex Pagnoni)
+- Changed sorting order.
+- Now only open projects are shown in projects list when adding a new activity. (Alex Pagnoni)
+
+
+
+2003/12/15
+----------
+NEW FEATURES:
+- Added trashcan support. (Alex Pagnoni)
+- Added company field. (Alex Pagnoni)
+- Added close button. (Alex Pagnoni)
+- Added support for recurrent events. (cristina)
+- Optimized code. (Alex Pagnoni)
+- Added projects statistics. (Alex Pagnoni)
+- Optimized code. (Alex Pagnoni)
+- Improved speed. (Alex Pagnoni)
+
+CHANGES:
+- Adapted to Xen Core 2.1 organization. (Alex Pagnoni)
+- Now event page is opened when adding a new event. (Alex Pagnoni)
+- Improved shifting in calendar views. (cristina)
+- Now it uses Xen Core shared trashcan. (Alex Pagnoni)
+- Added settings toolbar button in settings page.
+- Now note edit page is opened when saving a note. (Alex Pagnoni)
+- When in full notes list, save and delete actions remember the view
+  mode. (Alex Pagnoni)
+- Adapted to Innowork Core 2.1 organization. (Alex Pagnoni)
+- Added all project fields as project keys. (Alex Pagnoni)
+
+FIXES:
+- Removed trash function for messages when viewing trash folder.
+- Fixed the creation of a new account.
+- Fixed italian localization for settings page.
+- Removed call-time pass-by-reference in xenintramail.library.
+
+
+
+2003/10/11
+----------
+CHANGES:
+- Now the description field is required.
+
+FIXES:
+- Fixed negative days bug in week view. (Alex Pagnoni)
+
+
+
+2003/09/30
+----------
+NEW FEATURES:
+- Added "restrict to" filter. (Alex Pagnoni)
+- Now it handles the XenCore trashcan feature. (Alex Pagnoni)
+- Added description field. (Alex Pagnoni)
+- Added "restrict to" filter. (Alex Pagnoni)
+- Added "Close" button. (Alex Pagnoni)
+- Added "Set as done/undone" button. (Alex Pagnoni)
+- Added item conversion fields. (Alex Pagnoni)
+- Added shared trashcan support. (Alex Pagnoni)
+
+CHANGES:
+- Now events with no date in day and week views have a "-" sign in front
+  of them. (Alex Pagnoni)
+- Now day event links in summary have title property set. (Alex Pagnoni)
+- Now links in summary have title property set. (Alex Pagnoni)
+- Compacted todo list. (Alex Pagnoni)
+- Now todo label in todo list is a link. (Alex Pagnoni)
+- Removed highlight to note buttons. (Alex Pagnoni)
+- Change note icon buttons type to "mini". (Alex Pagnoni)
+- Now links in summary have title property set. (Alex Pagnoni)
+
+FIXES:
+- Fixed events filtering in xencalendar.php. (Alex Pagnoni)
+- Added missing field locale string. (Alex Pagnoni)
+
+
+
+2003/05/16
+----------
+NEW FEATURES:
+- Added "done" and "date" fields. (Alex Pagnoni)
+
+CHANGES:
+- Improved summary layout. (Alex Pagnoni)
+- posix_gettime() is no more used, because is not available under Win32
+  platforms. (Alex Pagnoni)
+- Now todo items can be removed while viewing them. (Alex Pagnoni)
+
+
+
+2003/05/15
+----------
+NEW FEATURES:
+- Now events can be automatically added by clicking on the calendar. (Alex Pagnoni)
+
+FIXES:
+- Fixed columns width in week view.
+
+
+
+2003/04/20
+----------
+CHANGES:
+- Improved summary layout. (Alex Pagnoni)
+- Now unread messages are shown in bold case. (Alex Pagnoni)
+
+
+
+2003/04/18
+----------
+CHANGES:
+- Improved summary layout. (Alex Pagnoni)
+
+
+
+2003/04/15
+----------
+CHANGES:
+- Set the key type for projectid (xentodo.library) to make it compliant
+  to XenCore 1.0.3. (Alex Pagnoni)
+
+FIXES:
+- Added a missing urlencode() in XenNote::_GetSummary() method. (Alex Pagnoni)
+- Fixed disappearing mini icons under Internet Explorer (xencalendar.hui).
+  (Alex Pagnoni)
+- Fixed wrong "showevent" attribute in xencalendar.library. (Alex Pagnoni)
+
+
+
+2003/03/15
+----------
+FIXES:
+- Now the summary calendar shows the right date. (Alex Pagnoni)
+
+
+
+2003/02/25
+----------
+FIXES:
+- Fixed wrong XenProjects check. (Alex Pagnoni)
+
+
+
+2002/11/15
+----------
+- First release.

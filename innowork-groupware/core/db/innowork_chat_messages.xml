@@ -1,0 +1,19 @@
+<?xml version='1.0'?>
+<database>
+
+    <table name="innowork_chat_messages">
+
+        <field name="fromuser" type="text"/>
+        <field name="channel" type="string" length="50"/>
+        <field name="touser" type="text"/>
+        <field name="message" type="text"/>
+        <field name="msgdate" type="timestamp"/>
+        <field name="id" type="integer"/>
+        
+		<key field="id" type="unique"/>
+		
+	</table>
+
+	<sequence name="innowork_chat_messages_id_seq"/>
+	
+</database>

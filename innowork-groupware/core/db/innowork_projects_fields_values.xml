@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<database>
+
+	<table name="innowork_projects_fields_values">
+		<field	name="id"	type="integer"	notnull="1"/>
+		<field	name="fieldid"	type="integer"/>
+		<field	name="fieldvalue"	type="text"/>
+		<key	field="id"	type="unique"/>
+	</table>
+
+	<sequence name="innowork_projects_fields_values_id_seq"/>
+
+</database>

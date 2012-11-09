@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<database>
+
+    <table name="innowork_email_folders">
+        <field  name="id"   type="integer"  notnull="1"/>
+        <field  name="description"  type="text"/>
+        <field name="parentid" type="integer"/>
+        <key    field="id"  type="unique"/>
+    </table>
+
+    <sequence	name="innowork_email_folders_id_seq"/>
+
+</database>

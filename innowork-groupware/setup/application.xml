@@ -1,0 +1,227 @@
+<?xml version='1.0'?>
+<application>
+
+	<definition>
+		<idname>innowork-groupware</idname>
+		<release>
+			<version>2.0</version>
+			<date>2009/03/10</date>
+			<changesfile>CHANGES</changesfile>
+		</release>
+		<description>Innowork Groupware</description>
+		<category>intranet</category>
+		<iconfile></iconfile>
+		<dependencies>
+			<dependency>innowork-core[3.1]</dependency>
+			<dependency>phplotlib[5.0-3]</dependency>
+			<!--
+			<dependency>pop3lib[1.0-3]</dependency>
+			<dependency>squirrelmaillib</dependency>
+			-->
+		</dependencies>
+		<options>
+			<!-- <option></option> -->
+		</options>
+		<legal>
+			<author>
+				<name>Innomatica</name>
+				<email>info@innomatica.it</email>
+				<web>http://www.innomatica.it/</web>
+			</author>
+			<copyright>Copyright (c) 2002-2009 Innoteam</copyright>
+			<license>Commercial</license>
+			<licensefile>LICENSE</licensefile>
+		</legal>
+		<support>
+			<supportemail>support@innomatica.it</supportemail>
+			<bugsemail>bugs@innomatica.it</bugsemail>
+			<maintainer>
+				<name>Alex Pagnoni</name>
+				<email>alex.pagnoni@innoteam.it</email>
+			</maintainer>
+		</support>
+	</definition>
+
+	<components>
+
+		<!-- Calendar -->
+
+		<domainpanel name="innoworkcalendar" file="innoworkcalendar.php"
+			category="1summary" themeicon="1day" themeicontype="apps"
+			catalog="innowork-groupware::calendar_misc" />
+
+		<domaintable name="innowork_calendar"
+			file="innowork_calendar.xml" />
+
+		<catalog name="innowork-groupware" />
+
+		<wuiwidget name="innoworkcalendar"
+			file="WuiInnoworkcalendar.php" />
+
+		<class name="innowork/groupware/InnoworkEvent.php" />
+		<class name="innowork/groupware/InnoworkEventFactory.php" />
+
+		<innoworkitemtype name="event" file="event"
+			catalog="innowork-groupware::calendar_misc"
+			classfile="innowork/groupware/InnoworkEvent.php" classname="InnoworkEvent" icon="1day"
+			icontype="apps" domainpanel="innoworkcalendar" miniicon="edit"
+			summaryname="calendar-name" showmode="list" />
+
+		<!-- Chat -->
+
+		<domainpanel name="innoworkchat" file="innoworkchat.php"
+			category="1summary" themeicon="kuser" themeicontype="apps"
+			catalog="innowork-groupware::chat_misc" />
+
+		<domaintable name="innowork_chat_logins"
+			file="innowork_chat_logins.xml" />
+		<domaintable name="innowork_chat_messages"
+			file="innowork_chat_messages.xml" />
+
+		<class name="innowork/groupware/InnoworkChat.php" />
+
+		<innoworkitemtype name="chat" file="chat"
+			catalog="innowork-groupware::chat_misc"
+			classfile="innowork/groupware/InnoworkChat.php" classname="InnoworkChat" icon="kuser"
+			icontype="apps" domainpanel="innoworkchat" miniicon="info"
+			summaryname="chat-name" showmode="list" />
+
+		<!-- Activities -->
+
+		<domainpostupdate file="domainpostupdate.php" />
+
+		<domainpanel name="innoworkactivities" file="innoworkactivities.php"
+			themeicon="todo" themeicontype="apps"
+			catalog="innowork-groupware::activity_misc" category="1summary" />
+
+		<domaintable name="innowork_activities"
+			file="innowork_activities.xml" />
+
+		<innoworkitemtype name="activity"
+			catalog="innowork-groupware::activity_misc"
+			classfile="innowork/groupware/InnoworkActivity.php" classname="InnoworkActivity" icon="todo"
+			icontype="apps" domainpanel="innoworkactivities"
+			miniicon="view_detailed" summaryname="activity-name" showmode="list" />
+
+		<class name="innowork/groupware/InnoworkActivity.php" />
+
+		<!-- Notes -->
+
+		<domainpanel name="innoworknotes" file="innoworknotes.php"
+			themeicon="kwrite" themeicontype="apps"
+			catalog="innowork-groupware::notes_misc" category="1summary" />
+
+		<domaintable name="innowork_notes" file="innowork_notes.xml" />
+
+		<wuiwidget name="innoworknote" file="WuiInnoworknote.php" />
+		<wuiwidget name="innoworknoteslist"
+			file="WuiInnoworknoteslist.php" />
+
+		<innoworkitemtype name="note" file="note"
+			catalog="innowork-groupware::notes_misc"
+			classfile="innowork/groupware/InnoworkNote.php" classname="InnoworkNote" icon="kwrite"
+			icontype="apps" domainpanel="innoworknotes" miniicon="edit"
+			summaryname="notes-name" showmode="list" />
+
+		<class name="innowork/groupware/InnoworkNote.php" />
+
+		<!-- Directory -->
+
+		<domainpanel name="innoworkdirectory"
+			file="innoworkdirectory.php" themeicon="identity" themeicontype="apps"
+			catalog="innowork-groupware::directory_misc"
+			category="1summary" />
+
+		<domaintable name="innowork_directory_companies"
+			file="innowork_directory_companies.xml" />
+		<domaintable name="innowork_directory_contacts"
+			file="innowork_directory_contacts.xml" />
+		<domaintable name="innowork_directory_notes"
+			file="innowork_directory_notes.xml" />
+		<domaintable name="innowork_accountmanagers"
+			file="innowork_accountmanagers.xml" />
+
+		<wuiwidget name="innoworkcontacts"
+			file="WuiInnoworkcontacts.php" />
+		<wuiwidget name="innoworkcontactslist"
+			file="WuiInnoworkcontactslist.php" />
+
+		<innoworkitemtype name="directorycontact" file="directorycontact"
+			catalog="innowork-groupware::directory_misc"
+			classfile="innowork/groupware/InnoworkContact.php" classname="InnoworkContact"
+			icon="identity" icontype="apps" domainpanel="innoworkdirectory"
+			adminevent="contacts" miniicon="view_detailed"
+			summaryname="directorycontact-name" showmode="app" />
+		<innoworkitemtype name="directorycompany"
+			file="directorycompany"
+			catalog="innowork-groupware::directory_misc"
+			classfile="innowork/groupware/InnoworkCompany.php" classname="InnoworkCompany"
+			icon="identity" icontype="apps" domainpanel="innoworkdirectory"
+			miniicon="view_detailed" summaryname="directorycompany-name"
+			showmode="app" />
+
+		<class name="innowork/groupware/InnoworkCompany.php" />
+		<class name="innowork/groupware/InnoworkContact.php" />
+
+		<!-- Email -->
+
+		<!--
+
+		<domainpanel name="innoworkintramail"
+			file="innoworkintramail.php" category="1summary" themeicon="email"
+			themeicontype="apps"
+			catalog="innowork-groupware::intramail_misc" />
+		<domainpanel name="innoworkintramailprefs"
+			file="innoworkintramailprefs.php" category="preferences"
+			themeicon="email" themeicontype="apps"
+			catalog="innowork-groupware::intramail_misc" />
+
+		<domaintable name="innowork_email_messages"
+			file="innowork_email_messages.xml" />
+		<domaintable name="innowork_email_folders"
+			file="innowork_email_folders.xml" />
+		<domaintable name="innowork_email_accounts"
+			file="innowork_email_accounts.xml" />
+		<domaintable name="innowork_email_uids"
+			file="innowork_email_uids.xml" />
+
+		<class name="innowork/groupware/InnoworkIntraMail.php" />
+		<class name="innowork/groupware/InnoworkIntraMailPopAccount.php" />
+		<class name="innowork/groupware/InnoworkIntraMailDeliver.php" />
+		<class name="innowork/groupware/InnoworkIntraMailMime.php" />
+
+		<innoworkitemtype name="intramail" file="intramail"
+			catalog="innowork-groupware::intramail_misc"
+			classfile="innowork/groupware/InnoworkIntraMail.php" classname="InnoworkIntraMail"
+			icon="email" icontype="apps" domainpanel="innoworkintramail"
+			miniicon="mail_generic" summaryname="intramail-name" showmode="list" />
+
+		-->
+		
+		<!-- Projects -->
+
+		<domainpanel name="innoworkprojects" file="innoworkprojects.php"
+			category="1summary" themeicon="plan" themeicontype="apps"
+			catalog="innowork-groupware::projects_misc" />
+
+		<domainpanel name="innoworkprojectsprefs"
+			file="innoworkprojectsprefs.php" category="preferences"
+			themeicon="plan" themeicontype="apps"
+			catalog="innowork-groupware::projects_misc" />
+
+		<domaintable name="innowork_projects"
+			file="innowork_projects.xml" />
+		<domaintable name="innowork_projects_fields_values"
+			file="innowork_projects_fields_values.xml" />
+
+		<class name="innowork/groupware/InnoworkProject.php" />
+		<class name="innowork/groupware/InnoworkProjectField.php" />
+
+		<innoworkitemtype name="project" file="project"
+			catalog="innowork-groupware::projects_misc"
+			classfile="innowork/groupware/InnoworkProject.php" classname="InnoworkProject"
+			icon="plan" icontype="apps" domainpanel="innoworkprojects"
+			miniicon="edit" summaryname="projects-name" showmode="list" />
+
+	</components>
+</application>

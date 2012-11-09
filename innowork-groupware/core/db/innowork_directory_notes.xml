@@ -1,0 +1,16 @@
+<?xml version='1.0'?>
+<database>
+
+    <table name="innowork_directory_notes">
+        <field  name="id"   type="integer"  notnull="1"/>
+        <field  name="itemid"   type="integer"  notnull="1"/>
+        <field  name="itemtype"   type="integer"  notnull="1"/>
+        <field  name="username"  type="text"  notnull="1"/>
+        <field  name="content"  type="text"/>
+        <field name="creationdate" type="timestamp"/>
+        <key    field="id"  type="unique"/>
+    </table>
+
+    <sequence name="innowork_directory_notes_id_seq"/>
+
+</database>

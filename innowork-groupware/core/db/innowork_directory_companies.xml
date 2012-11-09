@@ -1,0 +1,33 @@
+<?xml version='1.0'?>
+<database>
+
+	<table name="innowork_directory_companies">
+		<field	name="id"	type="integer"	notnull="1"/>
+    <field	name="ownerid"	type="integer"	notnull="1"/>
+    <field	name="code"	type="text"/>
+    <field	name="companyname"	type="text"/>
+      <field name="street"          type="text"/>
+      <field name="city"            type="text"    length="30"/>
+      <field name="zip"             type="text"    length="5"/>
+      <field name="state"           type="text"    length="20"/>
+      <field name="country"         type="text"    length="25"/>
+      <field name="phone"           type="text"    length="20"/>
+      <field name="fax"             type="text"    length="20"/>
+      <field name="email"           type="text"/>
+      <field name="url"             type="text"    length="100"/>
+      <field name="fiscalcode"      type="text"    length="16"/>
+      <field name="notes"           type="text"/>
+      <field name="accountmanager" type="text"/>
+	<field	name="bank"	type="text"/>
+      <field name="fiscalcodeb"     type="text"    length="16"/>
+      <field name="companytype" type="integer"/>
+      <field name="legalerappresentante" type="text"/>
+      <field name="lrfiscalcode" type="text" length="16"/>
+        <field name="trashed" type="boolean"/>
+
+    <key	field="id"	type="unique"/>
+	</table>
+
+  <sequence	name="innowork_directory_companies_id_seq"/>
+
+</database>

@@ -1,0 +1,13 @@
+<?xml version='1.0'?>
+<database>
+
+	<table name="innowork_accountmanagers">
+		<field name="id" type="integer" notnull="1"/>
+	    <field name="userid" type="integer" notnull="1"/>
+
+	    <key field="id" type="unique"/>
+	</table>
+
+	<sequence name="innowork_accountmanagers_id_seq"/>
+
+</database>

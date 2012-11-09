@@ -1,0 +1,24 @@
+<?xml version='1.0'?>
+<database>
+
+    <table name="innowork_email_messages">
+        <field  name="id"   type="integer"  notnull="1"/>
+        <field  name="ownerid"  type="integer"  notnull="1"/>
+        <field  name="foldertype"   type="integer"  notnull="1"/>
+        <field  name="folderid" type="integer"/>
+        <field  name="projectid"  type="integer"/>
+        <field  name="fromuser" type="string" length="75"/>
+        <field  name="touser"   type="text"/>
+        <field  name="subject"  type="text"/>
+        <field  name="content"  type="text"/>
+        <field  name="date"  type="timestamp"/>
+        <field  name="mailread" type="boolean"/>
+        <field name="headers" type="text"/>
+        <field name="trashed" type="boolean"/>
+        <field name="customerid" type="integer"/>
+        <key    field="id"  type="unique"/>
+    </table>
+
+    <sequence name="innowork_email_messages_id_seq"/>
+
+</database>

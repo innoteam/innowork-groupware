@@ -1,0 +1,10 @@
+<?xml version='1.0'?>
+<database>
+
+    <table name="innowork_email_uids">
+        <field  name="ownerid"  type="integer"  notnull="1"/>
+        <field  name="uniqid"   type="string"  length="25"/>
+        <field name="accountid" type="integer" notnull="1"/>
+    </table>
+
+</database>

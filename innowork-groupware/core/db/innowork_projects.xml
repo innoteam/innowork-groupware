@@ -1,0 +1,30 @@
+<?xml version='1.0'?>
+<database>
+
+    <table name="innowork_projects">
+        <field	name="id"	type="integer"	notnull="1"/>
+        <field	name="ownerid"	type="integer"	notnull="1"/>
+		<field	name="name"	type="text"	notnull="1"/>
+		<field	name="description"	type="text"/>
+		<field	name="customerid"	type="integer"/>
+		<field	name="responsible"	type="integer"/>
+		<field	name="status"	type="integer"/>
+		<field	name="priority"	type="integer"/>
+		<field	name="type"	type="integer"/>
+		<field	name="done"	type="boolean"/>
+		<field	name="estimatedstartdate"	type="timestamp"/>
+		<field	name="realstartdate"	type="timestamp"/>
+		<field	name="estimatedenddate"	type="timestamp"/>
+		<field	name="realenddate"	type="timestamp"/>
+		<field	name="estimatedtime"	type="integer"/>
+		<field	name="realtime"	type="integer"/>
+		<field	name="estimatedcost"	type="text"/>
+		<field	name="realcost"	type="text"/>
+        <field  name="estimatedrevenue" type="text"/>
+        <field  name="realrevenue"  type="text"/>
+		<key	field="id"	type="unique"/>
+	</table>
+
+	<sequence	name="innowork_projects_id_seq"/>
+
+</database>
