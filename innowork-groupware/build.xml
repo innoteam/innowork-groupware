@@ -8,14 +8,14 @@
 
   =======================================================================
 -->
-<project name="Innowork Groupware" basedir=".." default="package">
+<project name="Innowork Groupware" default="package">
 
 	<property name="name" value="innowork-groupware" />
 	<property name="version" value="2.0" />
 
 	<target name="sources">
-		<tar destfile="../${name}-src-${version}.tgz" compression="gzip">
-			<tarfileset dir="." prefix="${name}-src-${version}">
+		<tar destfile="${basedir}/build/${name}-src-${version}.tgz" compression="gzip">
+			<tarfileset dir="${basedir}/source" prefix="${name}-src-${version}">
 				<exclude name="**/.svn/**" />
 				<exclude name=".cache/**" />
 			</tarfileset>
@@ -23,8 +23,8 @@
 	</target>
 
 	<target name="package">
-		<tar destfile="../${name}-${version}.tgz" compression="gzip">
-			<tarfileset dir="." prefix="${name}-${version}">
+		<tar destfile="${basedir}/build/${name}-${version}.tgz" compression="gzip">
+			<tarfileset dir="${basedir}/source" prefix="${name}-${version}">
 				<exclude name="**/.cvsignore" />
 				<exclude name="**/.svn/**" />
 				<exclude name="build/**" />
