@@ -332,6 +332,8 @@ function main_default( $eventData )
 {
     global $gLocale, $gPage_title, $gXml_def, $gPage_status;
 
+    require_once('shared/wui/WuiSessionkey.php');
+    
     if ( isset($eventData['filter_restrictto'] ) )
     {
         // Restrict

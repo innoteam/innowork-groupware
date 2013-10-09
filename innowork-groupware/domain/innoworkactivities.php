@@ -100,6 +100,8 @@ function activity_list_action_builder($pageNumber) {
 $gMain_disp->addEvent('default', 'main_default');
 function main_default($eventData) {
     global $gXml_def, $gLocale, $gPage_title;
+    
+    require_once('shared/wui/WuiSessionkey.php');
 
     $tab_sess = new WuiSessionKey('innoworkactivitiestab');
 

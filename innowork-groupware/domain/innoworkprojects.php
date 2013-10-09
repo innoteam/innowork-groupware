@@ -12,6 +12,7 @@ require_once('innomatic/wui/dispatch/WuiEvent.php');
 require_once('innomatic/wui/dispatch/WuiEventRawData.php');
 require_once('innomatic/wui/dispatch/WuiDispatcher.php');
 require_once('innomatic/locale/LocaleCatalog.php'); require_once('innomatic/locale/LocaleCountry.php'); 
+require_once('shared/wui/WuiSessionkey.php');
 
     global $gLocale, $gPage_title, $gXml_def, $gPage_status;
 

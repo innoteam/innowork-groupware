@@ -44,6 +44,8 @@ $gToolbars['chat'] = array(
         )
     );
 
+require_once('shared/wui/WuiSessionkey.php');
+
 $channel_sk = new WuiSessionKey( 'chat_channel' );
 $gChannel = $channel_sk->mValue;
 
@@ -90,6 +92,8 @@ function action_exitchan(
     )
 {
     global $gChannel;
+    
+    require_once('shared/wui/WuiSessionkey.php');
 
     if ( strlen( $gChannel ) )
     {

@@ -191,6 +191,8 @@ $gMain_disp->addEvent('default', 'main_default');
 function main_default($eventData) {
     global $gXml_def, $gLocale, $gPage_title;
 
+    require_once('shared/wui/WuiSessionkey.php');
+    
     $headers[0]['label'] = $gLocale->getStr('code.header');
     $headers[1]['label'] = $gLocale->getStr('company.header');
 
@@ -1367,6 +1369,8 @@ $gMain_disp->addEvent('contacts', 'main_contacts');
 function main_contacts($eventData) {
     global $gXml_def, $gLocale, $gPage_title;
 
+    require_once('shared/wui/WuiSessionkey.php');
+    
     $headers[0]['label'] = $gLocale->getStr('lastname.header');
     $headers[1]['label'] = $gLocale->getStr('firstname.header');
 
