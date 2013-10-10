@@ -71,7 +71,7 @@ class WuiInnoworkNote extends WuiXml {
 '<?xml version="1.0"?>
 <vertframe>
   <name>note</name>
-            <args><bgcolor>#ffff66</bgcolor></args>
+            <args><bgcolor>#ffff66</bgcolor><width>0%</width></args>
   <children>
 
   <form><name>'.$noteform.'</name>
@@ -117,7 +117,7 @@ class WuiInnoworkNote extends WuiXml {
     '<value type="encoded">'.urlencode( $this->mText ).'</value>
   </args>
 </text>
-<toolbar>
+<horizgroup>
       <name>notetoolbar</name>
             <args><bgcolor>#ffff66</bgcolor></args>
       <children>
@@ -161,7 +161,7 @@ class WuiInnoworkNote extends WuiXml {
 
         $this->mDefinition .=
 '      </children>
-    </toolbar>
+    </horizgroup>
 
       </children>
     </vertgroup>
