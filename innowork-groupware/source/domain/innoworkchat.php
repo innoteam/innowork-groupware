@@ -631,12 +631,12 @@ else
             new WuiInnomaticToolBar(
                 'core',
                 array(
-                    'toolbars' => $gCore_toolbars
+                    'toolbars' => $gCore_toolbars, 'toolbar' => 'true'
                     ) ),
             new WuiInnomaticToolbar(
                 'view',
                 array(
-                    'toolbars' => $gToolbars
+                    'toolbars' => $gToolbars, 'toolbar' => 'true'
                     ) )
                 ),
         'maincontent' => new WuiXml(

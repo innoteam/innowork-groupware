@@ -2658,7 +2658,7 @@ $gToolbars['help'] = array(
         ) );
 */
 
-$gWui->addChild(new WuiInnomaticPage('page', array('pagetitle' => $gPage_title, 'icon' => 'kppp', 'menu' => $gInnowork_core->GetMainMenu(), 'toolbars' => array(new WuiInnomaticToolBar('core', array('toolbars' => $gCore_toolbars)), new WuiInnomaticToolbar('view', array('toolbars' => $gToolbars))), 'maincontent' => new WuiXml('page', array('definition' => $gXml_def)), 'status' => $gPage_status)));
+$gWui->addChild(new WuiInnomaticPage('page', array('pagetitle' => $gPage_title, 'icon' => 'kppp', 'menu' => $gInnowork_core->GetMainMenu(), 'toolbars' => array(new WuiInnomaticToolBar('core', array('toolbars' => $gCore_toolbars, 'toolbar' => 'true')), new WuiInnomaticToolbar('view', array('toolbars' => $gToolbars, 'toolbar' => 'true'))), 'maincontent' => new WuiXml('page', array('definition' => $gXml_def)), 'status' => $gPage_status)));
 
 $gWui->render();
 

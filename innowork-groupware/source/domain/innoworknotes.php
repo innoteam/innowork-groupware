@@ -208,8 +208,8 @@ $notes_toolbars['notes'] = array(
     ) );
 
 $innomatictoolbars = array(
-                     new WuiInnomaticToolBar( 'view', array( 'toolbars' => $toolbars ) ),
-                     new WuiInnomaticToolBar( 'notes', array( 'toolbars' => $notes_toolbars ) )
+                     new WuiInnomaticToolBar( 'view', array( 'toolbars' => $toolbars, 'toolbar' => 'true' ) ),
+                     new WuiInnomaticToolBar( 'notes', array( 'toolbars' => $notes_toolbars, 'toolbar' => 'true' ) )
                     );
 
 $wui->addChild(
