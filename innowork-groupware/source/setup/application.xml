@@ -44,6 +44,9 @@
 
 	<components>
 
+		<domaingroup name="projects"
+			catalog="innowork-groupware::projects_misc" />
+
 		<!-- Calendar -->
 
 		<domainpanel name="innoworkcalendar" file="innoworkcalendar.php"
@@ -201,7 +204,7 @@
 		<!-- Projects -->
 
 		<domainpanel name="innoworkprojects" file="innoworkprojects.php"
-			category="1summary" themeicon="plan" themeicontype="apps"
+			category="projects" themeicon="plan" themeicontype="apps"
 			catalog="innowork-groupware::projects_misc" />
 
 		<domainpanel name="innoworkprojectsprefs"
