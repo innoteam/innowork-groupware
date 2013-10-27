@@ -627,16 +627,16 @@ else
         'pagetitle' => $gPage_title,
         'icon' => 'document',
         'toolbars' => array(
+            new WuiInnomaticToolbar(
+                'view',
+                array(
+                    'toolbars' => $gToolbars, 'toolbar' => 'true'
+                    ) ),
             new WuiInnomaticToolBar(
                 'core',
                 array(
                     'toolbars' => $gCore_toolbars, 'toolbar' => 'true'
                     ) ),
-            new WuiInnomaticToolbar(
-                'view',
-                array(
-                    'toolbars' => $gToolbars, 'toolbar' => 'true'
-                    ) )
                 ),
         'maincontent' => new WuiXml(
             'page', array(

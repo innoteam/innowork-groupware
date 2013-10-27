@@ -35,10 +35,10 @@ $gWui->loadWidget( 'innoworkcalendar' );
 $gXml_def = $gPage_status = '';
 $gPage_title = $gLocale->getStr( 'innoworkcalendar.title' );
 $gCore_toolbars = $gInnowork_core->getMainToolBar();
-$gToolbars['projects'] = array(
+$gToolbars['new'] = array(
     'newevent' => array(
         'label' => $gLocale->getStr( 'newevent.toolbar' ),
-        'themeimage' => 'appointment',
+        'themeimage' => 'calendaradd',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( '', array( array(
             'view',
@@ -48,18 +48,9 @@ $gToolbars['projects'] = array(
     );
 
 $gToolbars['viewby'] = array(
-    'flatmonth' => array(
-        'label' => $gLocale->getStr( 'viewby_flatmonth.toolbar' ),
-        'themeimage' => 'list',
-        'horiz' => 'true',
-        'action' => WuiEventsCall::buildEventsCallString( '', array( array(
-            'view',
-            'default',
-            array( 'viewby' => 'flatmonth' ) ) ) )
-        ),
     'month' => array(
         'label' => $gLocale->getStr( 'viewby_month.toolbar' ),
-        'themeimage' => 'month',
+        'themeimage' => 'calendar2',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( '', array( array(
             'view',
@@ -68,7 +59,7 @@ $gToolbars['viewby'] = array(
         ),
     'week' => array(
         'label' => $gLocale->getStr( 'viewby_week.toolbar' ),
-        'themeimage' => '7days',
+        'themeimage' => 'calendar2',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( '', array( array(
             'view',
@@ -77,7 +68,7 @@ $gToolbars['viewby'] = array(
         ),
     'day' => array(
         'label' => $gLocale->getStr( 'viewby_day.toolbar' ),
-        'themeimage' => '1day',
+        'themeimage' => 'calendar2',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( '', array( array(
             'view',
@@ -89,7 +80,7 @@ $gToolbars['viewby'] = array(
 $gToolbars['move'] = array(
     'parentprevious' => array(
         'label' => $gLocale->getStr( 'move_previous.toolbar' ),
-        'themeimage' => '2leftarrow',
+        'themeimage' => 'rewind',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( '', array( array(
             'view',
@@ -99,7 +90,7 @@ $gToolbars['move'] = array(
 
     'previous' => array(
         'label' => $gLocale->getStr( 'move_previous.toolbar' ),
-        'themeimage' => '1leftarrow',
+        'themeimage' => 'arrowleft',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( '', array( array(
             'view',
@@ -108,7 +99,7 @@ $gToolbars['move'] = array(
         ),
     'today' => array(
         'label' => $gLocale->getStr( 'move_today.toolbar' ),
-        'themeimage' => 'today',
+        'themeimage' => 'calendarempty',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( '', array( array(
             'view',
@@ -121,7 +112,7 @@ $gToolbars['move'] = array(
         ),
     'next' => array(
         'label' => $gLocale->getStr( 'move_next.toolbar' ),
-        'themeimage' => '1rightarrow',
+        'themeimage' => 'arrowright',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( '', array( array(
             'view',
@@ -130,7 +121,7 @@ $gToolbars['move'] = array(
         ),
     'parentnext' => array(
         'label' => $gLocale->getStr( 'move_previous.toolbar' ),
-        'themeimage' => '2rightarrow',
+        'themeimage' => 'fastforward',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( '', array( array(
             'view',
@@ -1500,16 +1491,16 @@ $gWui->addChild( new WuiInnomaticPage( 'page', array(
     'pagetitle' => $gPage_title,
     'icon' => 'window_list',
     'toolbars' => array(
+        new WuiInnomaticToolbar(
+            'view',
+            array(
+                'toolbars' => $gToolbars, 'toolbar' => 'true'
+                ) ),
         new WuiInnomaticToolBar(
             'core',
             array(
                 'toolbars' => $gCore_toolbars, 'toolbar' => 'true'
                 ) ),
-        new WuiInnomaticToolbar(
-            'view',
-            array(
-                'toolbars' => $gToolbars, 'toolbar' => 'true'
-                ) )
             ),
     'maincontent' => new WuiXml(
         'page', array(
