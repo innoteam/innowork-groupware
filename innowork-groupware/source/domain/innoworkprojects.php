@@ -1785,7 +1785,6 @@ $gMain_disp->Dispatch();
 $gWui->addChild( new WuiInnomaticPage( 'page', array(
     'pagetitle' => $gPage_title,
     'icon' => 'tar',
-    'menu' => $gInnowork_core->getMainMenu(),
     'toolbars' => array(
         new WuiInnomaticToolBar(
             'core',

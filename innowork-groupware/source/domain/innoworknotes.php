@@ -218,7 +218,6 @@ $wui->addChild(
         array(
             'pagetitle' => $gPage_title,
             'icon' => 'txt',
-            'menu' => $innowork_core->getMainMenu(),
             'toolbars' => $innomatictoolbars,
             'maincontent' => $gPage_content,
             'status' => $gPage_status  ) )

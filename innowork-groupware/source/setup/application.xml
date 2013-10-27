@@ -72,6 +72,7 @@
 
 		<!-- Chat -->
 
+<!-- 
 		<domainpanel name="innoworkchat" file="innoworkchat.php"
 			category="1summary" themeicon="kuser" themeicontype="apps"
 			catalog="innowork-groupware::chat_misc" />
@@ -88,7 +89,8 @@
 			classfile="innowork/groupware/InnoworkChat.php" classname="InnoworkChat" icon="kuser"
 			icontype="apps" domainpanel="innoworkchat" miniicon="info"
 			summaryname="chat-name" showmode="list" />
-
+ -->
+ 
 		<!-- Activities -->
 
 		<domainpostupdate file="domainpostupdate.php" />
