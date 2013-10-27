@@ -132,10 +132,18 @@
 
 		<!-- Directory -->
 
+		<domaingroup name="contacts"
+			catalog="innowork-groupware::directory_misc" />
+
 		<domainpanel name="innoworkdirectory"
 			file="innoworkdirectory.php" themeicon="identity" themeicontype="apps"
 			catalog="innowork-groupware::directory_misc"
-			category="1summary" />
+			category="contacts" />
+
+		<domainpanel name="innoworkcontacts"
+			file="innoworkcontacts.php" themeicon="identity" themeicontype="apps"
+			catalog="innowork-groupware::directory_misc"
+			category="contacts" />
 
 		<domaintable name="innowork_directory_companies"
 			file="innowork_directory_companies.xml" />
@@ -154,7 +162,7 @@
 		<innoworkitemtype name="directorycontact" file="directorycontact"
 			catalog="innowork-groupware::directory_misc"
 			classfile="innowork/groupware/InnoworkContact.php" classname="InnoworkContact"
-			icon="identity" icontype="apps" domainpanel="innoworkdirectory"
+			icon="identity" icontype="apps" domainpanel="innoworkcontacts"
 			adminevent="contacts" miniicon="view_detailed"
 			summaryname="directorycontact-name" showmode="app" />
 		<innoworkitemtype name="directorycompany"

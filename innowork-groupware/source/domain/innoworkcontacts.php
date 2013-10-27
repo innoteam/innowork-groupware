@@ -52,49 +52,50 @@ if (isset(Wui::instance('wui')->parameters['wui']['view']['evn'])) {
 $gXml_def = $gPage_status = '';
 $gPage_title = $gLocale->getStr('directory.title');
 $gCore_toolbars = $gInnowork_core->GetMainToolBar('', $disp_type, isset(Wui::instance('wui')->parameters['wui']['view']['evd']['id']) ? Wui::instance('wui')->parameters['wui']['view']['evd']['id'] : '');
-$gToolbars['companies'] = array('companies' => array('label' => $gLocale->getStr('companies.toolbar'), 'themeimage' => 'view_icon', 'horiz' => 'true', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'default', '')))), 'newcompany' => array('label' => $gLocale->getStr('newcompany.toolbar'), 'themeimage' => 'filenew', 'horiz' => 'true', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'newcompany', '')))));
+
+$gToolbars['contacts'] = array('contacts' => array('label' => $gLocale->getStr('contacts.toolbar'), 'themeimage' => 'view_icon', 'horiz' => 'true', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'default', '')))), 'newcontact' => array('label' => $gLocale->getStr('newcontact.toolbar'), 'themeimage' => 'filenew', 'horiz' => 'true', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'newcontact', '')))));
 
 // ----- Action dispatcher -----
 //
 $gAction_disp = new WuiDispatcher('action');
 
-$gAction_disp->addEvent('newcompany', 'action_newcompany');
-function action_newcompany($eventData) {
+$gAction_disp->addEvent('newcontact', 'action_newcontact');
+function action_newcontact($eventData) {
     global $gLocale, $gPage_status;
 
-    $innowork_company = new InnoworkCompany(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess());
+    $innowork_contact = new InnoworkContact(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess());
 
-    if ($innowork_company->Create($eventData, InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId())) {
-        $GLOBALS['innowork-groupware']['newcompanyid'] = $innowork_company->mItemId;
+    if ($innowork_contact->Create($eventData, InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId())) {
+        $GLOBALS['innowork-groupware']['newcontactid'] = $innowork_contact->mItemId;
 
-        $gPage_status = $gLocale->getStr('company_added.status');
+        $gPage_status = $gLocale->getStr('contact_added.status');
     }
     else
-        $gPage_status = $gLocale->getStr('company_not_added.status');
+        $gPage_status = $gLocale->getStr('contact_not_added.status');
 }
 
-$gAction_disp->addEvent('editcompany', 'action_editcompany');
-function action_editcompany($eventData) {
+$gAction_disp->addEvent('editcontact', 'action_editcontact');
+function action_editcontact($eventData) {
     global $gLocale, $gPage_status;
 
-    $innowork_company = new InnoworkCompany(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['id']);
+    $innowork_contact = new InnoworkContact(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['id']);
 
-    if ($innowork_company->Edit($eventData, InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()))
-        $gPage_status = $gLocale->getStr('company_updated.status');
+    if ($innowork_contact->Edit($eventData, InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()))
+        $gPage_status = $gLocale->getStr('contact_updated.status');
     else
-        $gPage_status = $gLocale->getStr('company_not_updated.status');
+        $gPage_status = $gLocale->getStr('contact_not_updated.status');
 }
 
-$gAction_disp->addEvent('removecompany', 'action_removecompany');
-function action_removecompany($eventData) {
+$gAction_disp->addEvent('removecontact', 'action_removecontact');
+function action_removecontact($eventData) {
     global $gLocale, $gPage_status;
 
-    $innowork_company = new InnoworkCompany(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['id']);
+    $innowork_contact = new InnoworkContact(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['id']);
 
-    if ($innowork_company->trash(InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()))
-        $gPage_status = $gLocale->getStr('company_removed.status');
+    if ($innowork_contact->trash(InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()))
+        $gPage_status = $gLocale->getStr('contact_removed.status');
     else
-        $gPage_status = $gLocale->getStr('company_not_removed.status');
+        $gPage_status = $gLocale->getStr('contact_not_removed.status');
 }
 
 $gAction_disp->addEvent('newnote', 'action_newnote');
@@ -138,12 +139,8 @@ $gAction_disp->Dispatch();
 //
 $gMain_disp = new WuiDispatcher('view');
 
-function companies_tab_action_builder($tab) {
+function contacts_tab_action_builder($tab) {
     return WuiEventsCall::buildEventsCallString('', array(array('view', 'default', array('tabpage' => $tab))));
-}
-
-function companies_typetab_action_builder($tab) {
-    return WuiEventsCall::buildEventsCallString('', array(array('view', 'default', array('typetabpage' => $tab))));
 }
 
 $gMain_disp->addEvent('default', 'main_default');
@@ -152,40 +149,32 @@ function main_default($eventData) {
 
     require_once('shared/wui/WuiSessionkey.php');
     
-    $headers[0]['label'] = $gLocale->getStr('code.header');
-    $headers[1]['label'] = $gLocale->getStr('company.header');
+    $headers[0]['label'] = $gLocale->getStr('lastname.header');
+    $headers[1]['label'] = $gLocale->getStr('firstname.header');
 
-    $companies = new InnoworkCompany(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess());
-    $search_results = $companies->Search('', InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId());
-
-    $company_types['%']= $gLocale->getStr('type_all.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_CUSTOMER]= $gLocale->getStr('type_customer.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_SUPPLIER]= $gLocale->getStr('type_supplier.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_BOTH]= $gLocale->getStr('type_both.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_CONSULTANT]= $gLocale->getStr('type_consultant.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_GOVERNMENT]= $gLocale->getStr('type_government.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_INTERNAL]= $gLocale->getStr('type_internal.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_NONE]= $gLocale->getStr('type_none.label');
+    $contacts = new InnoworkContact(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess());
+    $search_results = $contacts->Search('', InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId());
 
     if (isset($eventData['viewmode'])) {
-        $viewmode_sk = new WuiSessionKey('viewmode_comp', array('value' => $eventData['viewmode']));
+        $viewmode_sk = new WuiSessionKey('viewmode_pers', array('value' => $eventData['viewmode']));
     }
     else {
-        $viewmode_sk = new WuiSessionKey('viewmode_comp');
+        $viewmode_sk = new WuiSessionKey('viewmode_pers');
         $eventData['viewmode'] = $viewmode_sk->mValue;
     }
     if (!strlen($eventData['viewmode'])) $eventData['viewmode'] = 'compact';
 
     $gXml_def = '
-    <vertgroup><name>companies</name>
+    <vertgroup><name>contacts</name>
       <children>
-        
+    
         <label><name>title</name>
           <args>
             <bold>true</bold>
-            <label>'.$gLocale->getStr('companies.label').'</label>
+            <label type="encoded">'.urlencode($gLocale->getStr('contacts.label')).'</label>
           </args>
         </label>
+    
         
         <horizbar/>
 
@@ -262,15 +251,13 @@ function main_default($eventData) {
           </children>
         </horizgroup>
 
-        <innoworkcontactslist><name>companies</name>
+        <innoworkcontactslist><name>contacts</name>
           <args>
             <contacts type="array">'.WuiXml::encode($search_results).'</contacts>
-            <type>companies</type>
+            <type>contacts</type>
             <viewmode>'.$eventData['viewmode'].'</viewmode>
-            <tabactionfunction>companies_tab_action_builder</tabactionfunction>
-            <typetabactionfunction>companies_typetab_action_builder</typetabactionfunction>
+            <tabactionfunction>contacts_tab_action_builder</tabactionfunction>
             <activetab>'. (isset($eventData['tabpage']) ? $eventData['tabpage'] : '').'</activetab>
-            <activetypetab>'. (isset($eventData['typetabpage']) ? $eventData['typetabpage'] : '').'</activetypetab>
           </args>
         </innoworkcontactslist>
     
@@ -278,59 +265,81 @@ function main_default($eventData) {
     </vertgroup>';
 }
 
-$gMain_disp->addEvent('newcompany', 'main_newcompany');
-function main_newcompany($eventData) {
+$gMain_disp->addEvent('newcontact', 'main_newcontact');
+function main_newcontact($eventData) {
     global $gXml_def, $gLocale, $gPage_title, $gUsers;
 
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_CUSTOMER]= $gLocale->getStr('type_customer.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_SUPPLIER]= $gLocale->getStr('type_supplier.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_BOTH]= $gLocale->getStr('type_both.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_CONSULTANT]= $gLocale->getStr('type_consultant.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_GOVERNMENT]= $gLocale->getStr('type_government.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_INTERNAL]= $gLocale->getStr('type_internal.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_NONE]= $gLocale->getStr('type_none.label');
-    
+    $innowork_companies = new InnoworkCompany(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess());
+    $search_results = $innowork_companies->Search('', InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId());
+
+    $companies['0'] = $gLocale->getStr('nocompany.label');
+
+    while (list ($id, $fields) = each($search_results)) {
+        $companies[$id] = $fields['companyname'];
+    }
+
     $gXml_def.= '
-    <vertgroup><name>newcompany</name>
+    <vertgroup><name>newcontact</name>
       <children>
     
-        <table><name>company</name>
+        <table><name>contact</name>
           <args>
-            <headers type="array">'.WuiXml::encode(array('0' => array('label' => $gLocale->getStr('newcompany.label')))).'</headers>
+            <headers type="array">'.WuiXml::encode(array('0' => array('label' => $gLocale->getStr('newcontact.label')))).'</headers>
           </args>
           <children>
-        <form row="0" col="0"><name>company</name>
+        
+        <form row="0" col="0"><name>contact</name>
           <args>
             <method>post</method>
-            <action type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'showcompany', ''), array('action', 'newcompany', '')))).'</action>
+            <action type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'showcontact', ''), array('action', 'newcontact', '')))).'</action>
           </args>
           <children>
     
-            <horizgroup><name>company</name>
+            <horizgroup><name>contact</name>
               <children>
     
-                <label><name>code</name>
+                <label><name>title</name>
                   <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('code.label')).'</label>
+                    <label type="encoded">'.urlencode($gLocale->getStr('title.label')).'</label>
                   </args>
                 </label>
-                <string><name>code</name>
+                <string><name>title</name>
+                  <args>
+                    <disp>action</disp>
+                    <size>5</size>
+                  </args>
+                </string>
+                <label><name>firstname</name>
+                  <args>
+                    <label type="encoded">'.urlencode($gLocale->getStr('firstname.label')).'</label>
+                  </args>
+                </label>
+                <string><name>firstname</name>
                   <args>
                     <disp>action</disp>
                     <size>15</size>
-                    <value type="encoded">'.urlencode(isset($eventData['code']) ? $eventData['code'] : '').'</value>
                   </args>
                 </string>
-                <label><name>name</name>
+                <label><name>lastname</name>
                   <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('companyname.label')).'</label>
+                    <label type="encoded">'.urlencode($gLocale->getStr('lastname.label')).'</label>
                   </args>
                 </label>
-                <string><name>companyname</name>
+                <string><name>lastname</name>
                   <args>
                     <disp>action</disp>
                     <size>25</size>
-                    <value type="encoded">'.urlencode(isset($eventData['companyname']) ? $eventData['companyname'] : '').'</value>
+                  </args>
+                </string>
+                <label><name>nickname</name>
+                  <args>
+                    <label type="encoded">'.urlencode($gLocale->getStr('nickname.label')).'</label>
+                  </args>
+                </label>
+                <string><name>nickname</name>
+                  <args>
+                    <disp>action</disp>
+                    <size>10</size>
                   </args>
                 </string>
     
@@ -349,19 +358,6 @@ function main_newcompany($eventData) {
                   <args>
                     <disp>action</disp>
                     <elements type="array">'.WuiXml::encode($gUsers).'</elements>
-                    <default type="encoded">'.urlencode(isset($eventData['accountmanager']) ? $eventData['accountmanager'] : '').'</default>
-                  </args>
-                </combobox>
-                <label>
-                  <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('companytype.label')).'</label>
-                  </args>
-                </label>
-                <combobox><name>companytype</name>
-                  <args>
-                    <disp>action</disp>
-                    <elements type="array">'.WuiXml::encode($company_types).'</elements>
-                    <default type="encoded">'.urlencode(isset($eventData['companytype']) ? $eventData['companytype'] : '').'</default>
                   </args>
                 </combobox>
     
@@ -369,6 +365,60 @@ function main_newcompany($eventData) {
             </horizgroup>
     
             <horizbar><name>hb</name></horizbar>
+    
+            <label><name>job</name>
+              <args>
+                <bold>true</bold>
+                <label type="encoded">'.urlencode($gLocale->getStr('job.label')).'</label>
+              </args>
+            </label>
+    
+            <horizgroup><name>contact</name>
+              <children>
+    
+                <label><name>company</name>
+                  <args>
+                    <label type="encoded">'.urlencode($gLocale->getStr('company.label')).'</label>
+                  </args>
+                </label>
+                <combobox><name>companyid</name>
+                  <args>
+                    <disp>action</disp>
+                    <elements type="array">'.WuiXml::encode($companies).'</elements>
+                  </args>
+                </combobox>
+    
+              </children>
+            </horizgroup>
+    
+            <horizgroup><name>contact</name>
+              <children>
+    
+                <label><name>jobtitle</name>
+                  <args>
+                    <label type="encoded">'.urlencode($gLocale->getStr('jobtitle.label')).'</label>
+                  </args>
+                </label>
+                <string><name>jobtitle</name>
+                  <args>
+                    <disp>action</disp>
+                    <size>25</size>
+                  </args>
+                </string>
+                <label><name>jobdescription</name>
+                  <args>
+                    <label type="encoded">'.urlencode($gLocale->getStr('jobdescription.label')).'</label>
+                  </args>
+                </label>
+                <string><name>jobdescription</name>
+                  <args>
+                    <disp>action</disp>
+                    <size>30</size>
+                  </args>
+                </string>
+    
+              </children>
+            </horizgroup>
     
             <label><name>address</name>
               <args>
@@ -389,7 +439,6 @@ function main_newcompany($eventData) {
                   <args>
                     <disp>action</disp>
                     <size>25</size>
-                    <value type="encoded">'.urlencode(isset($eventData['street']) ? $eventData['street'] : '').'</value>
                   </args>
                 </string>
                 <label><name>city</name>
@@ -401,14 +450,14 @@ function main_newcompany($eventData) {
                   <args>
                     <disp>action</disp>
                     <size>15</size>
-                    <value type="encoded">'.urlencode(isset($eventData['city']) ? $eventData['city'] : '').'</value>
                   </args>
                 </string>
     
               </children>
             </horizgroup>
     
-            <horizgroup><name>company</name>
+    
+            <horizgroup><name>contact</name>
               <children>
     
                 <label><name>zip</name>
@@ -420,7 +469,6 @@ function main_newcompany($eventData) {
                   <args>
                     <disp>action</disp>
                     <size>5</size>
-                    <value type="encoded">'.urlencode(isset($eventData['zip']) ? $eventData['zip'] : '').'</value>
                   </args>
                 </string>
                 <label><name>state</name>
@@ -432,7 +480,6 @@ function main_newcompany($eventData) {
                   <args>
                     <disp>action</disp>
                     <size>2</size>
-                    <value type="encoded">'.urlencode(isset($eventData['state']) ? $eventData['state'] : '').'</value>
                   </args>
                 </string>
                 <label><name>country</name>
@@ -444,7 +491,6 @@ function main_newcompany($eventData) {
                   <args>
                     <disp>action</disp>
                     <size>15</size>
-                    <value type="encoded">'.urlencode(isset($eventData['country']) ? $eventData['country'] : '').'</value>
                   </args>
                 </string>
     
@@ -460,7 +506,7 @@ function main_newcompany($eventData) {
               </args>
             </label>
     
-            <horizgroup><name>company</name>
+            <horizgroup><name>contact</name>
               <children>
     
                 <label><name>email</name>
@@ -472,7 +518,6 @@ function main_newcompany($eventData) {
                   <args>
                     <disp>action</disp>
                     <size>30</size>
-                    <value type="encoded">'.urlencode(isset($eventData['email']) ? $eventData['email'] : '').'</value>
                   </args>
                 </string>
                 <label><name>website</name>
@@ -484,26 +529,46 @@ function main_newcompany($eventData) {
                   <args>
                     <disp>action</disp>
                     <size>30</size>
-                    <value type="encoded">'.urlencode(isset($eventData['url']) ? $eventData['url'] : '').'</value>
                   </args>
                 </string>
     
               </children>
             </horizgroup>
     
-            <horizgroup><name>company</name>
+            <horizgroup><name>contact</name>
               <children>
     
-                <label><name>phone</name>
+                <label><name>homephone</name>
                   <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('phone.label')).'</label>
+                    <label type="encoded">'.urlencode($gLocale->getStr('homephone.label')).'</label>
+                  </args>
+                </label>
+                <string><name>homephone</name>
+                  <args>
+                    <disp>action</disp>
+                    <size>10</size>
+                  </args>
+                </string>
+                <label><name>mobile</name>
+                  <args>
+                    <label type="encoded">'.urlencode($gLocale->getStr('mobile.label')).'</label>
+                  </args>
+                </label>
+                <string><name>mobile</name>
+                  <args>
+                    <disp>action</disp>
+                    <size>10</size>
+                  </args>
+                </string>
+                <label><name>officephone</name>
+                  <args>
+                    <label type="encoded">'.urlencode($gLocale->getStr('officephone.label')).'</label>
                   </args>
                 </label>
                 <string><name>phone</name>
                   <args>
                     <disp>action</disp>
                     <size>10</size>
-                    <value type="encoded">'.urlencode(isset($eventData['phone']) ? $eventData['phone'] : '').'</value>
                   </args>
                 </string>
                 <label><name>fax</name>
@@ -515,7 +580,6 @@ function main_newcompany($eventData) {
                   <args>
                     <disp>action</disp>
                     <size>10</size>
-                    <value type="encoded">'.urlencode(isset($eventData['fax']) ? $eventData['fax'] : '').'</value>
                   </args>
                 </string>
     
@@ -524,79 +588,34 @@ function main_newcompany($eventData) {
     
             <horizbar><name>hb</name></horizbar>
     
-            <horizgroup><name>company</name>
+            <horizgroup>
               <children>
     
-                <label><name>fiscalcode</name>
+                <label>
                   <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('fiscalcode.label')).'</label>
+                    <label type="encoded">'.urlencode($gLocale->getStr('fiscalcodeb.label')).'</label>
                   </args>
                 </label>
                 <string><name>fiscalcode</name>
                   <args>
                     <disp>action</disp>
                     <size>15</size>
-                    <value type="encoded">'.urlencode(isset($eventData['fiscalcode']) ? $eventData['fiscalcode'] : '').'</value>
-                  </args>
-                </string>
-    
-                <label><name>fiscalcodeb</name>
-                  <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('fiscalcodeb.label')).'</label>
-                  </args>
-                </label>
-                <string><name>fiscalcodeb</name>
-                  <args>
-                    <disp>action</disp>
-                    <size>15</size>
-                    <value type="encoded">'.urlencode(isset($eventData['fiscalcodeb']) ? $eventData['fiscalcodeb'] : '').'</value>
                   </args>
                 </string>
     
               </children>
             </horizgroup>
-
-            <horizgroup>
-              <children>
     
-                <label>
-                  <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('legalerappresentante.label')).'</label>
-                  </args>
-                </label>
-                <string><name>legalerappresentante</name>
-                  <args>
-                    <disp>action</disp>
-                    <size>20</size>
-                    <value type="encoded">'.urlencode(isset($eventData['legalerappresentante']) ? $eventData['legalerappresentante'] : '').'</value>
-                  </args>
-                </string>
-    
-                <label>
-                  <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('lrfiscalcode.label')).'</label>
-                  </args>
-                </label>
-                <string><name>lrfiscalcode</name>
-                  <args>
-                    <disp>action</disp>
-                    <size>15</size>
-                    <value type="encoded">'.urlencode(isset($eventData['lrfiscalcode']) ? $eventData['lrfiscalcode'] : '').'</value>
-                  </args>
-                </string>
-    
-              </children>
-            </horizgroup>    
             <horizbar><name>hb</name></horizbar>
-    
+
             <label><name>notes</name>
               <args>
                 <bold>true</bold>
-                <label type="encoded">'.urlencode($gLocale->getStr('other.label')).'</label>
+                <label type="encoded">'.urlencode($gLocale->getStr('notes.label')).'</label>
               </args>
             </label>
     
-            <horizgroup>
+            <horizgroup><name>contact</name>
               <children>
     
                 <text><name>notes</name>
@@ -604,63 +623,52 @@ function main_newcompany($eventData) {
                     <disp>action</disp>
                     <cols>80</cols>
                     <rows>7</rows>
-                    <value type="encoded">'.urlencode(isset($eventData['notes']) ? $eventData['notes'] : '').'</value>
                   </args>
                 </text>
     
               </children>
             </horizgroup>
     
-          </children>
-        </form>
+            </children>
+            </form>
     
             <button row="1" col="0"><name>apply</name>
               <args>
                 <themeimage>buttonok</themeimage>
                 <horiz>true</horiz>
                 <frame>false</frame>
-                <action type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'showcompany', ''), array('action', 'newcompany', '')))).'</action>
-                <label type="encoded">'.urlencode($gLocale->getStr('newcompany.submit')).'</label>
-                <formsubmit>company</formsubmit>
+                <action type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'showcontact', ''), array('action', 'newcontact', '')))).'</action>
+                <label type="encoded">'.urlencode($gLocale->getStr('newcontact.submit')).'</label>
+                <formsubmit>contact</formsubmit>
               </args>
             </button>
     
-            </children>
-            </table>
+          </children>
+        </table>
       </children>
     </vertgroup>';
 }
 
-function company_extras_tab_builder($tab) {
+function contact_extras_tab_builder($tab) {
     global $gMain_disp;
     $ev_data = $gMain_disp->GetEventData();
 
-    return WuiEventsCall::buildEventsCallString('', array(array('view', 'showcompany', array('id' => $ev_data['id'], 'extrastab' => $tab))));
+    return WuiEventsCall::buildEventsCallString('', array(array('view', 'showcontact', array('id' => $ev_data['id'], 'extrastab' => $tab))));
 }
 
-$gMain_disp->addEvent('showcompany', 'main_showcompany');
-function main_showcompany($eventData) {
-    global $gXml_def, $gLocale, $gPage_title, $gToolbars, $gInnowork_core, $gUsers;
+$gMain_disp->addEvent('showcontact', 'main_showcontact');
+function main_showcontact($eventData) {
+    global $gXml_def, $gLocale, $gPage_title, $gUsers;
 
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_CUSTOMER]= $gLocale->getStr('type_customer.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_SUPPLIER]= $gLocale->getStr('type_supplier.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_BOTH]= $gLocale->getStr('type_both.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_CONSULTANT]= $gLocale->getStr('type_consultant.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_GOVERNMENT]= $gLocale->getStr('type_government.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_INTERNAL]= $gLocale->getStr('type_internal.label');
-    $company_types[INNOWORKDIRECTORY_COMPANY_TYPE_NONE]= $gLocale->getStr('type_none.label');
-
-    $graph_ok = false;
-
-    if (isset($GLOBALS['innowork-groupware']['newcompanyid'])) {
-        $eventData['id'] = $GLOBALS['innowork-groupware']['newcompanyid'];
+    if (isset($GLOBALS['innowork-groupware']['newcontactid'])) {
+        $eventData['id'] = $GLOBALS['innowork-groupware']['newcontactid'];
     }
 
-    $innowork_company = new InnoworkCompany(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['id']);
+    $innowork_contact = new InnoworkContact(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['id']);
 
-    $cp_data = $innowork_company->GetItem(InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId());
+    $ps_data = $innowork_contact->GetItem(InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId());
 
-    switch (strtolower(substr($cp_data['companyname'], 0, 1))) {
+    switch (strtolower(substr($ps_data['lastname'], 0, 1))) {
         case 'a' :
         case 'b' :
         case 'c' :
@@ -718,140 +726,83 @@ function main_showcompany($eventData) {
     $tabs[0]['label'] = $gLocale->getStr('extras_other.tab');
     $tabs[1]['label'] = $gLocale->getStr('extras_note.tab');
 
-    $summ = $gInnowork_core->GetSummaries();
+    $innowork_companies = new InnoworkCompany(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess());
+    $search_results = $innowork_companies->Search('', InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId());
 
-    $innowork_bill_installed = false;
-    if (isset($summ['billing']))
-        $innowork_bill_installed = true;
+    $companies['0'] = $gLocale->getStr('nocompany.label');
 
-    if ($innowork_bill_installed) {
-        $tabs[2]['label'] = $gLocale->getStr('extras_invoices.tab');
-        $locale_country = new LocaleCountry(InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getCountry());
-
-        $credit = 0;
-        $due_credit = 0;
-        $invoices_amount = 0;
-
-        $invoices_handler = new InnoworkInvoice(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess());
-        $invoices_handler->mSearchOrderBy = 'emissiondate,number';
-
-        $invoices = $invoices_handler->Search(array('customerid' => $eventData['id']));
-
-        if (count($invoices)) {
-            $cycle_start = true;
-
-            foreach ($invoices as $id => $fields) {
-                $expired = false;
-
-                if ($cycle_start) {
-                    $from_date = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->GetDateArrayFromTimestamp($fields['emissiondate']);
-                    //$from_ts = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->getTimestampFromDateArray( $from_date );
-                    $from_secs = mktime(0, 0, 0, $from_date['mon'], $from_date['mday'], $from_date['year']);
-                }
-                $cycle_start = false;
-
-                // Due date
-
-                $due_date_array = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->GetDateArrayFromTimestamp($fields['duedate']);
-                $due_date = $locale_country->FormatShortArrayDate($due_date_array);
-
-                $emission_date_array = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->GetDateArrayFromTimestamp($fields['emissiondate']);
-
-                if (($fields['total'] - $fields['paidamount']) > 0) {
-                    if ($due_date_array['year'] < date('Y') or ($due_date_array['year'] == date('Y') and $due_date_array['mon'] < date('m')) or ($due_date_array['year'] == date('Y') and $due_date_array['mon'] == date('m') and $due_date_array['mday'] < date('d'))) {
-                        $expired = true;
-                    }
-
-                    $credit += $fields['total'] - $fields['paidamount'];
-                    if ($expired)
-                        $due_credit += $fields['total'] - $fields['paidamount'];
-                }
-
-                $invoices_amount += $fields['amount'];
-                $_graph_data[$emission_date_array['year'].$emission_date_array['mon']]['amount'] += $fields['amount'];
-                $_graph_data[$emission_date_array['year'].$emission_date_array['mon']]['month'] = $emission_date_array['mon'];
-            }
-
-            //$to_date = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->getDateArrayFromTimestamp( $fields['emissiondate'] );
-            $to_secs = mktime(23, 59, 59, $emission_date_array['mon'], $emission_date_array['mday'], $emission_date_array['year']);
-
-            for ($i = $from_secs; $i <= $to_secs; $i += 60 * 60 * 24) {
-                $tmp_date_array = $locale_country->GetDateArrayFromUnixTimestamp($i);
-
-                if (!isset($_graph_data[$tmp_date_array['year'].$tmp_date_array['mon']])) {
-                    $_graph_data[$tmp_date_array['year'].$tmp_date_array['mon']]['amount'] = 0;
-                    $_graph_data[$tmp_date_array['year'].$tmp_date_array['mon']]['month'] = $tmp_date_array['mon'];
-                }
-            }
-
-            ksort($_graph_data);
-
-            $x_array = $y_array = array();
-            $cont = 1;
-
-            foreach ($_graph_data as $id => $value) {
-                $x_array[] = $cont ++;
-                $y_array[] = $value['amount'];
-
-            }
-            reset($_graph_data);
-
-            require_once('phplot/PHPlot.php');
-            $regression_data = phplot_regression($x_array, $y_array);
-
-            $cont = 0;
-
-            foreach ($_graph_data as $date => $values) {
-                $graph_data[] = array($values['month'], $values['amount'], $regression_data[$cont ++][2]);
-            }
-
-            $graph_ok = true;
-        }
+    while (list ($id, $fields) = each($search_results)) {
+        $companies[$id] = $fields['companyname'];
     }
 
     $gXml_def.= '
-    <horizgroup><name>company</name>
+    <horizgroup><name>contact</name>
       <children>
-    <vertgroup><name>company</name>
+    <vertgroup><name>contact</name>
       <children>
     
-        <table><name>company</name>
+        <table><name>contact</name>
           <args>
-            <headers type="array">'.WuiXml::encode(array('0' => array('label' => $gLocale->getStr('company.label')))).'</headers>
+            <headers type="array">'.WuiXml::encode(array('0' => array('label' => $gLocale->getStr('contact.label')))).'</headers>
           </args>
           <children>
-        <form row="0" col="0"><name>company</name>
+    
+        <form row="0" col="0"><name>contact</name>
           <args>
             <method>post</method>
-            <action type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'showcompany', array('id' => $eventData['id'])), array('action', 'editcompany', array('id' => $eventData['id']))))).'</action>
+            <action type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'showcontact', array('id' => $eventData['id'])), array('action', 'editcontact', array('id' => $eventData['id']))))).'</action>
           </args>
           <children>
     
-            <horizgroup><name>company</name>
+            <horizgroup><name>contact</name>
               <children>
     
-                <label><name>code</name>
+                <label><name>title</name>
                   <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('code.label')).'</label>
+                    <label type="encoded">'.urlencode($gLocale->getStr('title.label')).'</label>
                   </args>
                 </label>
-                <string><name>code</name>
+                <string><name>title</name>
+                  <args>
+                    <disp>action</disp>
+                    <size>5</size>
+                    <value type="encoded">'.urlencode($ps_data['title']).'</value>
+                  </args>
+                </string>
+                <label><name>firstname</name>
+                  <args>
+                    <label type="encoded">'.urlencode($gLocale->getStr('firstname.label')).'</label>
+                  </args>
+                </label>
+                <string><name>firstname</name>
                   <args>
                     <disp>action</disp>
                     <size>15</size>
-                    <value type="encoded">'.urlencode($cp_data['code']).'</value>
+                    <value type="encoded">'.urlencode($ps_data['firstname']).'</value>
                   </args>
                 </string>
-                <label><name>name</name>
+                <label><name>lastname</name>
                   <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('companyname.label')).'</label>
+                    <label type="encoded">'.urlencode($gLocale->getStr('lastname.label')).'</label>
                   </args>
                 </label>
-                <string><name>companyname</name>
+                <string><name>lastname</name>
                   <args>
                     <disp>action</disp>
                     <size>25</size>
-                    <value type="encoded">'.urlencode($cp_data['companyname']).'</value>
+                    <value type="encoded">'.urlencode($ps_data['lastname']).'</value>
+                  </args>
+                </string>
+                <label><name>nickname</name>
+                  <args>
+                    <label type="encoded">'.urlencode($gLocale->getStr('nickname.label')).'</label>
+                  </args>
+                </label>
+                <string><name>nickname</name>
+                  <args>
+                    <disp>action</disp>
+                    <size>10</size>
+                    <value type="encoded">'.urlencode($ps_data['nickname']).'</value>
                   </args>
                 </string>
     
@@ -870,19 +821,7 @@ function main_showcompany($eventData) {
                   <args>
                     <disp>action</disp>
                     <elements type="array">'.WuiXml::encode($gUsers).'</elements>
-                    <default type="encoded">'.$cp_data['accountmanager'].'</default>
-                  </args>
-                </combobox>
-                <label>
-                  <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('companytype.label')).'</label>
-                  </args>
-                </label>
-                <combobox><name>companytype</name>
-                  <args>
-                    <disp>action</disp>
-                    <elements type="array">'.WuiXml::encode($company_types).'</elements>
-                    <default type="encoded">'.$cp_data['companytype'].'</default>
+                    <default type="encoded">'.$ps_data['accountmanager'].'</default>
                   </args>
                 </combobox>
     
@@ -890,6 +829,63 @@ function main_showcompany($eventData) {
             </horizgroup>
     
             <horizbar><name>hb</name></horizbar>
+    
+            <label><name>job</name>
+              <args>
+                <bold>true</bold>
+                <label type="encoded">'.urlencode($gLocale->getStr('job.label')).'</label>
+              </args>
+            </label>
+    
+            <horizgroup><name>contact</name>
+              <children>
+    
+                <label><name>company</name>
+                  <args>
+                    <label type="encoded">'.urlencode($gLocale->getStr('company.label')).'</label>
+                  </args>
+                </label>
+                <combobox><name>companyid</name>
+                  <args>
+                    <disp>action</disp>
+                    <elements type="array">'.WuiXml::encode($companies).'</elements>
+                    <default>'.$ps_data['companyid'].'</default>
+                  </args>
+                </combobox>
+    
+              </children>
+            </horizgroup>
+    
+            <horizgroup><name>contact</name>
+              <children>
+    
+                <label><name>jobtitle</name>
+                  <args>
+                    <label type="encoded">'.urlencode($gLocale->getStr('jobtitle.label')).'</label>
+                  </args>
+                </label>
+                <string><name>jobtitle</name>
+                  <args>
+                    <disp>action</disp>
+                    <size>25</size>
+                    <value type="encoded">'.urlencode($ps_data['jobtitle']).'</value>
+                  </args>
+                </string>
+                <label><name>jobdescription</name>
+                  <args>
+                    <label type="encoded">'.urlencode($gLocale->getStr('jobdescription.label')).'</label>
+                  </args>
+                </label>
+                <string><name>jobdescription</name>
+                  <args>
+                    <disp>action</disp>
+                    <size>30</size>
+                    <value type="encoded">'.urlencode($ps_data['jobdescription']).'</value>
+                  </args>
+                </string>
+    
+              </children>
+            </horizgroup>
     
             <label><name>address</name>
               <args>
@@ -910,7 +906,7 @@ function main_showcompany($eventData) {
                   <args>
                     <disp>action</disp>
                     <size>25</size>
-                    <value type="encoded">'.urlencode($cp_data['street']).'</value>
+                    <value type="encoded">'.urlencode($ps_data['street']).'</value>
                   </args>
                 </string>
                 <label><name>city</name>
@@ -922,14 +918,15 @@ function main_showcompany($eventData) {
                   <args>
                     <disp>action</disp>
                     <size>15</size>
-                    <value type="encoded">'.urlencode($cp_data['city']).'</value>
+                    <value type="encoded">'.urlencode($ps_data['city']).'</value>
                   </args>
                 </string>
     
               </children>
             </horizgroup>
     
-            <horizgroup><name>company</name>
+    
+            <horizgroup><name>contact</name>
               <children>
     
                 <label><name>zip</name>
@@ -941,7 +938,7 @@ function main_showcompany($eventData) {
                   <args>
                     <disp>action</disp>
                     <size>5</size>
-                    <value type="encoded">'.urlencode($cp_data['zip']).'</value>
+                    <value type="encoded">'.urlencode($ps_data['zip']).'</value>
                   </args>
                 </string>
                 <label><name>state</name>
@@ -953,7 +950,7 @@ function main_showcompany($eventData) {
                   <args>
                     <disp>action</disp>
                     <size>2</size>
-                    <value type="encoded">'.urlencode($cp_data['state']).'</value>
+                    <value type="encoded">'.urlencode($ps_data['state']).'</value>
                   </args>
                 </string>
                 <label><name>country</name>
@@ -965,7 +962,7 @@ function main_showcompany($eventData) {
                   <args>
                     <disp>action</disp>
                     <size>15</size>
-                    <value type="encoded">'.urlencode($cp_data['country']).'</value>
+                    <value type="encoded">'.urlencode($ps_data['country']).'</value>
                   </args>
                 </string>
     
@@ -981,7 +978,7 @@ function main_showcompany($eventData) {
               </args>
             </label>
     
-            <horizgroup><name>company</name>
+            <horizgroup><name>contact</name>
               <children>
     
                 <label><name>email</name>
@@ -993,7 +990,7 @@ function main_showcompany($eventData) {
                   <args>
                     <disp>action</disp>
                     <size>30</size>
-                    <value type="encoded">'.urlencode($cp_data['email']).'</value>
+                    <value type="encoded">'.urlencode($ps_data['email']).'</value>
                   </args>
                 </string>
                 <label><name>website</name>
@@ -1005,26 +1002,50 @@ function main_showcompany($eventData) {
                   <args>
                     <disp>action</disp>
                     <size>30</size>
-                    <value type="encoded">'.urlencode($cp_data['url']).'</value>
+                    <value type="encoded">'.urlencode($ps_data['url']).'</value>
                   </args>
                 </string>
     
               </children>
             </horizgroup>
     
-            <horizgroup><name>company</name>
+            <horizgroup><name>contact</name>
               <children>
     
-                <label><name>phone</name>
+                <label><name>homephone</name>
                   <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('phone.label')).'</label>
+                    <label type="encoded">'.urlencode($gLocale->getStr('homephone.label')).'</label>
+                  </args>
+                </label>
+                <string><name>homephone</name>
+                  <args>
+                    <disp>action</disp>
+                    <size>10</size>
+                    <value type="encoded">'.urlencode($ps_data['homephone']).'</value>
+                  </args>
+                </string>
+                <label><name>mobile</name>
+                  <args>
+                    <label type="encoded">'.urlencode($gLocale->getStr('mobile.label')).'</label>
+                  </args>
+                </label>
+                <string><name>mobile</name>
+                  <args>
+                    <disp>action</disp>
+                    <size>10</size>
+                    <value type="encoded">'.urlencode($ps_data['mobile']).'</value>
+                  </args>
+                </string>
+                <label><name>officephone</name>
+                  <args>
+                    <label type="encoded">'.urlencode($gLocale->getStr('officephone.label')).'</label>
                   </args>
                 </label>
                 <string><name>phone</name>
                   <args>
                     <disp>action</disp>
                     <size>10</size>
-                    <value type="encoded">'.urlencode($cp_data['phone']).'</value>
+                    <value type="encoded">'.urlencode($ps_data['phone']).'</value>
                   </args>
                 </string>
                 <label><name>fax</name>
@@ -1036,7 +1057,7 @@ function main_showcompany($eventData) {
                   <args>
                     <disp>action</disp>
                     <size>10</size>
-                    <value type="encoded">'.urlencode($cp_data['fax']).'</value>
+                    <value type="encoded">'.urlencode($ps_data['fax']).'</value>
                   </args>
                 </string>
     
@@ -1044,65 +1065,20 @@ function main_showcompany($eventData) {
             </horizgroup>
     
             <horizbar><name>hb</name></horizbar>
-    
-            <horizgroup><name>company</name>
-              <children>
-    
-                <label><name>fiscalcode</name>
-                  <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('fiscalcode.label')).'</label>
-                  </args>
-                </label>
-                <string><name>fiscalcode</name>
-                  <args>
-                    <disp>action</disp>
-                    <size>15</size>
-                    <value type="encoded">'.urlencode($cp_data['fiscalcode']).'</value>
-                  </args>
-                </string>
-    
-                <label><name>fiscalcodeb</name>
-                  <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('fiscalcodeb.label')).'</label>
-                  </args>
-                </label>
-                <string><name>fiscalcodeb</name>
-                  <args>
-                    <disp>action</disp>
-                    <size>15</size>
-                    <value type="encoded">'.urlencode($cp_data['fiscalcodeb']).'</value>
-                  </args>
-                </string>
-    
-              </children>
-            </horizgroup>
     
             <horizgroup>
               <children>
     
                 <label>
                   <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('legalerappresentante.label')).'</label>
+                    <label type="encoded">'.urlencode($gLocale->getStr('fiscalcodeb.label')).'</label>
                   </args>
                 </label>
-                <string><name>legalerappresentante</name>
-                  <args>
-                    <disp>action</disp>
-                    <size>20</size>
-                    <value type="encoded">'.urlencode($cp_data['legalerappresentante']).'</value>
-                  </args>
-                </string>
-    
-                <label>
-                  <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('lrfiscalcode.label')).'</label>
-                  </args>
-                </label>
-                <string><name>lrfiscalcode</name>
+                <string><name>fiscalcode</name>
                   <args>
                     <disp>action</disp>
                     <size>15</size>
-                    <value type="encoded">'.urlencode($cp_data['lrfiscalcode']).'</value>
+                    <value type="encoded">'.urlencode($ps_data['fiscalcode']).'</value>
                   </args>
                 </string>
     
@@ -1110,14 +1086,14 @@ function main_showcompany($eventData) {
             </horizgroup>
     
             <horizbar><name>hb</name></horizbar>
-    
-            <horizgroup><name>company</name>
+
+            <horizgroup><name>contact</name>
               <children>
     
                 <tab><name>extras</name>
                   <args>
                     <tabs type="array">'.WuiXml::encode($tabs).'</tabs>
-                    <tabactionfunction>company_extras_tab_builder</tabactionfunction>
+                    <tabactionfunction>contact_extras_tab_builder</tabactionfunction>
                     <activetab>'. (isset($eventData['extrastab']) ? $eventData['extrastab'] : '').'</activetab>
                   </args>
                   <children>
@@ -1136,7 +1112,7 @@ function main_showcompany($eventData) {
                     <disp>action</disp>
                     <cols>80</cols>
                     <rows>7</rows>
-                    <value type="encoded">'.urlencode($cp_data['notes']).'</value>
+                    <value type="encoded">'.urlencode($ps_data['notes']).'</value>
                   </args>
                 </text>
                       </children>
@@ -1155,7 +1131,7 @@ function main_showcompany($eventData) {
               <args>
                 <width>450</width>
                 <height>200</height>
-                <source type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'itemnotes', array('itemid' => $eventData['id'], 'itemtype' => InnoworkCompany::NOTE_ITEM_TYPE))))).'</source>
+                <source type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'itemnotes', array('itemid' => $eventData['id'], 'itemtype' => InnoworkContact::NOTE_ITEM_TYPE))))).'</source>
                 <scrolling>auto</scrolling>
               </args>
             </iframe>
@@ -1169,93 +1145,16 @@ function main_showcompany($eventData) {
                     <frame>false</frame>
                     <horiz>true</horiz>
                     <target>notes</target>
-                    <action type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'addnote', array('itemid' => $eventData['id'], 'itemtype' => InnoworkCompany::NOTE_ITEM_TYPE))))).'</action>
+                    <action type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'addnote', array('itemid' => $eventData['id'], 'itemtype' => InnoworkContact::NOTE_ITEM_TYPE))))).'</action>
                   </args>
                 </button>
     
                       </children>
-                    </vertgroup>';
-
-    if ($innowork_bill_installed) {
-        $gXml_def.= '<vertgroup>
-          <children>
-                <label>
-                  <args>
-                    <bold>true</bold>
-                    <label type="encoded">'.urlencode($gLocale->getStr('invoices.label')).'</label>
-                  </args>
-                </label>
-        
-                <grid>
-                  <children>
-        
-                <label row="0" col="0">
-                  <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('invoices_amount.label')).'</label>
-                  </args>
-                </label>
-                <string row="0" col="1">
-                  <args>
-                    <readonly>true</readonly>
-                    <size>15</size>
-                    <value type="encoded">'.urlencode(number_format($invoices_amount, $locale_country->FractDigits(), $locale_country->MoneyDecimalSeparator(), $locale_country->MoneyThousandsSeparator())).'</value>
-                  </args>
-                </string>
-                <label row="1" col="0">
-                  <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('credit.label')).'</label>
-                  </args>
-                </label>
-                <string row="1" col="1">
-                  <args>
-                    <readonly>true</readonly>
-                    <size>15</size>
-                    <value type="encoded">'.urlencode(number_format($credit, $locale_country->FractDigits(), $locale_country->MoneyDecimalSeparator(), $locale_country->MoneyThousandsSeparator())).'</value>
-                  </args>
-                </string>
-                <label row="2" col="0">
-                  <args>
-                    <label type="encoded">'.urlencode($gLocale->getStr('due_credit.label')).'</label>
-                  </args>
-                </label>
-                <string row="2" col="1">
-                  <args>
-                    <readonly>true</readonly>
-                    <size>15</size>
-                    <value type="encoded">'.urlencode(number_format($due_credit, $locale_country->FractDigits(), $locale_country->MoneyDecimalSeparator(), $locale_country->MoneyThousandsSeparator())).'</value>
-                  </args>
-                </string>
-        
+                    </vertgroup>
+    
                   </children>
-                </grid>';
-
-        if ($graph_ok)
-            $gXml_def.= '
-                        <vertgroup>
-                          <children>
-                        <phplot>
-                          <args>
-                            <data type="array">'.WuiXml::encode($graph_data).'</data>
-                            <width>400</width>
-                            <height>250</height>
-                            <title type="encoded">'.urlencode($gLocale->getStr('invoices_graph.label')).'</title>
-                          </args>
-                        </phplot>
-                        
-                          <label>
-                            <args>
-                              <label>Coeff. '.(innoworkdirectory_regression_coeff($x_array, $y_array)).'</label>
-                            </args>
-                          </label>
-                          </children>
-                        </vertgroup>';
-
-        $gXml_def.= '  </children>
-        </vertgroup>';
-    }
-
-    $gXml_def.= '              </children>
                 </tab>
+    
     
               </children>
             </horizgroup>
@@ -1271,13 +1170,13 @@ function main_showcompany($eventData) {
                 <themeimage>buttonok</themeimage>
                 <horiz>true</horiz>
                 <frame>false</frame>
-                <action type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'showcompany', array('id' => $eventData['id'])), array('action', 'editcompany', array('id' => $eventData['id']))))).'</action>
-                <label type="encoded">'.urlencode($gLocale->getStr('editcompany.submit')).'</label>
-                <formsubmit>company</formsubmit>
+                <action type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'showcontact', array('id' => $eventData['id'])), array('action', 'editcontact', array('id' => $eventData['id']))))).'</action>
+                <label type="encoded">'.urlencode($gLocale->getStr('editcontact.submit')).'</label>
+                <formsubmit>contact</formsubmit>
               </args>
             </button>
     
-            <button>
+            <button><name>apply</name>
               <args>
                 <themeimage>fileclose</themeimage>
                 <horiz>true</horiz>
@@ -1292,10 +1191,10 @@ function main_showcompany($eventData) {
                 <themeimage>trash</themeimage>
                 <horiz>true</horiz>
                 <frame>false</frame>
-                <label type="encoded">'.urlencode($gLocale->getStr('removecompany.button')).'</label>
+                <label type="encoded">'.urlencode($gLocale->getStr('removecontact.button')).'</label>
                 <needconfirm>true</needconfirm>
-                <confirmmessage type="encoded">'.urlencode(sprintf($gLocale->getStr('removecompany.confirm'), $cp_data['companyname'])).'</confirmmessage>
-                <action type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'default', array('tabpage' => $tab_page)), array('action', 'removecompany', array('id' => $eventData['id']))))).'</action>
+                <confirmmessage type="encoded">'.urlencode(sprintf($gLocale->getStr('removecontact.confirm'), $ps_data['lastname'].' '.$ps_data['firstname'])).'</confirmmessage>
+                <action type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'default', array('tabpage' => $tab_page)), array('action', 'removecontact', array('id' => $eventData['id']))))).'</action>
                 </args>
               </button>
     
@@ -1309,10 +1208,10 @@ function main_showcompany($eventData) {
     
       <innoworkitemacl><name>itemacl</name>
         <args>
-          <itemtype>directorycompany</itemtype>
+          <itemtype>directorycontact</itemtype>
           <itemid>'.$eventData['id'].'</itemid>
-          <itemownerid>'.$cp_data['ownerid'].'</itemownerid>
-          <defaultaction type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'showcompany', array('id' => $eventData['id']))))).'</defaultaction>
+          <itemownerid>'.$ps_data['ownerid'].'</itemownerid>
+          <defaultaction type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'showcontact', array('id' => $eventData['id']))))).'</defaultaction>
         </args>
       </innoworkitemacl>
     
