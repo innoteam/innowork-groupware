@@ -657,7 +657,7 @@ function main_newcompany($eventData) {
     
             <button row="1" col="0"><name>apply</name>
               <args>
-                <themeimage>button_ok</themeimage>
+                <themeimage>buttonok</themeimage>
                 <horiz>true</horiz>
                 <frame>false</frame>
                 <action type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'showcompany', ''), array('action', 'newcompany', '')))).'</action>
@@ -1309,7 +1309,7 @@ function main_showcompany($eventData) {
     
             <button><name>apply</name>
               <args>
-                <themeimage>button_ok</themeimage>
+                <themeimage>buttonok</themeimage>
                 <horiz>true</horiz>
                 <frame>false</frame>
                 <action type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'showcompany', array('id' => $eventData['id'])), array('action', 'editcompany', array('id' => $eventData['id']))))).'</action>
@@ -1330,7 +1330,7 @@ function main_showcompany($eventData) {
     
             <button><name>remove</name>
               <args>
-                <themeimage>edittrash</themeimage>
+                <themeimage>trash</themeimage>
                 <horiz>true</horiz>
                 <frame>false</frame>
                 <label type="encoded">'.urlencode($gLocale->getStr('removecompany.button')).'</label>
@@ -1856,7 +1856,7 @@ function main_newcontact($eventData) {
     
             <button row="1" col="0"><name>apply</name>
               <args>
-                <themeimage>button_ok</themeimage>
+                <themeimage>buttonok</themeimage>
                 <horiz>true</horiz>
                 <frame>false</frame>
                 <action type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'showcontact', ''), array('action', 'newcontact', '')))).'</action>
@@ -2389,7 +2389,7 @@ function main_showcontact($eventData) {
     
             <button><name>apply</name>
               <args>
-                <themeimage>button_ok</themeimage>
+                <themeimage>buttonok</themeimage>
                 <horiz>true</horiz>
                 <frame>false</frame>
                 <action type="encoded">'.urlencode(WuiEventsCall::buildEventsCallString('', array(array('view', 'showcontact', array('id' => $eventData['id'])), array('action', 'editcontact', array('id' => $eventData['id']))))).'</action>
@@ -2410,7 +2410,7 @@ function main_showcontact($eventData) {
     
             <button><name>remove</name>
               <args>
-                <themeimage>edittrash</themeimage>
+                <themeimage>trash</themeimage>
                 <horiz>true</horiz>
                 <frame>false</frame>
                 <label type="encoded">'.urlencode($gLocale->getStr('removecontact.button')).'</label>
@@ -2583,7 +2583,7 @@ function main_addnote($eventData) {
     
                 <button>
                   <args>
-                    <themeimage>button_ok</themeimage>
+                    <themeimage>buttonok</themeimage>
                     <label type="encoded">'.urlencode($gLocale->getStr('new_note.button')).'</label>
                     <formsubmit>note</formsubmit>
                     <frame>false</frame>

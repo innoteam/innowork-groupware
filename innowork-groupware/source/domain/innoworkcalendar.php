@@ -1149,7 +1149,7 @@ function main_newevent( $eventData )
 
         <button row="1" col="0"><name>apply</name>
           <args>
-            <themeimage>button_ok</themeimage>
+            <themeimage>buttonok</themeimage>
             <horiz>true</horiz>
             <frame>false</frame>
             <action type="encoded">'.urlencode( WuiEventsCall::buildEventsCallString( '', array(
@@ -1413,7 +1413,7 @@ function main_showevent( $eventData )
 
         <button>
           <args>
-            <themeimage>button_ok</themeimage>
+            <themeimage>buttonok</themeimage>
             <horiz>true</horiz>
             <frame>false</frame>
             <action type="encoded">'.urlencode( WuiEventsCall::buildEventsCallString( '', array(
@@ -1452,7 +1452,7 @@ function main_showevent( $eventData )
 
         <button><name>remove</name>
           <args>
-            <themeimage>edittrash</themeimage>
+            <themeimage>trash</themeimage>
             <horiz>true</horiz>
             <frame>false</frame>
             <needconfirm>true</needconfirm>

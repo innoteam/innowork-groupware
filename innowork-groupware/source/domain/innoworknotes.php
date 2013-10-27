@@ -191,7 +191,7 @@ $notes_toolbars['notes'] = array(
         ),
     'notesbynote' => array(
         'label' => $gLocale->getStr( 'allnotes.button' ),
-        'themeimage' => 'edit',
+        'themeimage' => 'pencil',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( '', array( array(
             'view',

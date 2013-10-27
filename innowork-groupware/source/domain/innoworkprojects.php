@@ -686,7 +686,7 @@ if ( $row >= $from and $row <= $to )
         'view' => array(
             'show' => array(
                 'label' => $gLocale->getStr( 'showproject.button' ),
-                'themeimage' => 'viewmag',
+                'themeimage' => 'zoom',
                 'themeimagetype' => 'mini',
                 'horiz' => 'true',
                 'action' => WuiEventsCall::buildEventsCallString( '', array( array(
@@ -712,7 +712,7 @@ if ( $row >= $from and $row <= $to )
                 ),
             'remove' => array(
                 'label' => $gLocale->getStr( 'removeproject.button' ),
-                'themeimage' => 'edittrash',
+                'themeimage' => 'trash',
                 'themeimagetype' => 'mini',
                 'horiz' => 'true',
                 'needconfirm' => 'true',
@@ -1105,7 +1105,7 @@ function main_newproject( $eventData )
 
         <button row="1" col="0"><name>apply</name>
           <args>
-            <themeimage>button_ok</themeimage>
+            <themeimage>buttonok</themeimage>
             <horiz>true</horiz>
             <frame>false</frame>
             <action>'.project_cdata( WuiEventsCall::buildEventsCallString( '', array(
@@ -1540,7 +1540,7 @@ function main_showproject( $eventData )
 
         <button><name>apply</name>
           <args>
-            <themeimage>button_ok</themeimage>
+            <themeimage>buttonok</themeimage>
             <horiz>true</horiz>
             <frame>false</frame>
             <action>'.project_cdata( WuiEventsCall::buildEventsCallString( '', array(

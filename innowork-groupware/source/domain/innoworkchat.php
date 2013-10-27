@@ -202,7 +202,7 @@ function main_default( $eventData )
 
             <button>
               <args>
-                <themeimage>button_ok</themeimage>
+                <themeimage>buttonok</themeimage>
                 <themeimagetype>mini</themeimagetype>
                 <horiz>true</horiz>
                 <label type="encoded">'.urlencode( $gLocale->getStr( 'enter_chan.button' ) ).'</label>
@@ -259,7 +259,7 @@ function main_default( $eventData )
 
             <button>
               <args>
-                <themeimage>button_ok</themeimage>
+                <themeimage>buttonok</themeimage>
                 <themeimagetype>mini</themeimagetype>
                 <horiz>true</horiz>
                 <label type="encoded">'.urlencode( $gLocale->getStr( 'create_chan.button' ) ).'</label>
@@ -468,7 +468,7 @@ function main_default( $eventData )
                             )
                         )
                     ).'</action>
-                        <themeimage>button_ok</themeimage>
+                        <themeimage>buttonok</themeimage>
                         <horiz>true</horiz>
                         <label type="encoded">'.urlencode( $gLocale->getStr( 'send_message.button' ) ).'</label>
                         <formsubmit>message</formsubmit>

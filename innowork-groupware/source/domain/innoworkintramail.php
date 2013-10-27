@@ -447,7 +447,7 @@ function main_default( $eventData )
         $gToolbars['trashcan'] = array(
             'emptytrashcan' => array(
                 'label' => $gLocale->getStr( 'emptytrash.toolbar' ),
-                'themeimage' => 'edittrash',
+                'themeimage' => 'trash',
                 'horiz' => 'true',
                 'action' => WuiEventsCall::buildEventsCallString( '', array(
                     array(
@@ -554,7 +554,7 @@ function main_default( $eventData )
 
               <button><name>folder</name>
                 <args>
-                  <themeimage>edittrash</themeimage>
+                  <themeimage>trash</themeimage>
                   <themeimagetype>mini</themeimagetype>
                   <frame>false</frame>
                   <horiz>true</horiz>
@@ -735,7 +735,7 @@ $gXml_def .=
         $gXml_def .=
 '              <button>
                 <args>
-                  <themeimage>edittrash</themeimage>
+                  <themeimage>trash</themeimage>
                   <themeimagetype>mini</themeimagetype>
                   <frame>false</frame>
                   <horiz>true</horiz>
@@ -1039,7 +1039,7 @@ $gXml_def .=
 
               <button><name>trash</name>
                 <args>
-                  <themeimage>edittrash</themeimage>
+                  <themeimage>trash</themeimage>
                   <frame>false</frame>
                   <horiz>true</horiz>
                   <action type="encoded">'.urlencode(

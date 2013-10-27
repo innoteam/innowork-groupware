@@ -316,7 +316,7 @@ function main_default($eventData) {
                                     <innomatictoolbar row="'.$row.'" col="4"><name>tb</name>
                                       <args>
                                         <frame>false</frame>
-                                        <toolbars type="array">'.WuiXml::encode(array('view' => array('show' => array('label' => $gLocale->getStr('showactivity.button'), 'themeimage' => 'viewmag', 'themeimagetype' => 'mini', 'compact' => 'true', 'horiz' => 'true', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'showactivity', array('id' => $id))))), 'done' => array('label' => $gLocale->getStr($done_label), 'themeimage' => $done_icon, 'themeimagetype' => 'mini', 'compact' => 'true', 'horiz' => 'true', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'default', ''), array('action', 'editactivity', array('id' => $id, 'done' => $done_action))))), 'remove' => array('label' => $gLocale->getStr('removeactivity.button'), 'needconfirm' => 'true', 'confirmmessage' => $gLocale->getStr('removeactivity.confirm'), 'horiz' => 'true', 'compact' => 'true', 'themeimage' => 'edittrash', 'themeimagetype' => 'mini', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'default', ''), array('action', 'removeactivity', array('id' => $id)))))))).'</toolbars>
+                                        <toolbars type="array">'.WuiXml::encode(array('view' => array('show' => array('label' => $gLocale->getStr('showactivity.button'), 'themeimage' => 'zoom', 'themeimagetype' => 'mini', 'compact' => 'true', 'horiz' => 'true', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'showactivity', array('id' => $id))))), 'done' => array('label' => $gLocale->getStr($done_label), 'themeimage' => $done_icon, 'themeimagetype' => 'mini', 'compact' => 'true', 'horiz' => 'true', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'default', ''), array('action', 'editactivity', array('id' => $id, 'done' => $done_action))))), 'remove' => array('label' => $gLocale->getStr('removeactivity.button'), 'needconfirm' => 'true', 'confirmmessage' => $gLocale->getStr('removeactivity.confirm'), 'horiz' => 'true', 'compact' => 'true', 'themeimage' => 'trash', 'themeimagetype' => 'mini', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'default', ''), array('action', 'removeactivity', array('id' => $id)))))))).'</toolbars>
                                       </args>
                                     </innomatictoolbar>';
 
@@ -470,7 +470,7 @@ function main_newactivity($eventData) {
             
                     <button row="1" col="0"><name>apply</name>
                       <args>
-                        <themeimage>button_ok</themeimage>
+                        <themeimage>buttonok</themeimage>
                         <horiz>true</horiz>
                         <frame>false</frame>
                         <action>'.activity_cdata(WuiEventsCall::buildEventsCallString('', array(array('view', 'showactivity', ''), array('action', 'newactivity', '')))).'</action>
@@ -669,7 +669,7 @@ function main_showactivity($eventData) {
             
                     <button><name>apply</name>
                       <args>
-                        <themeimage>button_ok</themeimage>
+                        <themeimage>buttonok</themeimage>
                         <horiz>true</horiz>
                         <frame>false</frame>
                         <action>'.activity_cdata(WuiEventsCall::buildEventsCallString('', array(array('view', 'default', ''), array('action', 'editactivity', array('id' => $eventData['id']))))).'</action>
@@ -701,7 +701,7 @@ function main_showactivity($eventData) {
             
                     <button><name>remove</name>
                       <args>
-                        <themeimage>edittrash</themeimage>
+                        <themeimage>trash</themeimage>
                         <horiz>true</horiz>
                         <frame>false</frame>
                         <confirmmessage>'.$gLocale->getStr('removeactivity.confirm').'</confirmmessage>

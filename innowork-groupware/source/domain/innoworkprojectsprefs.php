@@ -217,7 +217,7 @@ function main_default( $eventData )
         'view' => array(
             'show' => array(
                 'label' => $gLocale->getStr( 'editfield.button' ),
-                'themeimage' => 'edit',
+                'themeimage' => 'pencil',
                 'themeimagetype' => 'mini',        
                 'horiz' => 'true',
                 'action' => WuiEventsCall::buildEventsCallString( '', array( array(
@@ -227,7 +227,7 @@ function main_default( $eventData )
                 ),
             'remove' => array(
                 'label' => $gLocale->getStr( 'removefield.button' ),
-                'themeimage' => 'edittrash',
+                'themeimage' => 'trash',
                 'themeimagetype' => 'mini',
                 'horiz' => 'true',
                 'needconfirm' => 'true',
@@ -280,7 +280,7 @@ function main_default( $eventData )
         'view' => array(
             'show' => array(
                 'label' => $gLocale->getStr( 'editfield.button' ),
-                'themeimage' => 'edit',
+                'themeimage' => 'pencil',
                 'themeimagetype' => 'mini',
             	'horiz' => 'true',
                 'action' => WuiEventsCall::buildEventsCallString( '', array( array(
@@ -290,7 +290,7 @@ function main_default( $eventData )
                 ),
             'remove' => array(
                 'label' => $gLocale->getStr( 'removefield.button' ),
-                'themeimage' => 'edittrash',
+                'themeimage' => 'trash',
                 'themeimagetype' => 'mini',
                 'horiz' => 'true',
                 'needconfirm' => 'true',
@@ -343,7 +343,7 @@ function main_default( $eventData )
         'view' => array(
             'show' => array(
                 'label' => $gLocale->getStr( 'editfield.button' ),
-                'themeimage' => 'edit',
+                'themeimage' => 'pencil',
                 'themeimagetype' => 'mini',
             	'horiz' => 'true',
                 'action' => WuiEventsCall::buildEventsCallString( '', array( array(
@@ -353,7 +353,7 @@ function main_default( $eventData )
                 ),
             'remove' => array(
                 'label' => $gLocale->getStr( 'removefield.button' ),
-                'themeimage' => 'edittrash',
+                'themeimage' => 'trash',
                 'themeimagetype' => 'mini',
                 'horiz' => 'true',
                 'needconfirm' => 'true',
@@ -406,7 +406,7 @@ function main_default( $eventData )
         'view' => array(
             'show' => array(
                 'label' => $gLocale->getStr( 'editfield.button' ),
-                'themeimage' => 'edit',
+                'themeimage' => 'pencil',
                 'themeimagetype' => 'mini',
             	'horiz' => 'true',
                 'action' => WuiEventsCall::buildEventsCallString( '', array( array(
@@ -416,7 +416,7 @@ function main_default( $eventData )
                 ),
             'remove' => array(
                 'label' => $gLocale->getStr( 'removefield.button' ),
-                'themeimage' => 'edittrash',
+                'themeimage' => 'trash',
                 'themeimagetype' => 'mini',
                 'horiz' => 'true',
                 'needconfirm' => 'true',
@@ -469,7 +469,7 @@ function main_default( $eventData )
         'view' => array(
             'show' => array(
                 'label' => $gLocale->getStr( 'editfield.button' ),
-                'themeimage' => 'edit',
+                'themeimage' => 'pencil',
                 'themeimagetype' => 'mini',
             	'horiz' => 'true',
                 'action' => WuiEventsCall::buildEventsCallString( '', array( array(
@@ -479,7 +479,7 @@ function main_default( $eventData )
                 ),
             'remove' => array(
                 'label' => $gLocale->getStr( 'removefield.button' ),
-                'themeimage' => 'edittrash',
+                'themeimage' => 'trash',
                 'themeimagetype' => 'mini',
                 'horiz' => 'true',
                 'needconfirm' => 'true',
@@ -596,7 +596,7 @@ function main_newfield( $eventData )
 
         <button row="1" col="0"><name>apply</name>
           <args>
-            <themeimage>button_ok</themeimage>
+            <themeimage>buttonok</themeimage>
             <horiz>true</horiz>
             <frame>false</frame>
             <action type="encoded">'.urlencode( WuiEventsCall::buildEventsCallString( '', array(
@@ -710,7 +710,7 @@ function main_editfield( $eventData )
 
         <button row="1" col="0"><name>apply</name>
           <args>
-            <themeimage>button_ok</themeimage>
+            <themeimage>buttonok</themeimage>
             <horiz>true</horiz>
             <frame>false</frame>
             <action type="encoded">'.urlencode( WuiEventsCall::buildEventsCallString( '', array(

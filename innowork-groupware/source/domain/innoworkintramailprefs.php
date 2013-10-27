@@ -279,7 +279,7 @@ function main_default( $eventData )
 
         <button>
           <args>
-            <themeimage>button_ok</themeimage>
+            <themeimage>buttonok</themeimage>
             <horiz>true</horiz>
             <frame>false</frame>
             <label type="encoded">'.urlencode( $gLocale->getStr( 'apply.button' ) ).'</label>
@@ -342,7 +342,7 @@ function main_default( $eventData )
         'view' => array(
             'show' => array(
                 'label' => $gLocale->getStr( 'edit_account.button' ),
-                'themeimage' => 'edit',
+                'themeimage' => 'pencil',
                 'horiz' => 'true',
                 'action' => WuiEventsCall::buildEventsCallString( '', array( array(
                     'view',
@@ -351,7 +351,7 @@ function main_default( $eventData )
                 ),
             'remove' => array(
                 'label' => $gLocale->getStr( 'remove_account.button' ),
-                'themeimage' => 'edittrash',
+                'themeimage' => 'trash',
                 'horiz' => 'true',
                 'needconfirm' => 'true',
                 'confirmmessage' => $gLocale->getStr( 'remove_account.confirm' ),
@@ -549,7 +549,7 @@ function main_newaccount(
       <args>
         <horiz>true</horiz>
         <frame>false</frame>
-        <themeimage>button_ok</themeimage>
+        <themeimage>buttonok</themeimage>
         <label type="encoded">'.urlencode( $gLocale->getStr( 'create_account.button' ) ).'</label>
         <action type="encoded">'.urlencode(
             WuiEventsCall::buildEventsCallString(
@@ -725,7 +725,7 @@ function main_editaccount(
       <args>
         <horiz>true</horiz>
         <frame>false</frame>
-        <themeimage>button_ok</themeimage>
+        <themeimage>buttonok</themeimage>
         <label type="encoded">'.urlencode( $gLocale->getStr( 'edit_account.button' ) ).'</label>
         <action type="encoded">'.urlencode(
             WuiEventsCall::buildEventsCallString(
