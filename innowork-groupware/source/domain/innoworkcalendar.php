@@ -810,7 +810,7 @@ function main_default( $eventData )
 
         <button row="0" col="2"><name>filter</name>
           <args>
-            <themeimage>filter</themeimage>
+            <themeimage>zoom</themeimage>
             <horiz>true</horiz>
             <frame>false</frame>
             <formsubmit>filter</formsubmit>
@@ -1489,7 +1489,7 @@ $gMain_disp->Dispatch();
 //
 $gWui->addChild( new WuiInnomaticPage( 'page', array(
     'pagetitle' => $gPage_title,
-    'icon' => 'window_list',
+    'icon' => 'calendar',
     'toolbars' => array(
         new WuiInnomaticToolbar(
             'view',

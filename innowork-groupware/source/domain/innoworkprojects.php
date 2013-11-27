@@ -48,7 +48,7 @@ $gCore_toolbars = $gInnowork_core->getMainToolBar(
 $gToolbars['projects'] = array(
     'projects' => array(
         'label' => $gLocale->getStr( 'projects.toolbar' ),
-        'themeimage' => 'view_icon',
+        'themeimage' => 'listdetailed',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( '', array( array(
             'view',
@@ -57,7 +57,7 @@ $gToolbars['projects'] = array(
         ),
     'doneprojects' => array(
         'label' => $gLocale->getStr( 'doneprojects.toolbar' ),
-        'themeimage' => 'view_icon',
+        'themeimage' => 'listdetailed',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( '', array( array(
             'view',
@@ -78,7 +78,7 @@ $gToolbars['projects'] = array(
 $gToolbars['stats'] = array(
     'stats' => array(
         'label' => $gLocale->getStr( 'statistics.toolbar' ),
-        'themeimage' => 'frame_chart',
+        'themeimage' => 'graph1',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( 'innoworkprojects', array( array(
             'view',
@@ -90,7 +90,7 @@ $gToolbars['stats'] = array(
 $gToolbars['prefs'] = array(
     'prefs' => array(
         'label' => $gLocale->getStr( 'preferences.toolbar' ),
-        'themeimage' => 'configure',
+        'themeimage' => 'settings1',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( 'innoworkprojectsprefs', array( array(
             'view',
@@ -470,7 +470,7 @@ function main_default( $eventData )
 
         <button row="0" col="4"><name>filter</name>
           <args>
-            <themeimage>filter</themeimage>
+            <themeimage>zoom</themeimage>
             <horiz>true</horiz>
             <frame>false</frame>
             <formsubmit>filter</formsubmit>
@@ -1784,7 +1784,7 @@ $gMain_disp->Dispatch();
 //
 $gWui->addChild( new WuiInnomaticPage( 'page', array(
     'pagetitle' => $gPage_title,
-    'icon' => 'tar',
+    'icon' => 'folder',
     'toolbars' => array(
         new WuiInnomaticToolbar(
             'view',

@@ -32,7 +32,7 @@ $gWui->LoadWidget('innomatictoolbar');
 $gXml_def = $gPage_status = '';
 $gPage_title = $gLocale->getStr('activity.title');
 $gCore_toolbars = $gInnowork_core->GetMainToolBar();
-$gToolbars['activity'] = array('activitylist' => array('label' => $gLocale->getStr('activitylist.toolbar'), 'themeimage' => 'todo', 'horiz' => 'true', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'default', array('done' => 'false'))))), 'doneactivitylist' => array('label' => $gLocale->getStr('doneactivitylist.toolbar'), 'themeimage' => 'todo', 'horiz' => 'true', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'default', array('done' => 'true'))))), 'newactivity' => array('label' => $gLocale->getStr('newactivity.toolbar'), 'themeimage' => 'newtodo', 'horiz' => 'true', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'newactivity', '')))));
+$gToolbars['activity'] = array('activitylist' => array('label' => $gLocale->getStr('activitylist.toolbar'), 'themeimage' => 'listdetailed', 'horiz' => 'true', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'default', array('done' => 'false'))))), 'doneactivitylist' => array('label' => $gLocale->getStr('doneactivitylist.toolbar'), 'themeimage' => 'listdetailed2', 'horiz' => 'true', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'default', array('done' => 'true'))))), 'newactivity' => array('label' => $gLocale->getStr('newactivity.toolbar'), 'themeimage' => 'mathadd', 'horiz' => 'true', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'newactivity', '')))));
 
 $priorities[1] = '#ffe5e5';
 $priorities[2] = '#ffcbcb';
@@ -200,7 +200,7 @@ function main_default($eventData) {
             
                     <button row="0" col="2"><name>filter</name>
                       <args>
-                        <themeimage>filter</themeimage>
+                        <themeimage>zoom</themeimage>
                         <horiz>true</horiz>
                         <frame>false</frame>
                         <formsubmit>filter</formsubmit>
@@ -736,7 +736,7 @@ $gMain_disp->Dispatch();
 // ----- Rendering -----
 //
 
-$gWui->addChild(new WuiInnomaticPage('page', array('pagetitle' => $gPage_title, 'icon' => 'klipper', 'toolbars' => array(
+$gWui->addChild(new WuiInnomaticPage('page', array('pagetitle' => $gPage_title, 'icon' => 'listdetailed2', 'toolbars' => array(
 		new WuiInnomaticToolbar('view', array('toolbars' => $gToolbars, 'toolbar' => 'true')),
 		new WuiInnomaticToolBar('core', array('toolbars' => $gCore_toolbars, 'toolbar' => 'true')),
 		), 'maincontent' => new WuiXml('page', array('definition' => $gXml_def)), 'status' => $gPage_status)));

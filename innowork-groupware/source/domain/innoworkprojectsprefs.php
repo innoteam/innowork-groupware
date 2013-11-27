@@ -37,7 +37,7 @@ $gCore_toolbars = $gInnowork_core->getMainToolBar();
 $gToolbars['projects'] = array(
     'projects' => array(
         'label' => $gLocale->getStr( 'projects.toolbar' ),
-        'themeimage' => 'view_icon',
+        'themeimage' => 'listdetailed',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( 'innoworkprojects', array( array(
             'view',
@@ -46,7 +46,7 @@ $gToolbars['projects'] = array(
         ),
     'doneprojects' => array(
         'label' => $gLocale->getStr( 'doneprojects.toolbar' ),
-        'themeimage' => 'view_icon',
+        'themeimage' => 'listdetailed',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( 'innoworkprojects', array( array(
             'view',
@@ -67,7 +67,7 @@ $gToolbars['projects'] = array(
 $gToolbars['prefs'] = array(
     'prefs' => array(
         'label' => $gLocale->getStr( 'preferences.toolbar' ),
-        'themeimage' => 'configure',
+        'themeimage' => 'settings1',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( 'innoworkprojectsprefs', array( array(
             'view',
@@ -741,7 +741,7 @@ $gMain_disp->Dispatch();
 //
 $gWui->addChild( new WuiInnomaticPage( 'page', array(
     'pagetitle' => $gPage_title,
-    'icon' => 'files',
+    'icon' => 'settings1',
     'toolbars' => array(
         new WuiInnomaticToolbar(
             'view',

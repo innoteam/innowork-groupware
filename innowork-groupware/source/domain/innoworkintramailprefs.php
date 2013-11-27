@@ -47,7 +47,7 @@ $gToolbars['mail'] = array(
 $gToolbars['settings'] = array(
     'settings' => array(
         'label' => $gLocale->getStr( 'settings.toolbar' ),
-        'themeimage' => 'configure',
+        'themeimage' => 'settings1',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( 'innoworkintramailprefs', array( array(
             'view',
@@ -759,7 +759,7 @@ $gMain_disp->Dispatch();
 //
 $gWui->addChild( new WuiInnomaticPage( 'page', array(
     'pagetitle' => $gPage_title,
-    'icon' => 'message',
+    'icon' => 'settings1',
     'toolbars' => array(
         new WuiInnomaticToolbar(
             'view',

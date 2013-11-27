@@ -182,7 +182,7 @@ $toolbars = $innowork_core->getMainToolBar();
 $notes_toolbars['notes'] = array(
     'notesbyicon' => array(
         'label' => $gLocale->getStr( 'noteslist.button' ),
-        'themeimage' => 'view_icon',
+        'themeimage' => 'listdetailed',
         'horiz' => 'true',
         'action' => WuiEventsCall::buildEventsCallString( '', array( array(
             'view',
@@ -217,7 +217,7 @@ $wui->addChild(
         'page',
         array(
             'pagetitle' => $gPage_title,
-            'icon' => 'txt',
+            'icon' => 'documenttext.png',
             'toolbars' => $innomatictoolbars,
             'maincontent' => $gPage_content,
             'status' => $gPage_status  ) )

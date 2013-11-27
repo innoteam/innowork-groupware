@@ -53,7 +53,7 @@ $gXml_def = $gPage_status = '';
 $gPage_title = $gLocale->getStr('directory.title');
 $gCore_toolbars = $gInnowork_core->GetMainToolBar('', $disp_type, isset(Wui::instance('wui')->parameters['wui']['view']['evd']['id']) ? Wui::instance('wui')->parameters['wui']['view']['evd']['id'] : '');
 
-$gToolbars['contacts'] = array('contacts' => array('label' => $gLocale->getStr('contacts.toolbar'), 'themeimage' => 'view_icon', 'horiz' => 'true', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'default', '')))), 'newcontact' => array('label' => $gLocale->getStr('newcontact.toolbar'), 'themeimage' => 'filenew', 'horiz' => 'true', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'newcontact', '')))));
+$gToolbars['contacts'] = array('contacts' => array('label' => $gLocale->getStr('contacts.toolbar'), 'themeimage' => 'listdetailed', 'horiz' => 'true', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'default', '')))), 'newcontact' => array('label' => $gLocale->getStr('newcontact.toolbar'), 'themeimage' => 'filenew', 'horiz' => 'true', 'action' => WuiEventsCall::buildEventsCallString('', array(array('view', 'newcontact', '')))));
 
 // ----- Action dispatcher -----
 //
@@ -200,7 +200,7 @@ function main_default($eventData) {
                         )
                     )
                     )).'</action>
-                <themeimage>view_icon</themeimage>
+                <themeimage>listdetailed</themeimage>
                 <disabled>'.($eventData['viewmode']=='compact' ? 'true' : 'false').'</disabled>
                 <compact>true</compact>
                 <horiz>true</horiz>
@@ -221,7 +221,7 @@ function main_default($eventData) {
                         )
                     )
                     )).'</action>
-                <themeimage>view_detailed</themeimage>
+                <themeimage>listdetailed2</themeimage>
                 <disabled>'.($eventData['viewmode']=='detailed' ? 'true' : 'false').'</disabled>
                 <compact>true</compact>
                 <horiz>true</horiz>
@@ -242,7 +242,7 @@ function main_default($eventData) {
                         )
                     )
                     )).'</action>
-                <themeimage>view_text</themeimage>
+                <themeimage>listbulletleft</themeimage>
                 <disabled>'.($eventData['viewmode']=='list' ? 'true' : 'false').'</disabled>
                 <compact>true</compact>
                 <horiz>true</horiz>
@@ -1436,7 +1436,7 @@ $gToolbars['help'] = array(
         ) );
 */
 
-$gWui->addChild(new WuiInnomaticPage('page', array('pagetitle' => $gPage_title, 'icon' => 'kppp', 'toolbars' => array(new WuiInnomaticToolBar('core', array('toolbars' => $gToolbars, 'toolbar' => 'true')), new WuiInnomaticToolbar('view', array('toolbars' => $gCore_toolbars, 'toolbar' => 'true'))), 'maincontent' => new WuiXml('page', array('definition' => $gXml_def)), 'status' => $gPage_status)));
+$gWui->addChild(new WuiInnomaticPage('page', array('pagetitle' => $gPage_title, 'icon' => 'card', 'toolbars' => array(new WuiInnomaticToolBar('core', array('toolbars' => $gToolbars, 'toolbar' => 'true')), new WuiInnomaticToolbar('view', array('toolbars' => $gCore_toolbars, 'toolbar' => 'true'))), 'maincontent' => new WuiXml('page', array('definition' => $gXml_def)), 'status' => $gPage_status)));
 
 $gWui->render();
 
