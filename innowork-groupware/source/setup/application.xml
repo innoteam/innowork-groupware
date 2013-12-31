@@ -14,6 +14,7 @@
 		<dependencies>
 			<dependency>innowork-core[3.1]</dependency>
 			<dependency>phplotlib[5.0-3]</dependency>
+            <suggestion>innowork-projects</suggestion>
 			<!--
 			<dependency>pop3lib[1.0-3]</dependency>
 			<dependency>squirrelmaillib</dependency>
@@ -43,9 +44,6 @@
 	</definition>
 
 	<components>
-
-		<domaingroup name="projects"
-			catalog="innowork-groupware::projects_misc" />
 
 		<!-- Calendar -->
 
@@ -210,31 +208,6 @@
 			miniicon="mail_generic" summaryname="intramail-name" showmode="list" />
 
 		-->
-		
-		<!-- Projects -->
-
-		<domainpanel name="innoworkprojects" file="innoworkprojects.php"
-			category="projects" themeicon="plan" themeicontype="apps"
-			catalog="innowork-groupware::projects_misc" />
-
-		<domainpanel name="innoworkprojectsprefs"
-			file="innoworkprojectsprefs.php" category="preferences"
-			themeicon="plan" themeicontype="apps"
-			catalog="innowork-groupware::projects_misc" />
-
-		<domaintable name="innowork_projects"
-			file="innowork_projects.xml" />
-		<domaintable name="innowork_projects_fields_values"
-			file="innowork_projects_fields_values.xml" />
-
-		<class name="innowork/groupware/InnoworkProject.php" />
-		<class name="innowork/groupware/InnoworkProjectField.php" />
-
-		<innoworkitemtype name="project" file="project"
-			catalog="innowork-groupware::projects_misc"
-			classfile="innowork/groupware/InnoworkProject.php" classname="InnoworkProject"
-			icon="plan" icontype="apps" domainpanel="innoworkprojects"
-			miniicon="edit" summaryname="projects-name" showmode="list" />
 
 	</components>
 </application>

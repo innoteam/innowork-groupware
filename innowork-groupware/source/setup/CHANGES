@@ -1,3 +1,9 @@
+CHANGES:
+- Moved projects to itw own application (Innowork Projects). (Alex Pagnoni)
+- Migration to Innomatic 6.1. (Alex Pagnoni)
+
+
+
 2.0 - 2009/03/10
 ----------------
 NEW FEATURES:
