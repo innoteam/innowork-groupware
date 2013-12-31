@@ -108,7 +108,7 @@ class InnoworkNote extends InnoworkItem {
     function doGetSummary()
     {
         $result = FALSE;
-        $search_result = $this->Search( '', InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId() );
+        $search_result = $this->Search( '', \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId() );
 
         if ( is_array( $search_result ) )
         {

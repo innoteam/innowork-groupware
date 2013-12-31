@@ -17,13 +17,13 @@ require_once('innomatic/locale/LocaleCatalog.php'); require_once('innomatic/loca
 
 require_once('innowork/core/InnoworkCore.php');
 $gInnowork_core = InnoworkCore::instance('innoworkcore', 
-    InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-    InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
     );
 
 $gLocale = new LocaleCatalog(
     'innowork-groupware::calendar_main',
-    InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getLanguage()
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getLanguage()
     );
 
 $gWui = Wui::instance('wui');
@@ -130,7 +130,7 @@ $gToolbars['move'] = array(
         )
     );
 
-    $core = InnoworkCore::instance('innoworkcore', InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess());
+    $core = InnoworkCore::instance('innoworkcore', \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess());
     $summ = $core->getSummaries();
 
     if (isset($summ['directorycompany'])) $innowork_directory_installed = true;
@@ -139,12 +139,12 @@ else $innowork_directory_installed = false;
 if ( $innowork_directory_installed )
 {
     $innowork_companies = new InnoworkCompany(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
         );
     $search_results = $innowork_companies->Search(
         '',
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
         );
 
     $gCompanies[0] = $gLocale->getStr( 'nocompany.label' );
@@ -171,13 +171,13 @@ function action_newevent( $eventData )
     global $gLocale, $gPage_status;
 
     $locale_country = new LocaleCountry(
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getCountry()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry()
         );
 
     require_once('innowork/groupware/InnoworkEvent.php');
     $innowork_event = new InnoworkEvent(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
         );
 
     $start_date_array = $locale_country->getDateArrayFromShortDatestamp( $eventData['startdate'] );
@@ -204,7 +204,7 @@ function action_newevent( $eventData )
 
     if ( $innowork_event->Create(
         $eventData,
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
         ) )
     {
         $GLOBALS['innowork-calendar']['neweventid'] = $innowork_event->mItemId;
@@ -223,13 +223,13 @@ function action_editevent( $eventData )
     global $gLocale, $gPage_status;
 
     $locale_country = new LocaleCountry(
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getCountry()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry()
         );
 
     require_once('innowork/groupware/InnoworkEvent.php');
     $innowork_event = new InnoworkEvent(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
         $eventData['id']
         );
 
@@ -257,7 +257,7 @@ function action_editevent( $eventData )
 
     if ( $innowork_event->Edit(
         $eventData,
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
         ) ) $gPage_status = $gLocale->getStr( 'event_updated.status' );
     else $gPage_status = $gLocale->getStr( 'event_not_updated.status' );
 }
@@ -272,13 +272,13 @@ function action_removeevent( $eventData )
 
     require_once('innowork/groupware/InnoworkEvent.php');
     $innowork_event = new InnoworkEvent(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
         $eventData['id']
         );
 
     if ( $innowork_event->trash(
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
         ) ) $gPage_status = $gLocale->getStr( 'event_removed.status' );
     else $gPage_status = $gLocale->getStr( 'event_not_removed.status' );
 }
@@ -355,8 +355,8 @@ function main_default( $eventData )
 
     require_once('innowork/groupware/InnoworkEvent.php');
     $innowork_events = new InnoworkEvent(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
         );
     /**/
     $search_results_a = $innowork_events->Search(
@@ -386,7 +386,7 @@ function main_default( $eventData )
                         2, '0', STR_PAD_LEFT
                         )
                 ),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId(),
         false,
         false,
         0,
@@ -441,7 +441,7 @@ function main_default( $eventData )
                         2, '0', STR_PAD_LEFT
                         )
                 ),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId(),
         false,
         false,
         0,
@@ -486,7 +486,7 @@ function main_default( $eventData )
                         2, '0', STR_PAD_LEFT
                         )
                 ),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId(),
         false,
         false,
         0,
@@ -509,7 +509,7 @@ function main_default( $eventData )
         /*
     $search_results = $innowork_events->Search(
         '',
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId(),
         false,
         false,
         0,
@@ -519,7 +519,7 @@ function main_default( $eventData )
         */
 
     $events = array();
-    $locale_country = new LocaleCountry( InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getCountry() );
+    $locale_country = new LocaleCountry( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry() );
 	require_once('innowork/groupware/InnoworkEvent.php');
 	
     while ( list( $id, $fields ) = each( $search_results ) )
@@ -530,8 +530,8 @@ function main_default( $eventData )
         // Type
         /*
         $acl = new InnoworkAcl(
-            InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
             'event',
             $id
             );
@@ -561,7 +561,7 @@ function main_default( $eventData )
         array(
                 'frequency' => InnoworkEvent::FREQUENCY_DAILY
                 ),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId(),
         false,
         false,
         0,
@@ -574,7 +574,7 @@ function main_default( $eventData )
         array(
                 'frequency' => InnoworkEvent::FREQUENCY_WEEKLY
                 ),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId(),
         false,
         false,
         0,
@@ -586,7 +586,7 @@ function main_default( $eventData )
         array(
                 'frequency' => InnoworkEvent::FREQUENCY_MONTHLY
                 ),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId(),
         false,
         false,
         0,
@@ -598,7 +598,7 @@ function main_default( $eventData )
         array(
                 'frequency' => InnoworkEvent::FREQUENCY_YEARLY
                 ),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId(),
         false,
         false,
         0,
@@ -1180,12 +1180,12 @@ function main_showevent( $eventData )
 
     require_once('innowork/groupware/InnoworkEvent.php');
     $innowork_event = new InnoworkEvent(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
         $eventData['id']
         );
 
-    $ev_data = $innowork_event->getItem( InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId() );
+    $ev_data = $innowork_event->getItem( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId() );
     
     $freq_array = array();
     $freq_array[0]= $gLocale->getStr( 'nofrequency.label' );
@@ -1312,7 +1312,7 @@ function main_showevent( $eventData )
               <args>
                 <disp>action</disp>
                 <value type="array">'.WuiXml::encode(
-                    InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->getDateArrayFromTimestamp(
+                    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->getDateArrayFromTimestamp(
                         $ev_data['startdate'] ) ).'</value>
               </args>
             </date>
@@ -1327,7 +1327,7 @@ function main_showevent( $eventData )
                 <disp>action</disp>
                 <type>time</type>
                 <value type="array">'.WuiXml::encode(
-                    InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->getDateArrayFromTimestamp(
+                    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->getDateArrayFromTimestamp(
                         $ev_data['startdate'] ) ).'</value>
               </args>
             </date>
@@ -1341,7 +1341,7 @@ function main_showevent( $eventData )
               <args>
                 <disp>action</disp>
                 <value type="array">'.WuiXml::encode(
-                    InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->getDateArrayFromTimestamp(
+                    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->getDateArrayFromTimestamp(
                         $ev_data['enddate'] ) ).'</value>
               </args>
             </date>
@@ -1356,7 +1356,7 @@ function main_showevent( $eventData )
                 <disp>action</disp>
                 <type>time</type>
                 <value type="array">'.WuiXml::encode(
-                    InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->getDateArrayFromTimestamp(
+                    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->getDateArrayFromTimestamp(
                         $ev_data['enddate'] ) ).'</value>
               </args>
             </date>

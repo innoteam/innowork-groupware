@@ -16,13 +16,13 @@ require_once('innomatic/locale/LocaleCatalog.php'); require_once('innomatic/loca
 
 require_once('innowork/core/InnoworkCore.php');
 $gInnowork_core = InnoworkCore::instance('innoworkcore', 
-    InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-    InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
     );
 
 $gLocale = new LocaleCatalog(
     'innowork-groupware::intramail_prefs',
-    InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getLanguage()
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getLanguage()
     );
 
 $gWui = Wui::instance('wui');
@@ -72,8 +72,8 @@ function action_setsmtp(
    require_once('innomatic/domain/user/UserSettings.php');
 
     $sets = new UserSettings(
-    	InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
-    	InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId());
+    	\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
+    	\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId());
     $sets->setKey( 'innoworkgroupware-mailsmtpserver', $eventData['smtpserver'] );
     $sets->setKey( 'innoworkgroupware-mailsmtpport', $eventData['smtpport'] );
 
@@ -174,8 +174,8 @@ function main_default( $eventData )
 
     require_once('innomatic/domain/user/UserSettings.php');
     $sets = new UserSettings(
-    	InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
-    	InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId());
+    	\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
+    	\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId());
     $smtp_server = $sets->getKey( 'innoworkgroupware-mailsmtpserver');
     $smtp_port = $sets->getKey( 'innoworkgroupware-mailsmtpport');
 
@@ -319,10 +319,10 @@ function main_default( $eventData )
               </args>
               <children>';
 
-    $accounts_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+    $accounts_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
         'SELECT * '.
         'FROM innowork_email_accounts '.
-        'WHERE ownerid='.InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId().' '.
+        'WHERE ownerid='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId().' '.
         'ORDER BY accountname'
         );
 

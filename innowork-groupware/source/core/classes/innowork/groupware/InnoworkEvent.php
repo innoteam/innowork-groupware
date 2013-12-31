@@ -5,7 +5,7 @@ require_once('innomatic/dataaccess/DataAccess.php');
 require_once('innomatic/logging/Logger.php');
 
 require_once('innowork/core/InnoworkCore.php');
-$core = InnoworkCore::instance('innoworkcore', InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess());
+$core = InnoworkCore::instance('innoworkcore', \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess());
 $summ = $core->GetSummaries();
 
 if (isset($summ['directorycompany'])) {
@@ -83,7 +83,7 @@ class InnoworkEvent extends InnoworkItem {
 			$key_pre = $value_pre = $keys = $values = '';
 
 			require_once('innomatic/locale/LocaleCountry.php');
-			$country = new LocaleCountry(InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getCountry());
+			$country = new LocaleCountry(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry());
 
 			$params['trashed'] = $this->mrDomainDA->fmtfalse;
 
@@ -155,7 +155,7 @@ class InnoworkEvent extends InnoworkItem {
 				$update_str = '';
 
 				require_once('innomatic/locale/LocaleCountry.php');
-				$country = new LocaleCountry(InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getCountry());
+				$country = new LocaleCountry(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry());
 
 				while (list ($field, $value) = each($params)) {
 					if ($field != 'id') {
@@ -240,10 +240,10 @@ class InnoworkEvent extends InnoworkItem {
 
 		$events = array();
 
-		$search_result = $this->Search(array('startdate' => date('Y').'-'.date('m')), InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId());
+		$search_result = $this->Search(array('startdate' => date('Y').'-'.date('m')), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId());
 
 		require_once('innomatic/locale/LocaleCountry.php');
-		$country = new LocaleCountry(InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getCountry());
+		$country = new LocaleCountry(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry());
 
 		if (is_array($search_result)) {
 			$definition = '';
@@ -256,7 +256,7 @@ class InnoworkEvent extends InnoworkItem {
 				$event_start_array = $country->getDateArrayFromSafeTimestamp($fields['startdate']);
 				$event_end_array = $country->getDateArrayFromSafeTimestamp($fields['enddate']);
 
-				$events[$event_start_array['year']][$event_start_array['mon']][$event_start_array['mday']][$fields['id']] = array('sh' => $event_start_array['hours'], 'sm' => $event_start_array['minutes'], 'eh' => $event_end_array['hours'], 'em' => $event_end_array['minutes'], 'event' => $fields['description'], 'type' => $fields['ownerid'] == InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId() ? 'private' : 'public');
+				$events[$event_start_array['year']][$event_start_array['mon']][$event_start_array['mday']][$fields['id']] = array('sh' => $event_start_array['hours'], 'sm' => $event_start_array['minutes'], 'eh' => $event_end_array['hours'], 'em' => $event_end_array['minutes'], 'event' => $fields['description'], 'type' => $fields['ownerid'] == \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId() ? 'private' : 'public');
 
 				if ($event_start_array['year'] <= $today_array['year'] and $event_end_array['year'] >= $today_array['year'] and $event_start_array['mon'] <= $today_array['mon'] and $event_end_array['mon'] >= $today_array['mon'] and $event_start_array['mday'] <= $today_array['mday'] and $event_end_array['mday'] >= $today_array['mday']) {
 					if (strlen($fields['description']) > 25)

@@ -3,7 +3,7 @@
 require_once('innowork/core/InnoworkItem.php');
 
 require_once('innomatic/application/ApplicationDependencies.php');
-$app_dep = new ApplicationDependencies(InnomaticContainer::instance('innomaticcontainer')->getDataAccess());
+$app_dep = new ApplicationDependencies(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess());
 
 /*!
  @class InnoworkActivity
@@ -71,7 +71,7 @@ class InnoworkActivity extends InnoworkItem {
 			$key_pre = $value_pre = $keys = $values = '';
 
 			require_once('innomatic/locale/LocaleCountry.php');
-			$country = new LocaleCountry(InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getCountry());
+			$country = new LocaleCountry(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry());
 
 			while (list ($key, $val) = each($params)) {
 				$key_pre = ',';
@@ -126,7 +126,7 @@ class InnoworkActivity extends InnoworkItem {
 				$update_str = '';
 
 				require_once('innomatic/locale/LocaleCountry.php');
-				$country = new LocaleCountry(InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getCountry());
+				$country = new LocaleCountry(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry());
 
 				if (isset($params['done'])) {
 					if ($params['done'] == 'true')
@@ -208,7 +208,7 @@ class InnoworkActivity extends InnoworkItem {
 	function doGetSummary() {
 		$result = false;
 
-		$search_result = $this->Search(array('done' => InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->fmtfalse,), InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId(), false, false, 0, 0, InnoworkItem::SEARCH_RESTRICT_TO_RESPONSIBLE);
+		$search_result = $this->Search(array('done' => \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->fmtfalse,), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId(), false, false, 0, 0, InnoworkItem::SEARCH_RESTRICT_TO_RESPONSIBLE);
 
 		if (is_array($search_result)) {
 			$definition = '';

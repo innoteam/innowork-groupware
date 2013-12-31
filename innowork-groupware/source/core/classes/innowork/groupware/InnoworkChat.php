@@ -25,7 +25,7 @@ class InnoworkChat extends InnoworkItem {
     {
         $result = array();
 
-        $chan_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+        $chan_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
             'SELECT channel '.
             'FROM innowork_chat_logins '.
             'GROUP BY channel'
@@ -45,10 +45,10 @@ class InnoworkChat extends InnoworkItem {
     {
         $result = array();
 
-        $chan_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+        $chan_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
             'SELECT channel '.
             'FROM innowork_chat_logins '.
-            'WHERE user='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserName() )
+            'WHERE user='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserName() )
             );
 
         while ( !$chan_query->eof )
@@ -65,29 +65,29 @@ class InnoworkChat extends InnoworkItem {
         $channel
         )
     {
-        $check_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+        $check_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
             'SELECT * '.
             'FROM innowork_chat_logins '.
-            'WHERE user='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText(
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserName()
+            'WHERE user='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText(
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserName()
                 ).' '.
-            'AND channel='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText(
+            'AND channel='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText(
                 $channel
                 )
             );
 
         if ( !$check_query->getNumberRows() )
         {
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
                 'INSERT INTO innowork_chat_logins '.
-                'VALUES ('.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserName() ).','.
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $channel ).')'
+                'VALUES ('.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserName() ).','.
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $channel ).')'
                 );
 
             require_once('innomatic/locale/LocaleCatalog.php');
             $locale = new LocaleCatalog(
                  'innowork-groupware::chat_main',
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getLanguage()
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getLanguage()
                 );
 
             $this->SendMessage(
@@ -103,22 +103,22 @@ class InnoworkChat extends InnoworkItem {
         $channel
         )
     {
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
             'DELETE FROM innowork_chat_logins '.
-            'WHERE user='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText(
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserName()
+            'WHERE user='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText(
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserName()
                 ).' '.
-            'AND channel='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText(
+            'AND channel='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText(
                 $channel
                 )
             );
 
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
             'DELETE FROM innowork_chat_messages '.
-            'WHERE touser='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText(
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserName()
+            'WHERE touser='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText(
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserName()
                 ).' '.
-            'AND channel='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText(
+            'AND channel='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText(
                 $channel
                 )
             );
@@ -126,7 +126,7 @@ class InnoworkChat extends InnoworkItem {
             require_once('innomatic/locale/LocaleCatalog.php');
             $locale = new LocaleCatalog(
                  'innowork-groupware::chat_main',
-                 InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getLanguage()
+                 \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getLanguage()
                  );
 
             $this->SendMessage(
@@ -143,13 +143,13 @@ class InnoworkChat extends InnoworkItem {
     {
         $result = array();
 
-        $messages_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+        $messages_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
             'SELECT * '.
             'FROM innowork_chat_messages '.
-            'WHERE touser='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText(
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserName()
+            'WHERE touser='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText(
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserName()
                 ).' '.
-            'AND channel='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText(
+            'AND channel='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText(
                 $channel
                 ).' '.
             'ORDER BY msgdate'
@@ -175,10 +175,10 @@ class InnoworkChat extends InnoworkItem {
     {
         $result = array();
 
-        $users_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+        $users_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
             'SELECT user '.
             'FROM innowork_chat_logins '.
-            'WHERE channel='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $channel )
+            'WHERE channel='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $channel )
             );
 
         while ( !$users_query->eof )
@@ -200,21 +200,21 @@ class InnoworkChat extends InnoworkItem {
         $users = $this->getChannelUsers( $channel );
 
 		require_once('innomatic/locale/LocaleCountry.php');
-        $locale_country = new LocaleCountry( InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getCountry() );
+        $locale_country = new LocaleCountry( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry() );
 
         $time_array = $locale_country->getDateArrayFromUnixTimestamp( time() );
 
         foreach ( $users as $user )
         {
-            $id = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->getNextSequenceValue( 'innowork_chat_messages_id_seq' );
+            $id = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->getNextSequenceValue( 'innowork_chat_messages_id_seq' );
             
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
                 'INSERT INTO innowork_chat_messages VALUES('.
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserName() ).','.
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $channel ).','.
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $user ).','.
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $message ).','.
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->getTimestampFromDateArray( $time_array ) ).','.
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserName() ).','.
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $channel ).','.
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $user ).','.
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $message ).','.
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->getTimestampFromDateArray( $time_array ) ).','.
                 $id.
                 ')'
                 );
@@ -233,11 +233,11 @@ class InnoworkChat extends InnoworkItem {
         $user
         )
     {
-        $count_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+        $count_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
             'SELECT id '.
             'FROM innowork_chat_messages '.
-            'WHERE touser='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $user ).' '.
-            'AND channel='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $channel ).' '.
+            'WHERE touser='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $user ).' '.
+            'AND channel='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $channel ).' '.
             'ORDER BY id'
             );
 
@@ -253,7 +253,7 @@ class InnoworkChat extends InnoworkItem {
                 !$count_query->eof 
                 )
             {
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
                     'DELETE FROM innowork_chat_messages '.
                     'WHERE id='.$count_query->getFields( 'id' )
                     );
@@ -272,7 +272,7 @@ class InnoworkChat extends InnoworkItem {
 
         $locale = new LocaleCatalog(
             'innowork-groupware::chat_main',
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getLanguage()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getLanguage()
             );
 
         $chans = $this->getChannelsList();

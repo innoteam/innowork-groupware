@@ -294,11 +294,11 @@ function innoworkcalendarlinkopened()
 
         $locale = new LocaleCatalog(
             'innowork-groupware::calendar_widget',
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getLanguage()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getLanguage()
             );
 
         $locale_country = new LocaleCountry(
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getCountry()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry()
             );
 
         /*

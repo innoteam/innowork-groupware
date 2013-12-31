@@ -14,13 +14,13 @@ require_once('innomatic/locale/LocaleCountry.php');
 
 require_once('innowork/core/InnoworkCore.php');
 $innowork_core = InnoworkCore::instance('innoworkcore', 
-    InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-    InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
     );
 
 $gLocale = new LocaleCatalog(
     'innowork-groupware::notes_misc',
-    InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getLanguage()
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getLanguage()
     );
 
 $wui = Wui::instance('wui');
@@ -42,9 +42,9 @@ function action_savenote( $eventData )
 {
     global $gPage_status, $gLocale;
 
-    $innowork_note = new InnoworkNote( InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['id'] );
-    if ( isset($eventData['id'] ) and $eventData['id'] ) $result = $innowork_note->Edit( $eventData, InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId() );
-    else $result = $innowork_note->Create( $eventData, InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId() );
+    $innowork_note = new InnoworkNote( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(), $eventData['id'] );
+    if ( isset($eventData['id'] ) and $eventData['id'] ) $result = $innowork_note->Edit( $eventData, \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId() );
+    else $result = $innowork_note->Create( $eventData, \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId() );
 
     if ( $result ) $gPage_status = $gLocale->getStr( 'notesaved.status' );
     else $gPage_status = $gLocale->getStr( 'notenotsaved.status' );
@@ -55,8 +55,8 @@ function action_deletenote( $eventData )
 {
     global $gPage_status, $gLocale;
 
-    $innowork_note = new InnoworkNote( InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['id'] );
-    if ( isset($eventData['id'] ) and $eventData['id'] ) $result = $innowork_note->trash( InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId() );
+    $innowork_note = new InnoworkNote( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(), $eventData['id'] );
+    if ( isset($eventData['id'] ) and $eventData['id'] ) $result = $innowork_note->trash( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId() );
 
     if ( $result ) $gPage_Status = $gLocale->getStr( 'notedeleted.status' );
     else $gPage_status = $gLocale->getStr( 'notenotdeleted.status' );
@@ -74,12 +74,12 @@ function main_default( $eventData )
     global $gPage_content, $gLocale;
 
     $notes = new InnoworkNote(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
         );
     $search_result = $notes->Search(
         '',
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
         );
 
     $notes = array();
@@ -105,23 +105,23 @@ function main_editnote( $eventData )
 {
     global $gPage_content;
 
-    $notes_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+    $notes_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
         'SELECT * '.
         'FROM innowork_notes '.
         'WHERE id='.$eventData['id'] );
 
     require_once('innowork/core/InnoworkAcl.php');
     $tmp_acl = new InnoworkAcl(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
         InnoworkNote::ITEM_TYPE,
         $eventData['id']
         );
     if (
-        $notes_query->getFields( 'ownerid' ) == InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+        $notes_query->getFields( 'ownerid' ) == \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
         or $tmp_acl->checkPermission(
             '',
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
             ) >= InnoworkAcl::PERMS_SEARCH
         )
     {

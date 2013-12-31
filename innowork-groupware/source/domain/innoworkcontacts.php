@@ -20,9 +20,9 @@ require_once('innomatic/locale/LocaleCatalog.php'); require_once('innomatic/loca
         global $gMain_disp;
     
 require_once('innowork/core/InnoworkCore.php');
-$gInnowork_core = InnoworkCore::instance('innoworkcore', InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess());
-$gLocale = new LocaleCatalog('innowork-groupware::directory_main', InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getLanguage());
-$users_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->execute('SELECT username,lname,fname FROM domain_users WHERE username<>'.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText(User::getAdminUsername(InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDomainId())).' ORDER BY lname,fname');
+$gInnowork_core = InnoworkCore::instance('innoworkcore', \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess());
+$gLocale = new LocaleCatalog('innowork-groupware::directory_main', \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getLanguage());
+$users_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->execute('SELECT username,lname,fname FROM domain_users WHERE username<>'.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText(User::getAdminUsername(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDomainId())).' ORDER BY lname,fname');
 $gUsers[''] = $gLocale->getStr('no_account_manager.label');
 
 while (!$users_query->eof) {
@@ -63,9 +63,9 @@ $gAction_disp->addEvent('newcontact', 'action_newcontact');
 function action_newcontact($eventData) {
     global $gLocale, $gPage_status;
 
-    $innowork_contact = new InnoworkContact(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess());
+    $innowork_contact = new InnoworkContact(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess());
 
-    if ($innowork_contact->Create($eventData, InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId())) {
+    if ($innowork_contact->Create($eventData, \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId())) {
         $GLOBALS['innowork-groupware']['newcontactid'] = $innowork_contact->mItemId;
 
         $gPage_status = $gLocale->getStr('contact_added.status');
@@ -78,9 +78,9 @@ $gAction_disp->addEvent('editcontact', 'action_editcontact');
 function action_editcontact($eventData) {
     global $gLocale, $gPage_status;
 
-    $innowork_contact = new InnoworkContact(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['id']);
+    $innowork_contact = new InnoworkContact(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(), $eventData['id']);
 
-    if ($innowork_contact->Edit($eventData, InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()))
+    if ($innowork_contact->Edit($eventData, \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()))
         $gPage_status = $gLocale->getStr('contact_updated.status');
     else
         $gPage_status = $gLocale->getStr('contact_not_updated.status');
@@ -90,9 +90,9 @@ $gAction_disp->addEvent('removecontact', 'action_removecontact');
 function action_removecontact($eventData) {
     global $gLocale, $gPage_status;
 
-    $innowork_contact = new InnoworkContact(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['id']);
+    $innowork_contact = new InnoworkContact(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(), $eventData['id']);
 
-    if ($innowork_contact->trash(InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()))
+    if ($innowork_contact->trash(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()))
         $gPage_status = $gLocale->getStr('contact_removed.status');
     else
         $gPage_status = $gLocale->getStr('contact_not_removed.status');
@@ -103,13 +103,13 @@ function action_newnote($eventData) {
     global $gPage_status, $gLocale;
 
     if ($eventData['itemtype'] == InnoworkCompany::NOTE_ITEM_TYPE) {
-        $item = new InnoworkCompany(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['itemid']);
+        $item = new InnoworkCompany(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(), $eventData['itemid']);
     }
     else {
-        $item = new InnoworkContact(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['itemid']);
+        $item = new InnoworkContact(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(), $eventData['itemid']);
     }
 
-    if ($item->AddNote(InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserName(), $eventData['content'])) {
+    if ($item->AddNote(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserName(), $eventData['content'])) {
         $gPage_status = $gLocale->getStr('note_created.status');
     }
     else
@@ -121,10 +121,10 @@ function action_removenote($eventData) {
     global $gPage_status, $gLocale;
 
     if ($eventData['itemtype'] == InnoworkCompany::NOTE_ITEM_TYPE) {
-        $item = new InnoworkCompany(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['itemid']);
+        $item = new InnoworkCompany(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(), $eventData['itemid']);
     }
     else {
-        $item = new InnoworkContact(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['itemid']);
+        $item = new InnoworkContact(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(), $eventData['itemid']);
     }
 
     if ($item->RemoveNote($eventData['noteid']))
@@ -152,8 +152,8 @@ function main_default($eventData) {
     $headers[0]['label'] = $gLocale->getStr('lastname.header');
     $headers[1]['label'] = $gLocale->getStr('firstname.header');
 
-    $contacts = new InnoworkContact(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess());
-    $search_results = $contacts->Search('', InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId());
+    $contacts = new InnoworkContact(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess());
+    $search_results = $contacts->Search('', \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId());
 
     if (isset($eventData['viewmode'])) {
         $viewmode_sk = new WuiSessionKey('viewmode_pers', array('value' => $eventData['viewmode']));
@@ -269,8 +269,8 @@ $gMain_disp->addEvent('newcontact', 'main_newcontact');
 function main_newcontact($eventData) {
     global $gXml_def, $gLocale, $gPage_title, $gUsers;
 
-    $innowork_companies = new InnoworkCompany(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess());
-    $search_results = $innowork_companies->Search('', InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId());
+    $innowork_companies = new InnoworkCompany(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess());
+    $search_results = $innowork_companies->Search('', \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId());
 
     $companies['0'] = $gLocale->getStr('nocompany.label');
 
@@ -664,9 +664,9 @@ function main_showcontact($eventData) {
         $eventData['id'] = $GLOBALS['innowork-groupware']['newcontactid'];
     }
 
-    $innowork_contact = new InnoworkContact(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['id']);
+    $innowork_contact = new InnoworkContact(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(), $eventData['id']);
 
-    $ps_data = $innowork_contact->GetItem(InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId());
+    $ps_data = $innowork_contact->GetItem(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId());
 
     switch (strtolower(substr($ps_data['lastname'], 0, 1))) {
         case 'a' :
@@ -726,8 +726,8 @@ function main_showcontact($eventData) {
     $tabs[0]['label'] = $gLocale->getStr('extras_other.tab');
     $tabs[1]['label'] = $gLocale->getStr('extras_note.tab');
 
-    $innowork_companies = new InnoworkCompany(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess());
-    $search_results = $innowork_companies->Search('', InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId());
+    $innowork_companies = new InnoworkCompany(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess());
+    $search_results = $innowork_companies->Search('', \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId());
 
     $companies['0'] = $gLocale->getStr('nocompany.label');
 
@@ -1224,10 +1224,10 @@ function main_itemnotes($eventData) {
     global $gXml_def, $gLocale;
 
     if ($eventData['itemtype'] == InnoworkCompany::NOTE_ITEM_TYPE) {
-        $item = new InnoworkCompany(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['itemid']);
+        $item = new InnoworkCompany(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(), $eventData['itemid']);
     }
     else {
-        $item = new InnoworkContact(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['itemid']);
+        $item = new InnoworkContact(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(), $eventData['itemid']);
     }
 
     $notes = $item->GetNotes();
@@ -1249,7 +1249,7 @@ function main_itemnotes($eventData) {
 
     $row = 0;
 
-    $country = new LocaleCountry(InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getCountry());
+    $country = new LocaleCountry(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry());
 
     foreach ($notes as $note) {
         $gXml_def.= '<vertgroup row="'.$row.'" col="0" halign="" valign="top">
@@ -1312,7 +1312,7 @@ function main_itemnotes($eventData) {
     $wui->Build(new WuiDispatcher('wui'));
     echo $wui->render();
 
-    InnomaticContainer::instance('innomaticcontainer')->halt();
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->halt();
 }
 
 $gMain_disp->addEvent('addnote', 'main_addnote');
@@ -1320,10 +1320,10 @@ function main_addnote($eventData) {
     global $gXml_def, $gLocale;
 
     if ($eventData['itemtype'] == InnoworkCompany::NOTE_ITEM_TYPE) {
-        $item = new InnoworkCompany(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['itemid']);
+        $item = new InnoworkCompany(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(), $eventData['itemid']);
     }
     else {
-        $item = new InnoworkContact(InnomaticContainer::instance('innomaticcontainer')->getDataAccess(), InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(), $eventData['itemid']);
+        $item = new InnoworkContact(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(), $eventData['itemid']);
     }
 
     $headers[0]['label'] = $gLocale->getStr('note.header');
@@ -1382,7 +1382,7 @@ function main_addnote($eventData) {
     $wui->Build();
     echo $wui->render();
 
-    InnomaticContainer::instance('innomaticcontainer')->halt();
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->halt();
 }
 
 $gMain_disp->Dispatch();

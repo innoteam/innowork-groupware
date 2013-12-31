@@ -17,13 +17,13 @@ require_once('innomatic/locale/LocaleCatalog.php'); require_once('innomatic/loca
 
 require_once('innowork/core/InnoworkCore.php');
 $gInnowork_core = InnoworkCore::instance('innoworkcore', 
-    InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-    InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
     );
 
 $gLocale = new LocaleCatalog(
     'innowork-groupware::projects_main',
-    InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getLanguage()
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getLanguage()
     );
 
 $gWui = Wui::instance('wui');
@@ -97,7 +97,7 @@ function action_addfield( $eventData )
     global $gPage_status, $gLocale;
 
     $field = new InnoworkProjectField(
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
         $eventData['fieldtype']
         );
 
@@ -114,7 +114,7 @@ function action_editfield( $eventData )
     global $gPage_status, $gLocale;
 
     $field = new InnoworkProjectField(
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
         '',
         $eventData['id']
         );
@@ -135,7 +135,7 @@ function action_removefield( $eventData )
     global $gPage_status, $gLocale;
 
     $field = new InnoworkProjectField(
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
         $eventData['fieldtype'],
         $eventData['id']
         );
@@ -636,7 +636,7 @@ function main_editfield( $eventData )
     $field_types[INNOWORKPROJECTS_FIELDTYPE_CHANNEL] = $gLocale->getStr( 'field_channel.label' );
 
     $field = new InnoworkProjectField(
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
         '',
         $eventData['id']
         );

@@ -168,12 +168,12 @@ class InnoworkContact extends InnoworkItem {
 			$timestamp = $this->mrDomainDA->GetTimestampFromDateArray($date);
 
 			if (strlen($username)) {
-				$result = $this->mrDomainDA->execute('INSERT INTO innowork_directory_notes VALUES('.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->getNextSequenceValue('innowork_directory_notes_id_seq').','.$this->mItemId.','.InnoworkContact::NOTE_ITEM_TYPE.','.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText($username).','.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText($content).','.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText($timestamp).')');
+				$result = $this->mrDomainDA->execute('INSERT INTO innowork_directory_notes VALUES('.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->getNextSequenceValue('innowork_directory_notes_id_seq').','.$this->mItemId.','.InnoworkContact::NOTE_ITEM_TYPE.','.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText($username).','.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText($content).','.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText($timestamp).')');
 
 				if ($result) {
 					$log = new InnoworkItemLog($this->mItemType, $this->mItemId);
 
-					$log->LogChange(InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserName());
+					$log->LogChange(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserName());
 				}
 			}
 		}
@@ -191,7 +191,7 @@ class InnoworkContact extends InnoworkItem {
 			if ($result) {
 				$log = new InnoworkItemLog($this->mItemType, $this->mItemId);
 
-				$log->LogChange(InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserName());
+				$log->LogChange(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserName());
 			}
 		}
 
@@ -202,10 +202,10 @@ class InnoworkContact extends InnoworkItem {
 		$result = array();
 
 		if ($this->mItemId) {
-			$notes_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->execute('SELECT id,username,content,creationdate '.'FROM innowork_directory_notes '.'WHERE itemid='.$this->mItemId.' '.'AND itemtype='.InnoworkContact::NOTE_ITEM_TYPE.' '.'ORDER BY creationdate');
+			$notes_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->execute('SELECT id,username,content,creationdate '.'FROM innowork_directory_notes '.'WHERE itemid='.$this->mItemId.' '.'AND itemtype='.InnoworkContact::NOTE_ITEM_TYPE.' '.'ORDER BY creationdate');
 
 			while (!$notes_query->eof) {
-				$result[] = array('id' => $notes_query->getFields('id'), 'username' => $notes_query->getFields('username'), 'content' => $notes_query->getFields('content'), 'creationdate' => InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->GetDateArrayFromTimestamp($notes_query->getFields('creationdate')));
+				$result[] = array('id' => $notes_query->getFields('id'), 'username' => $notes_query->getFields('username'), 'content' => $notes_query->getFields('content'), 'creationdate' => \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->GetDateArrayFromTimestamp($notes_query->getFields('creationdate')));
 
 				$notes_query->MoveNext();
 			}

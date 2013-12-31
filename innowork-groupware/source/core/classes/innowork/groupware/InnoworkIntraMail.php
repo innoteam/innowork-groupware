@@ -8,7 +8,7 @@ define( 'INNOWORKINTRAMAIL_FOLDERTYPE_OUTBOX', '2' );
 define( 'INNOWORKINTRAMAIL_FOLDERTYPE_TRASH',  '3' );
 define( 'INNOWORKINTRAMAIL_FOLDERTYPE_USER',   '4' );
 
-define( 'SM_PATH', InnomaticContainer::instance('innomaticcontainer')->getHome().'core/applications/squirrelmaillib/squirrelmail/' );
+define( 'SM_PATH', \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getHome().'core/applications/squirrelmaillib/squirrelmail/' );
 
 class InnoworkIntraMail extends InnoworkItem {
     var $mTable = 'innowork_email_messages';
@@ -80,7 +80,7 @@ class InnoworkIntraMail extends InnoworkItem {
             $key_pre = $value_pre = $keys = $values = '';
 
             if ( !isset($params['foldertype'] ) ) $params['foldertype'] = INNOWORKINTRAMAIL_FOLDERTYPE_OUTBOX;
-            if ( !isset($params['mailread'] ) ) $params['mailread'] = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->fmtfalse;
+            if ( !isset($params['mailread'] ) ) $params['mailread'] = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->fmtfalse;
 
             if (
                 !isset($params['subject'] )
@@ -90,7 +90,7 @@ class InnoworkIntraMail extends InnoworkItem {
                 require_once('innomatic/locale/LocaleCountry.php'); 
                 $locale = new LocaleCatalog(
                     'innowork-groupware::intramail_misc',
-                	InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getLanguage()
+                	\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getLanguage()
                     );
 
                 $params['subject'] = $locale->getStr( 'no_subject.label' );
@@ -174,7 +174,7 @@ class InnoworkIntraMail extends InnoworkItem {
                     require_once('innomatic/locale/LocaleCatalog.php');
                     $locale = new LocaleCatalog(
                         'innowork-groupware::intramail_misc',
-                    	InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getLanguage()
+                    	\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getLanguage()
                         );
 
                     $params['subject'] = $locale->getStr( 'no_subject.label' );
@@ -252,12 +252,12 @@ class InnoworkIntraMail extends InnoworkItem {
     {
         $result = false;
 
-        $mailbox_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+        $mailbox_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
             'SELECT id,subject '.
             'FROM innowork_email_messages '.
-            'WHERE ownerid='.InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId().' '.
+            'WHERE ownerid='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId().' '.
             'AND foldertype='.INNOWORKINTRAMAIL_FOLDERTYPE_INBOX.' '.
-            'AND mailread='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->fmtfalse ).' '.
+            'AND mailread='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->fmtfalse ).' '.
         	'ORDER BY date DESC '.
         	'LIMIT 5'
             );
@@ -332,7 +332,7 @@ class InnoworkIntraMail extends InnoworkItem {
 
             foreach ( $users as $userId )
             {
-                $user_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+                $user_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
                     'SELECT username,email '.
                     'FROM domain_users '.
                     'WHERE id='.$this->mOwnerId
@@ -340,17 +340,17 @@ class InnoworkIntraMail extends InnoworkItem {
 
                 $from_user = $user_query->getFields( 'username' );
 
-                $to_user_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+                $to_user_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
                     'SELECT id '.
                     'FROM domain_users '.
-                    'WHERE username='.InnomaticContainer::instance('innomaticcontainer')->getDataAccess()->formatText( $userId )
+                    'WHERE username='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess()->formatText( $userId )
                     );
 
                 if ( $to_user_query->getNumberRows() )
                 {
                     $tmp_mail = new InnoworkIntraMail(
-                        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-                        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+                        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+                        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
                         );
 
                     $tmp_mail->Receive(
@@ -386,7 +386,7 @@ require_once('innomatic/domain/user/UserSettings.php');
     global $imapServerAddress, $imapPort, $sent_folder, $key;
     global $from_mail, $full_name;
 
-    $user_data = InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserData();
+    $user_data = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserData();
                     $send_to = $userId;
                     $send_to = 'alex.pagnoni@innoteam.it';
                     $subject = $mail_data['subject'];
@@ -401,8 +401,8 @@ require_once('innomatic/domain/user/UserSettings.php');
                         $user_data['lname'];
 
     $sets = new UserSettings(
-    	InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
-    	InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId());
+    	\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
+    	\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId());
     $smtpServerAddress = $sets->getKey( 'innoworkgroupware-mailsmtpserver');
     $smtpPort = $sets->getKey( 'innoworkgroupware-mailsmtpport');
 
@@ -476,10 +476,10 @@ print_r( $composeMessage );
         $headers = ''
         )
     {
-        $user_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->execute(
+        $user_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->execute(
             'SELECT id '.
             'FROM domain_users '.
-            'WHERE username='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $toUser )
+            'WHERE username='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $toUser )
             );
 
         $to_user = $user_query->getFields( 'id' );
@@ -535,18 +535,18 @@ print_r( $composeMessage );
 
     function EmptyTrashcan()
     {
-        $trash_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+        $trash_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
             'SELECT id '.
             'FROM innowork_email_messages '.
-            'WHERE ownerid='.InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId().' '.
+            'WHERE ownerid='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId().' '.
             'AND foldertype='.INNOWORKINTRAMAIL_FOLDERTYPE_TRASH
             );
 
         while ( !$trash_query->eof )
         {
             $tmp_mail = new InnoworkIntraMail(
-                InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
                 $trash_query->getFields( 'id' )
                 );
 
@@ -566,7 +566,7 @@ print_r( $composeMessage );
         {
             $result = $this->Edit(
             array(
-                'mailread' => InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->fmttrue
+                'mailread' => \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->fmttrue
                 )
             );
         }
@@ -578,10 +578,10 @@ print_r( $composeMessage );
     {
         $result = true;
 
-        $accounts = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+        $accounts = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
             'SELECT id '.
             'FROM innowork_email_accounts '.
-            'WHERE ownerid='.InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+            'WHERE ownerid='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
             );
 
         if ( $accounts->getNumberRows() )
@@ -609,8 +609,8 @@ print_r( $composeMessage );
             $data = $this->getItem();
 
             $innowork_directory = new InnoworkCompany(
-                InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
                 );
 
             $search = $innowork_directory->Search(
@@ -627,8 +627,8 @@ print_r( $composeMessage );
             else
             {
                 $innowork_directory = new InnoworkContact(
-                    InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-                    InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+                    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+                    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
                     );
 
                 $search = $innowork_directory->Search(
@@ -642,8 +642,8 @@ print_r( $composeMessage );
                     list( $id, $values ) = each( $search );
 
                     $person = new InnoworkContact(
-                        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-                        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+                        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+                        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
                         $id
                         );
 

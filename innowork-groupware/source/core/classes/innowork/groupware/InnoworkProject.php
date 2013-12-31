@@ -131,7 +131,7 @@ class InnoworkProject extends InnoworkItem {
 
             $key_pre = $value_pre = $keys = $values = '';
 
-            $country = new LocaleCountry( InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getCountry() );
+            $country = new LocaleCountry( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry() );
 
             while ( list( $key, $val ) = each( $params ) )
             {
@@ -206,7 +206,7 @@ class InnoworkProject extends InnoworkItem {
                 $update_str = '';
 
                 
-                $country = new LocaleCountry( InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getCountry() );
+                $country = new LocaleCountry( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry() );
 
                 if ( isset($params['done'] ) )
                 {
@@ -306,10 +306,10 @@ class InnoworkProject extends InnoworkItem {
 
         $search_result = $this->Search(
             array(
-                'responsible' => InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId(),
+                'responsible' => \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId(),
                 'done' => $this->mrDomainDA->fmtfalse
                 ),
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
             );
 
         if ( is_array( $search_result ) )

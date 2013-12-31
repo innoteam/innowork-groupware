@@ -15,13 +15,13 @@ require_once('innomatic/locale/LocaleCatalog.php'); require_once('innomatic/loca
 
 require_once('innowork/core/InnoworkCore.php');
 $gInnowork_core = InnoworkCore::instance('innoworkcore', 
-    InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-    InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
     );
 
 $gLocale = new LocaleCatalog(
     'innowork-groupware::intramail_main',
-    InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getLanguage()
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getLanguage()
     );
 
 $gWui = Wui::instance('wui');
@@ -101,11 +101,11 @@ function action_sendmail( $eventData )
 		require_once('innomatic/datatransfer/cache/CacheGarbageCollector.php');
     	
         $email = new CachedItem(
-            InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
             'innowork-intramail',
             'composing_email',
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->domaindata['id'],
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->domaindata['id'],
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
             );
 
         $email->Store( serialize( $eventData ) );
@@ -113,11 +113,11 @@ function action_sendmail( $eventData )
     else
     {
         $innowork_mail = new InnoworkIntraMail(
-            InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
             );
 
-        $country = new LocaleCountry( InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getCountry() );
+        $country = new LocaleCountry( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getCountry() );
         $date_array = array(
             'year' => date( 'Y' ),
             'mon' => date( 'm' ),
@@ -127,14 +127,14 @@ function action_sendmail( $eventData )
             'seconds' => date( 's' )
             );
 
-        $params['fromuser'] = InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserName();
+        $params['fromuser'] = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserName();
         $params['date'] = $date_array;
         $params['subject'] = $eventData['subject'];
         $params['content'] = $eventData['content'];
 
         if ( $innowork_mail->Create(
             $params,
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
             ) )
         {
             $toUsers = '';
@@ -154,11 +154,11 @@ function action_sendmail( $eventData )
 		require_once('innomatic/datatransfer/cache/CacheGarbageCollector.php');
                     
         $email = new CachedItem(
-            InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
             'innowork-intramail',
             'composing_email',
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->domaindata['id'],
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->domaindata['id'],
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
             );
         $email->Destroy();
 
@@ -180,11 +180,11 @@ function action_destroy_composingemail(
 		require_once('innomatic/datatransfer/cache/CacheGarbageCollector.php');
 	
         $email = new CachedItem(
-            InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
             'innowork-intramail',
             'composing_email',
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->domaindata['id'],
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->domaindata['id'],
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
             );
 
         $email->Destroy();    
@@ -199,8 +199,8 @@ function action_savemail( $eventData )
     global $gLocale, $gPage_status;
 
     $innowork_mail = new InnoworkIntraMail(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
         $eventData['mailid']
         );
 
@@ -217,7 +217,7 @@ function action_savemail( $eventData )
     header( 'Pragma: no-cache' );
     print( $email );
 
-    InnomaticContainer::instance('innomaticcontainer')->halt();
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->halt();
 }
 
 $gAction_disp->addEvent(
@@ -229,8 +229,8 @@ function action_trashmail( $eventData )
     global $gLocale, $gPage_status;
 
     $innowork_mail = new InnoworkIntraMail(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
         $eventData['mailid']
         );
 
@@ -248,8 +248,8 @@ function action_restoremail( $eventData )
     global $gLocale, $gPage_status;
 
     $innowork_mail = new InnoworkIntraMail(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
         $eventData['mailid']
         );
 
@@ -267,8 +267,8 @@ function action_emptytrashcan( $eventData )
     global $gLocale, $gPage_status;
 
     $innowork_mail = new InnoworkIntraMail(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
         $eventData['mailid']
         );
 
@@ -294,8 +294,8 @@ function action_trashmessages( $eventData )
             )
         {
             $innowork_mail = new InnoworkIntraMail(
-                InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
                 substr( $id, 6 )
                 );
 
@@ -315,8 +315,8 @@ function action_fetchmail( $eventData )
     global $gLocale, $gPage_status;
 
     $innowork_mail = new InnoworkIntraMail(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
         );
 
     $innowork_mail->FetchExternalMail();
@@ -335,8 +335,8 @@ function action_getattachment(
     global $gLocale, $gPage_status;
 
     $innowork_mail = new InnoworkIntraMail(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
         $eventData['mailid']
         );
     $mail_data = $innowork_mail->getItem();
@@ -376,7 +376,7 @@ function action_getattachment(
     header( 'Content-Disposition: inline; filename='.$structure->parts[$eventData['attachment']]->d_parameters['filename'] );
     header( 'Pragma: no-cache' );
     print( $body );
-    InnomaticContainer::instance('innomaticcontainer')->halt();
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->halt();
 }
 
 $gAction_disp->Dispatch();
@@ -406,13 +406,13 @@ function main_default( $eventData )
     if ( isset($eventData['mailid'] ) )
     {
         $innowork_mail = new InnoworkIntraMail(
-            InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
             $eventData['mailid']
             );
 
         $mail_data = $innowork_mail->getItem();
-        if ( $mail_data['mailread'] == InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->fmtfalse )
+        if ( $mail_data['mailread'] == \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->fmtfalse )
         {
             $innowork_mail->setRead();
         }
@@ -420,11 +420,11 @@ function main_default( $eventData )
 
     require_once('innomatic/domain/user/UserSettings.php');
     $sets = new UserSettings(
-    	InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
-    	InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId());
+    	\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
+    	\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId());
 
     $country = new LocaleCountry(
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getCountry()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry()
         );
 
     if ( isset($eventData['foldertype'] ) )
@@ -478,10 +478,10 @@ function main_default( $eventData )
 
     $folder_id = 0;
 
-    $mailbox_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+    $mailbox_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
         'SELECT * '.
         'FROM innowork_email_messages '.
-        'WHERE ownerid='.InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId().' '.
+        'WHERE ownerid='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId().' '.
         'AND foldertype='.$folder_type.(
             $folder_id ? ' AND folderid='.$folder_id : ' '
             ).
@@ -623,7 +623,7 @@ function main_default( $eventData )
 
         if ( $row == $mailbox_query->getNumberRows() - 1 )
         {
-            $mail_read = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->fmttrue;
+            $mail_read = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->fmttrue;
         }
 
             if ( $folder_type == INNOWORKINTRAMAIL_FOLDERTYPE_OUTBOX )
@@ -663,7 +663,7 @@ function main_default( $eventData )
 $gXml_def .=
 '<link row="'.$row.'" col="1">
   <args>
-    <bold>'.( $mail_read == InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->fmtfalse ? 'true' : 'false' ).'</bold>
+    <bold>'.( $mail_read == \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->fmtfalse ? 'true' : 'false' ).'</bold>
     <link type="encoded">'.urlencode(
                 WuiEventsCall::buildEventsCallString( '', array(
                     array(
@@ -683,7 +683,7 @@ $gXml_def .=
 </link>
 <label row="'.$row.'" col="2">
   <args>
-    <bold>'.( $mail_read == InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->fmtfalse ? 'true' : 'false' ).'</bold>
+    <bold>'.( $mail_read == \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->fmtfalse ? 'true' : 'false' ).'</bold>
     <label type="encoded">'.urlencode(
         strlen( $users ) > 30 ?
         substr( $users, 0, 27 ).'...' :
@@ -694,7 +694,7 @@ $gXml_def .=
 </label>
 <label row="'.$row.'" col="3">
   <args>
-    <bold>'.( $mail_read == InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->fmtfalse ? 'true' : 'false' ).'</bold>
+    <bold>'.( $mail_read == \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->fmtfalse ? 'true' : 'false' ).'</bold>
     <label type="encoded">'.urlencode(
         $country->FormatShortArrayDate( $date_array ).' '.
         $country->FormatArrayTime( $date_array )
@@ -765,13 +765,13 @@ $gXml_def .=
     if ( isset($eventData['mailid'] ) )
     {
         $innowork_mail = new InnoworkIntraMail(
-            InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
             $eventData['mailid']
             );
 
         $mail_data = $innowork_mail->getItem();
-        if ( $mail_data['mailread'] == InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->fmtfalse )
+        if ( $mail_data['mailread'] == \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->fmtfalse )
         {
             $innowork_mail->setRead();
         }
@@ -1095,20 +1095,20 @@ function main_newmail( $eventData )
 	require_once('innomatic/datatransfer/cache/CacheGarbageCollector.php');
     
         $cached_data = new CachedItem(
-            InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
             'innowork-intramail',
             'composing_email',
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->domaindata['id'],
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->domaindata['id'],
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
             );
 
 
     // Intranet users
 
-    $users_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+    $users_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
         'SELECT id,username '.
         'FROM domain_users '.
-        'WHERE username<>'.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText(User::getAdminUsername(InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDomainId())).' '.
+        'WHERE username<>'.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText(User::getAdminUsername(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDomainId())).' '.
         'ORDER BY username'
         );
 
@@ -1125,8 +1125,8 @@ function main_newmail( $eventData )
     // Companies
 
     $innowork_companies = new InnoworkCompany(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
         );
 
     $companies_search = $innowork_companies->Search( '' );
@@ -1145,8 +1145,8 @@ function main_newmail( $eventData )
     // Personal contacts
 
     $innowork_people = new InnoworkContact(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
         );
 
     $people_search = $innowork_people->Search( '' );
@@ -1167,8 +1167,8 @@ function main_newmail( $eventData )
     if ( isset($eventData['mailid'] ) )
     {
         $innowork_mail = new InnoworkIntraMail(
-            InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
             $eventData['mailid']
             );
 
@@ -1215,12 +1215,12 @@ function main_newmail( $eventData )
     // Projects list
 
     $innowork_projects = new InnoworkProject(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
         );
     $search_results = $innowork_projects->Search(
         '',
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
         );
 
     $projects['0'] = $gLocale->getStr( 'noproject.label' );
@@ -1234,7 +1234,7 @@ function main_newmail( $eventData )
     // Emission date
 
     $locale_country = new LocaleCountry(
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getCountry()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry()
         );
 
     $curr_date = $locale_country->getDateArrayFromSafeTimestamp(

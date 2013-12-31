@@ -15,13 +15,13 @@ require_once('innomatic/locale/LocaleCatalog.php'); require_once('innomatic/loca
 
 require_once('innowork/core/InnoworkCore.php');
 $gInnowork_core = InnoworkCore::instance('innoworkcore', 
-    InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-    InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
     );
 
 $gLocale = new LocaleCatalog(
     'innowork-groupware::chat_main',
-    InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getLanguage()
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getLanguage()
     );
 
 $gWui = Wui::instance('wui');
@@ -66,8 +66,8 @@ function action_join(
     if ( strlen( $eventData['channel'] ) )
     {
         $chat = new InnoworkChat(
-            InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
             );
 
         $chat->Login( $eventData['channel'] );
@@ -98,8 +98,8 @@ function action_exitchan(
     if ( strlen( $gChannel ) )
     {
         $chat = new InnoworkChat(
-            InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
             );
 
         $chat->Logout( $gChannel );
@@ -133,8 +133,8 @@ function action_sendmessage(
     global $gChannel;
 
     $chat = new InnoworkChat(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
         );
     $chat->SendMessage(
         $gChannel,
@@ -158,8 +158,8 @@ function main_default( $eventData )
     global $gLocale, $gPage_title, $gXml_def, $gPage_status, $gInnowork_core, $gChannel;
 
     $chat = new InnoworkChat(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
         );
 
     $channels_list = $chat->getChannelsList();
@@ -372,8 +372,8 @@ function main_default( $eventData )
     <children>';
 
     $chat = new InnoworkChat(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
         );
 
     $chans = $chat->getLoggedChannelsList();
@@ -531,8 +531,8 @@ function main_chat(
     if ( isset($gChannel ) )
     {
         $chat = new InnoworkChat(
-            InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
             );
 
         $messages = $chat->getChannelMessages(
@@ -560,14 +560,14 @@ function main_chat(
 '<label row="'.$row.'" col="0" halign="" valign="top">
   <args>
     <label type="encoded">'.urlencode( $user ).': </label>
-    <bold>'.( $message['fromuser'] == InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserName() ? 'true' : 'false' ).'</bold>
+    <bold>'.( $message['fromuser'] == \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserName() ? 'true' : 'false' ).'</bold>
     <compact>true</compact>
   </args>
 </label>
 <label row="'.$row.'" col="1" halign="" valign="top">
   <args>
     <label type="encoded">'.urlencode( $message['message'] ).'</label>
-    <bold>'.( $message['fromuser'] == InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserName() ? 'true' : 'false' ).'</bold>
+    <bold>'.( $message['fromuser'] == \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserName() ? 'true' : 'false' ).'</bold>
     <compact>true</compact>
   </args>
 </label>';

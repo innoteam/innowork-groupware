@@ -21,7 +21,7 @@ class InnoworkIntraMailPopAccount
 
         if ( $accountId )
         {
-            $query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+            $query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
                 'SELECT * '.
                 'FROM innowork_email_accounts '.
                 'WHERE id='.$accountId
@@ -36,7 +36,7 @@ class InnoworkIntraMailPopAccount
                 $this->mPort = $query->getFields( 'port' );
                 $this->mUsername = $query->getFields( 'username' );
                 $this->mPassword = $query->getFields( 'password' );
-                $this->mDeleteMessages = $query->getFields( 'deletemessages' ) == InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->fmttrue ? true : false;
+                $this->mDeleteMessages = $query->getFields( 'deletemessages' ) == \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->fmttrue ? true : false;
             }
         }
     }
@@ -54,18 +54,18 @@ class InnoworkIntraMailPopAccount
         $port = (int)$port;
         if ( !strlen( $port ) ) $port = 110;
 
-        $id = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->getNextSequenceValue( 'innowork_email_accounts_id_seq' );
+        $id = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->getNextSequenceValue( 'innowork_email_accounts_id_seq' );
 
-        if ( InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+        if ( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
                 'INSERT INTO innowork_email_accounts VALUES ('.
                 $id.','.
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId().','.
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $name ).','.
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $username ).','.
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $password ).','.
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $hostname ).','.
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId().','.
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $name ).','.
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $username ).','.
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $password ).','.
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $hostname ).','.
                 $port.','.
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->fmttrue ).
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->fmttrue ).
                 ')'
             ) )
         {
@@ -88,7 +88,7 @@ class InnoworkIntraMailPopAccount
 
         if ( $this->mId )
         {
-            if ( InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+            if ( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
                     'DELETE FROM innowork_email_accounts '.
                     'WHERE id='.$this->mId
                     ) )
@@ -115,9 +115,9 @@ class InnoworkIntraMailPopAccount
 
         if ( $this->mId and strlen( $name ) )
         {
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
                 'UPDATE innowork_email_accounts '.
-                'SET accountname='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $name ).' '.
+                'SET accountname='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $name ).' '.
                 'WHERE id='.$this->mId
                 );
 
@@ -141,9 +141,9 @@ class InnoworkIntraMailPopAccount
 
         if ( $this->mId and strlen( $name ) )
         {
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
                 'UPDATE innowork_email_accounts '.
-                'SET hostname='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $name ).' '.
+                'SET hostname='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $name ).' '.
                 'WHERE id='.$this->mId
                 );
 
@@ -169,7 +169,7 @@ class InnoworkIntraMailPopAccount
 
         if ( $this->mId and strlen( $port ) )
         {
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
                 'UPDATE innowork_email_accounts '.
                 'SET port='.$port.' '.
                 'WHERE id='.$this->mId
@@ -195,9 +195,9 @@ class InnoworkIntraMailPopAccount
 
         if ( $this->mId and strlen( $name ) )
         {
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
                 'UPDATE innowork_email_accounts '.
-                'SET username='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $name ).' '.
+                'SET username='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $name ).' '.
                 'WHERE id='.$this->mId
                 );
 
@@ -221,9 +221,9 @@ class InnoworkIntraMailPopAccount
 
         if ( $this->mId and strlen( $password ) )
         {
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
                 'UPDATE innowork_email_accounts '.
-                'SET password='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $password ).' '.
+                'SET password='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $password ).' '.
                 'WHERE id='.$this->mId
                 );
 
@@ -247,12 +247,12 @@ class InnoworkIntraMailPopAccount
 
         if ( $this->mId )
         {
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
                 'UPDATE innowork_email_accounts '.
-                'SET deletemessages='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText(
+                'SET deletemessages='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText(
                     $delete ?
-                    InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->fmttrue :
-                    InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->fmtfalse
+                    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->fmttrue :
+                    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->fmtfalse
                     ).' '.
                 'WHERE id='.$this->mId
                 );
@@ -400,7 +400,7 @@ class InnoworkIntraMailPopAccount
                         require_once( SM_PATH.'functions/date.php' );
 
                         $country = new LocaleCountry(
-                            InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getCountry()
+                            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry()
                             );
 
                         $date_raw = strtr( trim( substr( $line_text, 5 ) ), array( '  ' => ' ' ) );
@@ -420,12 +420,12 @@ class InnoworkIntraMailPopAccount
             }
 
             $innowork_mail = new InnoworkIntraMail(
-                InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
                 );
             $result = $innowork_mail->Receive(
                 $from,
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserName(),
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserName(),
                 $date,
                 $subject,
                 $body,
@@ -435,10 +435,10 @@ class InnoworkIntraMailPopAccount
 
             if ( $uniqId )
             {
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
                     'INSERT INTO innowork_email_uids VALUES('.
-                    InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId().','.
-                    InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $uniqId ).','.
+                    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId().','.
+                    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $uniqId ).','.
                     $this->mId.')'
                     );
             }
@@ -478,11 +478,11 @@ class InnoworkIntraMailPopAccount
                 {
                     for ( $i = 1; $i <= $stats['messages']; $i++ )
                     {
-                        $uniqid_check = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+                        $uniqid_check = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
                             'SELECT uniqid '.
                             'FROM innowork_email_uids '.
-                            'WHERE uniqid='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $messages[$i] ).' '.
-                            'AND ownerid='.InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId().' '.
+                            'WHERE uniqid='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $messages[$i] ).' '.
+                            'AND ownerid='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId().' '.
                             'AND accountid='.$this->mId
                             );
 
@@ -492,10 +492,10 @@ class InnoworkIntraMailPopAccount
 
                 // Clear old uniq ids
 
-                $uniqids = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+                $uniqids = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
                     'SELECT uniqid '.
                     'FROM innowork_email_uids '.
-                    'WHERE ownerid='.InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId().' '.
+                    'WHERE ownerid='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId().' '.
                     'AND accountid='.$this->mId
                     );
 
@@ -503,11 +503,11 @@ class InnoworkIntraMailPopAccount
                 {
                     if ( !in_array( $uniqids->getFields( 'uniqid' ), $messages ) )
                     {
-                        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+                        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
                             'DELETE FROM innowork_email_uids '.
-                            'WHERE ownerid='.InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId().' '.
+                            'WHERE ownerid='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId().' '.
                             'AND accountid='.$this->mId.' '.
-                            'AND uniqid='.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( $uniqids->getFields( 'uniqid' ) )
+                            'AND uniqid='.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( $uniqids->getFields( 'uniqid' ) )
                             );
                     }
 

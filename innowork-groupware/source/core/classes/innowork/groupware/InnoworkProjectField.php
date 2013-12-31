@@ -18,7 +18,7 @@ class InnoworkProjectField {
 	$id = ''
 	)
 	{
-		$this->mLog = InnomaticContainer::instance('innomaticcontainer')->getLogger();
+		$this->mLog = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getLogger();
 
 		if ( is_object( $rdb ) ) $this->mrDomainDA = $rdb;
 		else $this->mLog->LogDie(
@@ -150,7 +150,7 @@ class InnoworkProjectField {
 	}
 
 	public static function getFields($type) {
-		$query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+		$query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
         'SELECT
         	id,fieldvalue
         FROM 

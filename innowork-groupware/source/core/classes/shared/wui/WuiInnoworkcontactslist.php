@@ -59,7 +59,7 @@ function dir_cdata($data) {
             require_once('innomatic/locale/LocaleCatalog.php');
             $locale = new LocaleCatalog(
 				'innowork-groupware::directory_misc',
-				InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getLanguage());
+				\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getLanguage());
 
             for ($pos = 97; $pos <= 122; $pos++) $contact[chr($pos)] = array();
             $contacts['numbers'] = array();

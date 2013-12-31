@@ -51,7 +51,7 @@ class WuiInnoworkContacts extends WuiWidget
                 $this->mLayout .= "<tr><td align=\"center\" class=\"boldbig\"><center>".
                     "           <table width=\"100%\" border=\"0\" bgcolor=\"#DFDFDF\" cellspacing=\"0\" cellpadding=\"3\">
                     <tr>
-                    <td><img src=\"".InnomaticContainer::instance('innomaticcontainer')->getBaseUrl(false).'/shared/'."arrowright.gif\" WIDTH=\"15\" HEIGHT=\"11\"></td>
+                    <td><img src=\"".\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getBaseUrl(false).'/shared/'."arrowright.gif\" WIDTH=\"15\" HEIGHT=\"11\"></td>
                     <td valign=\"middle\" align=\"center\" width=\"100%\" class=\"boldbig\"><center>".$val["groupname"]."</center></td>
                     </tr>
                     </table>".

@@ -63,7 +63,7 @@ class WuiInnoworkNote extends WuiXml {
 
         
 
-        $locale = new LocaleCatalog( 'innowork-groupware::notes_widget', InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getLanguage() );
+        $locale = new LocaleCatalog( 'innowork-groupware::notes_widget', \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getLanguage() );
 
         $noteform = 'noteform'.md5( microtime() );
 

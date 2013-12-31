@@ -23,13 +23,13 @@ function project_cdata($data) {
 
 require_once('innowork/core/InnoworkCore.php');
 $gInnowork_core = InnoworkCore::instance('innoworkcore', 
-    InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-    InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
     );
 
 $gLocale = new LocaleCatalog(
     'innowork-groupware::projects_main',
-    InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getLanguage()
+    \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getLanguage()
     );
 
 $gWui = Wui::instance('wui');
@@ -112,13 +112,13 @@ function action_newproject( $eventData )
     global $gLocale, $gPage_status;
 
     $innowork_project = new InnoworkProject(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
         );
 
     if ( $innowork_project->Create(
         $eventData,
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
         ) ) $gPage_status = $gLocale->getStr( 'project_added.status' );
     else $gPage_status = $gLocale->getStr( 'project_not_added.status' );
 }
@@ -132,14 +132,14 @@ function action_editproject( $eventData )
     global $gLocale, $gPage_status;
 
     $innowork_project = new InnoworkProject(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
         $eventData['id']
         );
 
     if ( $innowork_project->Edit(
         $eventData,
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
         ) ) $gPage_status = $gLocale->getStr( 'project_updated.status' );
     else $gPage_status = $gLocale->getStr( 'project_not_updated.status' );
 }
@@ -153,13 +153,13 @@ function action_removeproject( $eventData )
     global $gLocale, $gPage_status;
 
     $innowork_project = new InnoworkProject(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
         $eventData['id']
         );
 
     if ( $innowork_project->Remove(
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
         ) ) $gPage_status = $gLocale->getStr( 'project_removed.status' );
     else $gPage_status = $gLocale->getStr( 'project_not_removed.status' );
 }
@@ -188,12 +188,12 @@ function main_default( $eventData )
     global $gLocale, $gPage_title, $gXml_def, $gPage_status;
 
     $innowork_customers = new InnoworkCompany(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
         );
     $search_results = $innowork_customers->Search(
         '',
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
         );
 
     $customers['0'] = $gLocale->getStr( 'nocustomer.label' );
@@ -390,8 +390,8 @@ function main_default( $eventData )
                     ) ) );
 
     $projects = new InnoworkProject(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
         );
 
     switch ( $sort_by )
@@ -418,14 +418,14 @@ function main_default( $eventData )
             and $eventData['done'] == 'true'
             )
         {
-            $done_check = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->fmttrue;
+            $done_check = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->fmttrue;
             $done_icon = 'undo';
             $done_action = 'false';
             $done_label = 'setundone.button';
         }
         else
         {
-            $done_check = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->fmtfalse;
+            $done_check = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->fmtfalse;
             $done_icon = 'redo';
             $done_action = 'true';
             $done_label = 'setdone.button';
@@ -435,7 +435,7 @@ function main_default( $eventData )
     
     $search_results = $projects->Search(
         $search_keys,
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
         );
         
     $num_projects = count( $search_results );
@@ -571,8 +571,8 @@ function main_default( $eventData )
 ';
 
         $innowork_core = InnoworkCore::instance('innoworkcore', 
-            InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
             );
 
         $summaries = $innowork_core->getSummaries();
@@ -610,8 +610,8 @@ if ( $row >= $from and $row <= $to )
 {
 
             $innowork_customer = new InnoworkCompany(
-                InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-                InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+                \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
                 $fields['customerid']
                 );
 
@@ -752,12 +752,12 @@ function main_newproject( $eventData )
     global $gXml_def, $gLocale, $gPage_title;
 
         $innowork_companies = new InnoworkCompany(
-            InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
             );
         $search_results = $innowork_companies->Search(
             '',
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
             );
 
         $companies['0'] = $gLocale->getStr( 'nocompany.label' );
@@ -767,10 +767,10 @@ function main_newproject( $eventData )
             $companies[$id] = $fields['companyname'];
         }
 
-    $users_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+    $users_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
         'SELECT id,fname,lname,username '.
         'FROM domain_users '.
-        'WHERE username<>'.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText( User::getAdminUsername(InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDomainId())).' '.
+        'WHERE username<>'.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText( User::getAdminUsername(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDomainId())).' '.
         'ORDER BY lname,fname' );
 
     $users = array();
@@ -1139,20 +1139,20 @@ function main_showproject( $eventData )
     global $gXml_def, $gLocale, $gPage_title;
 
     $innowork_project = new InnoworkProject(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess(),
         $eventData['id']
         );
 
-    $pj_data = $innowork_project->getItem( InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId() );
+    $pj_data = $innowork_project->getItem( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId() );
 
         $innowork_companies = new InnoworkCompany(
-            InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
             );
         $search_results = $innowork_companies->Search(
             '',
-            InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+            \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
             );
 
         $companies['0'] = $gLocale->getStr( 'nocompany.label' );
@@ -1162,10 +1162,10 @@ function main_showproject( $eventData )
             $companies[$id] = $fields['companyname'];
         }
 
-    $users_query = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->Execute(
+    $users_query = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->Execute(
         'SELECT id,fname,lname,username '.
         'FROM domain_users '.
-        'WHERE username<>'.InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->formatText(User::getAdminUsername(InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDomainId())).' '.
+        'WHERE username<>'.\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->formatText(User::getAdminUsername(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDomainId())).' '.
         'ORDER BY lname,fname' );
 
     $users = array();
@@ -1188,11 +1188,11 @@ function main_showproject( $eventData )
     $types = InnoworkProjectField::getFields( INNOWORKPROJECTS_FIELDTYPE_TYPE );
     $types['0'] = $gLocale->getStr( 'notype.label' );
 
-    $country = new LocaleCountry( InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getCountry() );
+    $country = new LocaleCountry( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry() );
     $empty_date_array = $country->getDateArrayFromShortDateStamp( '' );
-    $empty_date_text = InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->getTimestampFromDateArray( $empty_date_array );
+    $empty_date_text = \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->getTimestampFromDateArray( $empty_date_array );
 
-        if ( $pj_data['done'] == InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->fmttrue )
+        if ( $pj_data['done'] == \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->fmttrue )
         {
             $done_icon = 'undo';
             $done_action = 'false';
@@ -1393,7 +1393,7 @@ function main_showproject( $eventData )
             <date><name>estimatedstartdate</name>
               <args>
                 <disp>action</disp>
-                '.( $pj_data['estimatedstartdate'] != $empty_date_text ? '<value type="array">'.WuiXml::encode( InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->getDateArrayFromTimestamp( $pj_data['estimatedstartdate'] ) ).'</value>' : '' ).'
+                '.( $pj_data['estimatedstartdate'] != $empty_date_text ? '<value type="array">'.WuiXml::encode( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->getDateArrayFromTimestamp( $pj_data['estimatedstartdate'] ) ).'</value>' : '' ).'
               </args>
             </date>
 
@@ -1406,7 +1406,7 @@ function main_showproject( $eventData )
               <args>
                 <disp>action</disp>
                 <size>25</size>
-                '.( $pj_data['estimatedenddate'] != $empty_date_text ? '<value type="array">'.WuiXml::encode( InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->getDateArrayFromTimestamp( $pj_data['estimatedenddate'] ) ).'</value>' : '' ).'
+                '.( $pj_data['estimatedenddate'] != $empty_date_text ? '<value type="array">'.WuiXml::encode( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->getDateArrayFromTimestamp( $pj_data['estimatedenddate'] ) ).'</value>' : '' ).'
               </args>
             </date>
 
@@ -1473,7 +1473,7 @@ function main_showproject( $eventData )
               <args>
                 <disp>action</disp>
                 <size>25</size>
-                '.( $pj_data['realstartdate'] != $empty_date_text ? '<value type="array">'.WuiXml::encode( InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->getDateArrayFromTimestamp( $pj_data['realstartdate'] ) ).'</value>' : '' ).'
+                '.( $pj_data['realstartdate'] != $empty_date_text ? '<value type="array">'.WuiXml::encode( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->getDateArrayFromTimestamp( $pj_data['realstartdate'] ) ).'</value>' : '' ).'
               </args>
             </date>
 
@@ -1486,7 +1486,7 @@ function main_showproject( $eventData )
               <args>
                 <disp>action</disp>
                 <size>25</size>
-                '.( $pj_data['realenddate'] != $empty_date_text ? '<value type="array">'.WuiXml::encode( InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()->getDateArrayFromTimestamp( $pj_data['realenddate'] ) ).'</value>' : '' ).'
+                '.( $pj_data['realenddate'] != $empty_date_text ? '<value type="array">'.WuiXml::encode( \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()->getDateArrayFromTimestamp( $pj_data['realenddate'] ) ).'</value>' : '' ).'
               </args>
             </date>
 
@@ -1625,12 +1625,12 @@ function main_stats(
     global $gXml_def, $gLocale;
 
     $projects = new InnoworkProject(
-        InnomaticContainer::instance('innomaticcontainer')->getDataAccess(),
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentDomain()->getDataAccess()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(),
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess()
         );
     $projects_search = $projects->Search(
         '',
-        InnomaticContainer::instance('innomaticcontainer')->getCurrentUser()->getUserId()
+        \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getUserId()
         );
 
     $tabs[0]['label'] = $gLocale->getStr( 'status.tab' );
