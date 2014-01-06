@@ -345,11 +345,11 @@ function main_default( $eventData )
         $eventData['filter_restrictto'] = $restrictto_filter_sk->mValue;
     }
 
-    $tmp_cal = new WuiInnoworkCalendar( 'calendar', array(
+    $tmp_cal = new WuiInnoworkcalendar( 'calendar', array(
         'shift' => isset($eventData['shift'] ) ? $eventData['shift'] : ''
         ) );
         
-    $tmp_cal = new WuiInnoworkCalendar( 'calendar', array(
+    $tmp_cal = new WuiInnoworkcalendar( 'calendar', array(
         'parentshift' => isset($eventData['parentshift'] ) ? $eventData['parentshift'] : ''
         ) );
 

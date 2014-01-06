@@ -1,11 +1,11 @@
 <?php
 
 /*!
- @class WuiInnoworkCalendar
+ @class WuiInnoworkcalendar
 
  @abstract Calendar widget.
  */
-class WuiInnoworkCalendar extends WuiWidget
+class WuiInnoworkcalendar extends WuiWidget
 {
     var $mNotes;
     var $mSaveAction;
