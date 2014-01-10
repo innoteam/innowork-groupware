@@ -45,28 +45,7 @@
 
 	<components>
 
-		<!-- Calendar -->
-
-		<domainpanel name="innoworkcalendar" file="innoworkcalendar.php"
-			category="1summary" themeicon="1day" themeicontype="apps"
-			catalog="innowork-groupware::calendar_misc" />
-
-		<domaintable name="innowork_calendar"
-			file="innowork_calendar.xml" />
-
 		<catalog name="innowork-groupware" />
-
-		<wuiwidget name="innoworkcalendar"
-			file="WuiInnoworkcalendar.php" />
-
-		<class name="innowork/groupware/InnoworkEvent.php" />
-		<class name="innowork/groupware/InnoworkEventFactory.php" />
-
-		<innoworkitemtype name="event" file="event"
-			catalog="innowork-groupware::calendar_misc"
-			classfile="innowork/groupware/InnoworkEvent.php" classname="InnoworkEvent" icon="1day"
-			icontype="apps" domainpanel="innoworkcalendar" miniicon="edit"
-			summaryname="calendar-name" showmode="list" />
 
 		<!-- Chat -->
 
