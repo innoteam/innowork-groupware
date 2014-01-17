@@ -68,25 +68,6 @@
 			summaryname="chat-name" showmode="list" />
  -->
  
-		<!-- Activities -->
-
-		<domainpostupdate file="domainpostupdate.php" />
-
-		<domainpanel name="innoworkactivities" file="innoworkactivities.php"
-			themeicon="todo" themeicontype="apps"
-			catalog="innowork-groupware::activity_misc" category="1summary" />
-
-		<domaintable name="innowork_activities"
-			file="innowork_activities.xml" />
-
-		<innoworkitemtype name="activity"
-			catalog="innowork-groupware::activity_misc"
-			classfile="innowork/groupware/InnoworkActivity.php" classname="InnoworkActivity" icon="todo"
-			icontype="apps" domainpanel="innoworkactivities"
-			miniicon="view_detailed" summaryname="activity-name" showmode="list" />
-
-		<class name="innowork/groupware/InnoworkActivity.php" />
-
 		<!-- Notes -->
 
 		<domainpanel name="innoworknotes" file="innoworknotes.php"
