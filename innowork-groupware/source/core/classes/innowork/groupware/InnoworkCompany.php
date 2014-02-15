@@ -21,7 +21,7 @@ class InnoworkCompany extends InnoworkItem {
 	const ITEM_TYPE = 'directorycompany';
 	const NOTE_ITEM_TYPE = 1;
 
-	function InnoworkCompany($rrootDb, $rdomainDA, $itemId = 0) {
+	public function __construct($rrootDb, $rdomainDA, $itemId = 0) {
 		parent::__construct($rrootDb, $rdomainDA, InnoworkCompany::ITEM_TYPE, $itemId);
 
 		$this->mKeys['companyname'] = 'text';
@@ -42,6 +42,7 @@ class InnoworkCompany extends InnoworkItem {
 		$this->mKeys['companytype'] = 'integer';
 		$this->mKeys['legalerappresentante'] = 'text';
 		$this->mKeys['lrfiscalcode'] = 'text';
+		$this->mKeys['defaultvatid'] = 'integer';
 
 		$this->mSearchResultKeys[] = 'companyname';
 		$this->mSearchResultKeys[] = 'code';
@@ -95,6 +96,14 @@ class InnoworkCompany extends InnoworkItem {
 				$params['code'] = str_replace('-', '', $params['code']);
 			}
 
+			if (!isset($params['defaultvatid'])) {
+			    $innowork_core = \Innowork\Core\InnoworkCore::instance('\Innowork\Core\InnoworkCore', \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess());
+			    $summ = $innowork_core->getSummaries();
+			    
+			    if (isset($summ['billing'])) {
+			    }
+			}
+			
 			while (list ($key, $val) = each($params)) {
 				$key_pre = ',';
 				$value_pre = ',';
@@ -122,6 +131,7 @@ class InnoworkCompany extends InnoworkItem {
 						$values.= $value_pre.$this->mrDomainDA->formatText($val);
 						break;
 					case 'companytype' :
+					case 'defaultvatid':
 						$keys.= $key_pre.$key;
 						$values.= $value_pre.$val;
 						break;
@@ -165,7 +175,7 @@ class InnoworkCompany extends InnoworkItem {
 		return FALSE;
 	}
 
-	function AddNote($username, $content) {
+	public function addNote($username, $content) {
 		$result = false;
 
 		if ($this->mItemId) {
@@ -193,7 +203,7 @@ class InnoworkCompany extends InnoworkItem {
 		return $result;
 	}
 
-	function RemoveNote($noteId) {
+	public function removeNote($noteId) {
 		$result = false;
 		$noteId = (int) $noteId;
 

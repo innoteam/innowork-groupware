@@ -721,10 +721,13 @@ function main_showcompany($eventData) {
     $summ = $gInnowork_core->GetSummaries();
 
     $innowork_bill_installed = false;
-    if (isset($summ['billing']))
+    if (isset($summ['billing'])) {
         $innowork_bill_installed = true;
+    }
 
     if ($innowork_bill_installed) {
+        $vat_list = \Innowork\Billing\InnoworkBillingVat::getVatList();
+        
         $tabs[2]['label'] = $gLocale->getStr('extras_invoices.tab');
         $locale_country = new LocaleCountry(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry());
 
@@ -732,10 +735,10 @@ function main_showcompany($eventData) {
         $due_credit = 0;
         $invoices_amount = 0;
 
-        $invoices_handler = new InnoworkInvoice(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess());
+        $invoices_handler = new \Innowork\Billing\InnoworkInvoice(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess());
         $invoices_handler->mSearchOrderBy = 'emissiondate,number';
 
-        $invoices = $invoices_handler->Search(array('customerid' => $eventData['id']));
+        $invoices = $invoices_handler->search(array('customerid' => $eventData['id']));
 
         if (count($invoices)) {
             $cycle_start = true;
@@ -1179,6 +1182,18 @@ function main_showcompany($eventData) {
     if ($innowork_bill_installed) {
         $gXml_def.= '<vertgroup>
           <children>
+            <horizgroup><args><width>0%</width></args><children>
+              <label><args><label>'.WuiXml::cdata($gLocale->getStr('default_vat.label')).'</label></args></label>
+                <combobox><name>defaultvatid</name>
+                  <args>
+                    <disp>action</disp>
+                    <elements type="array">'.WuiXml::encode($vat_list).'</elements>
+                    <default>'.(strlen($cp_data['defaultvatid']) ? $cp_data['defaultvatid'] : \Innowork\Billing\InnoworkBillingSettingsHandler::getDefaultVat()).'</default>
+                  </args>
+                </combobox>
+                  
+            </children></horizgroup>
+            
                 <label>
                   <args>
                     <bold>true</bold>

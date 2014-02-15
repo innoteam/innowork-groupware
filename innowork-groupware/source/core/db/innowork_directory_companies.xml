@@ -24,6 +24,7 @@
       <field name="legalerappresentante" type="text"/>
       <field name="lrfiscalcode" type="text" length="16"/>
         <field name="trashed" type="boolean"/>
+      <field name="defaultvatid" type="integer"/>
 
     <key	field="id"	type="unique"/>
 	</table>
