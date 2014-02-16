@@ -101,7 +101,7 @@ class InnoworkCompany extends InnoworkItem {
 			    $innowork_core = \Innowork\Core\InnoworkCore::instance('\Innowork\Core\InnoworkCore', \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess());
 			    $summ = $innowork_core->getSummaries();
 			    
-			    if (isset($summ['billing'])) {
+			    if (isset($summ['invoice'])) {
 			        if (!isset($params['defaultvatid'])) {
 			            $params['defaultvatid'] = InnoworkBillingSettingsHandler::getDefaultVat();
 			        }
