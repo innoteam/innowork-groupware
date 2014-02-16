@@ -43,6 +43,7 @@ class InnoworkCompany extends InnoworkItem {
 		$this->mKeys['legalerappresentante'] = 'text';
 		$this->mKeys['lrfiscalcode'] = 'text';
 		$this->mKeys['defaultvatid'] = 'integer';
+		$this->mKeys['defaultpaymentid'] = 'integer';
 
 		$this->mSearchResultKeys[] = 'companyname';
 		$this->mSearchResultKeys[] = 'code';
@@ -96,11 +97,18 @@ class InnoworkCompany extends InnoworkItem {
 				$params['code'] = str_replace('-', '', $params['code']);
 			}
 
-			if (!isset($params['defaultvatid'])) {
+			if (!isset($params['defaultvatid']) or !isset($params['defaultpaymentid'])) {
 			    $innowork_core = \Innowork\Core\InnoworkCore::instance('\Innowork\Core\InnoworkCore', \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getDataAccess(), \Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentDomain()->getDataAccess());
 			    $summ = $innowork_core->getSummaries();
 			    
 			    if (isset($summ['billing'])) {
+			        if (!isset($params['defaultvatid'])) {
+			            $params['defaultvatid'] = InnoworkBillingSettingsHandler::getDefaultVat();
+			        }
+			        
+			        if (!isset($params['defaultpaymentid'])) {
+			            $params['defaultpaymentid'] = InnoworkBillingSettingsHandler::getDefaultVat();
+			        }
 			    }
 			}
 			
@@ -132,6 +140,7 @@ class InnoworkCompany extends InnoworkItem {
 						break;
 					case 'companytype' :
 					case 'defaultvatid':
+					case 'defaultpaymentid':
 						$keys.= $key_pre.$key;
 						$values.= $value_pre.$val;
 						break;

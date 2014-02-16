@@ -1,3 +1,6 @@
+NEW FEATURES:
+- Added company default VAT and default payment type. (Alex Pagnoni)
+
 CHANGES:
 - Moved projects to itw own application (Innowork Projects). (Alex Pagnoni)
 - Migration to Innomatic 6.1. (Alex Pagnoni)

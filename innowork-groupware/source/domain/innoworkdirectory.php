@@ -727,6 +727,7 @@ function main_showcompany($eventData) {
 
     if ($innowork_bill_installed) {
         $vat_list = \Innowork\Billing\InnoworkBillingVat::getVatList();
+        $payment_list = \Innowork\Billing\InnoworkBillingPayment::getPaymentList();
         
         $tabs[2]['label'] = $gLocale->getStr('extras_invoices.tab');
         $locale_country = new LocaleCountry(\Innomatic\Core\InnomaticContainer::instance('\Innomatic\Core\InnomaticContainer')->getCurrentUser()->getCountry());
@@ -1182,9 +1183,9 @@ function main_showcompany($eventData) {
     if ($innowork_bill_installed) {
         $gXml_def.= '<vertgroup>
           <children>
-            <horizgroup><args><width>0%</width></args><children>
-              <label><args><label>'.WuiXml::cdata($gLocale->getStr('default_vat.label')).'</label></args></label>
-                <combobox><name>defaultvatid</name>
+            <grid><args><width>0%</width></args><children>
+              <label row="0" col="0"><args><label>'.WuiXml::cdata($gLocale->getStr('default_vat.label')).'</label></args></label>
+                <combobox row="0" col="1"><name>defaultvatid</name>
                   <args>
                     <disp>action</disp>
                     <elements type="array">'.WuiXml::encode($vat_list).'</elements>
@@ -1192,7 +1193,16 @@ function main_showcompany($eventData) {
                   </args>
                 </combobox>
                   
-            </children></horizgroup>
+              <label row="1" col="0"><args><label>'.WuiXml::cdata($gLocale->getStr('default_payment.label')).'</label></args></label>
+                <combobox row="1" col="1"><name>defaultpaymentid</name>
+                  <args>
+                    <disp>action</disp>
+                    <elements type="array">'.WuiXml::encode($payment_list).'</elements>
+                    <default>'.(strlen($cp_data['defaultpaymentid']) ? $cp_data['defaultpaymentid'] : \Innowork\Billing\InnoworkBillingSettingsHandler::getDefaultPayment()).'</default>
+                  </args>
+                </combobox>
+                        
+            </children></grid>
             
                 <label>
                   <args>

@@ -25,6 +25,7 @@
       <field name="lrfiscalcode" type="text" length="16"/>
         <field name="trashed" type="boolean"/>
       <field name="defaultvatid" type="integer"/>
+      <field name="defaultpaymentid" type="integer"/>
 
     <key	field="id"	type="unique"/>
 	</table>
