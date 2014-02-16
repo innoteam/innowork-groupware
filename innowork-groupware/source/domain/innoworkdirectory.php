@@ -721,7 +721,7 @@ function main_showcompany($eventData) {
     $summ = $gInnowork_core->GetSummaries();
 
     $innowork_bill_installed = false;
-    if (isset($summ['billing'])) {
+    if (isset($summ['invoice'])) {
         $innowork_bill_installed = true;
     }
 
